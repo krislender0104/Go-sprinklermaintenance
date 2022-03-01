@@ -1,0 +1,344 @@
+<div class="simple" fxLayout="column" style="width:100vw;overflow: scroll;">
+	<div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center" style="background-image: url(header-bg.png);">
+		<div fxLayout="column" fxLayoutAlign="center start">
+			<div class="h1 mt-16">Hazard Details</div>
+		</div>
+	</div>
+
+	<form [formGroup]="myGroup" form (keydown.enter)="$event.preventDefault()">
+		<div fxLayout="column">
+			<div class="mat-elevation-z4 p-20 m-20">
+				<div fxLayout="row" fxLayoutAlign="end center">
+					<mat-form-field class="example-full-width my-5" style="width:32%;">
+						<input type="text" placeholder="Search Site" aria-label="Number" (keypress)="searchClient($event.target.value)" [(ngModel)]="test"
+						 matInput [formControl]="searchTerm" [matAutocomplete]="auto">
+						<mat-autocomplete (optionSelected)="onSelectionChanged($event)" #auto="matAutocomplete">
+							<mat-option *ngFor="let item of searchResult" [value]="item.ClientId">
+								{{ item.ClientId }}-{{ item.ClientName }}
+							</mat-option>
+						</mat-autocomplete>
+					</mat-form-field>
+				</div>
+				<div fxLayout="row">
+					<h1>
+						<a href="" [routerLink]="['/apps/site/',hazards[0].siteId]" style="margin-right: 35px;">Site ID : {{hazards[0].siteId}}</a>
+					</h1>
+					<h1>
+						<a href="javascript:void(0);">Hazard ID : {{hazards[0].hazardid}}</a>
+					</h1>
+				</div>
+				<div fxLayout="row">
+				</div>
+
+				<div fxLayout="row">
+					<mat-form-field class="example-full-width " style="width:32%;padding-right: 35px;">
+						<input matInput placeholder="Category" [(ngModel)]="hazards[0].category" formControlName="category">
+					</mat-form-field>
+					<mat-form-field class="example-full-width" style="width:32%;padding-right: 35px;">
+						<input matInput placeholder="Customer #" value="{{hazards[0].customer}}" [disabled]='true'>
+					</mat-form-field>
+					<mat-form-field class="example-full-width" style="width:32%; padding-right: 35px;">
+						<input matInput placeholder="SVC. Pnt. ID" value="{{hazards[0].svcPntId}}" [disabled]='true'>
+					</mat-form-field>
+					<mat-form-field class="example-full-width" style="width:32%;">
+						<input matInput [matDatepicker]="testduedate" placeholder="Test Due" [(ngModel)]="hazards[0].TestDue" formControlName="TestDue">
+						<mat-datepicker-toggle matSuffix [for]="testduedate"></mat-datepicker-toggle>
+						<mat-datepicker #testduedate></mat-datepicker>
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="mat-elevation-z4 p-20 m-20">
+				<mat-tab-group>
+					<mat-tab label="Hazard Info">
+						<div fxLayout="column" class="my-20">
+							<div fxLayout="row">
+								<mat-form-field class="example-full-width" style="padding-right: 35px;">
+									<input matInput placeholder="Priority" [(ngModel)]="hazards[0].priority" formControlName="priority">
+								</mat-form-field>
+								<mat-form-field class="example-full-width" style="padding-right: 35px;">
+									<input matInput placeholder="Serv Class" [(ngModel)]="hazards[0].servclass" formControlName="servclass">
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Protection" [(ngModel)]="hazards[0].protection" formControlName="protection">
+								</mat-form-field>
+							</div>
+							<div fxLayout="row">
+								<mat-form-field class="example-full-width" style="padding-right: 35px;">
+									<input matInput placeholder="Seasonal" [(ngModel)]="hazards[0].seasonal" formControlName="seasonal">
+								</mat-form-field>
+								<mat-form-field class="example-full-width" style="padding-right: 35px;">
+									<input matInput placeholder="Heat Type" [(ngModel)]="hazards[0].heattype" formControlName="heattype">
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Meter" [(ngModel)]="hazards[0].meter" formControlName="meter">
+								</mat-form-field>
+							</div>
+							<div fxLayout="row">
+								<mat-form-field class="example-full-width" style="padding-right: 35px;">
+									<input matInput placeholder="Line Size" [(ngModel)]="hazards[0].linesize" formControlName="linesize">
+								</mat-form-field>
+								<mat-form-field class="example-full-width" style="padding-right: 35px;">
+									<input matInput placeholder="Line status" [(ngModel)]="hazards[0].linestatus" formControlName="linestatus">
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Tap #" [(ngModel)]="hazards[0].tap" formControlName="tap">
+								</mat-form-field>
+							</div>
+							<div fxLayout="row">
+								<mat-form-field class="example-full-width" style="padding-right: 35px;">
+									<input matInput placeholder="Location" [(ngModel)]="hazards[0].location" formControlName="location">
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Meter Location" [(ngModel)]="hazards[0].meterlocation" formControlName="meterlocation">
+								</mat-form-field>
+							</div>
+							<div fxLayout="row">
+								<mat-form-field class="example-full-width">
+									<textarea matInput placeholder="Recommendation" [(ngModel)]="hazards[0].recommendations" formControlName="recommendations"></textarea>
+								</mat-form-field>
+								<!-- <mat-form-field class="example-full-width">
+							    <textarea matInput placeholder="Notes"[(ngModel)]="hazards[0].notes1" formControlName="notes1"></textarea>
+							</mat-form-field> -->
+							</div>
+						</div>
+
+						<div class="form-hazard-creation-btn" fxLayout="row" fxLayoutAlign="center center">
+							<button mat-raised-button color="accent" class="submit-button" [disabled]="myGroup.invalid || !isEditSiteInfo" (click)="UpdateHazard()"
+							 style="margin-right: 35px;">Update</button>
+							<button mat-raised-button color="accent" class="delete-button" [disabled]="!isEditSiteInfo" (click)="DeleteHazard()">Delete</button>
+						</div>
+					</mat-tab>
+					<mat-tab label="Hazard Details">
+						<div fxLayout="column" class="my-20">
+							<div fxLayout="row">
+								<mat-form-field style="width:100%;margin-right: 35px;">
+									<mat-select placeholder="Device Status" [(ngModel)]="hazards[0].devicestatus" formControlName="devicestatus">
+										<mat-option [value]="'Due Install'">Due Install</mat-option>
+										<mat-option [value]="'Due Repair'">Due Repair</mat-option>
+										<mat-option [value]="'Inactive'">Inactive</mat-option>
+										<mat-option [value]="'Installed'">Installed</mat-option>
+										<mat-option [value]="'Internal Not Tested'">Internal Not Tested</mat-option>
+										<mat-option [value]="'Not Installed'">Not Installed</mat-option>
+										<mat-option [value]="'Removed'">Removed</mat-option>
+										<mat-option [value]="'Replaced'">Replaced</mat-option>
+									</mat-select>
+								</mat-form-field>
+								<mat-form-field class="example-full-width" style="margin-right: 35px;">
+									<input matInput placeholder="Serial #" [(ngModel)]="hazards[0].serial" formControlName="serial">
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Manufacturer" [(ngModel)]="hazards[0].manufacturer" formControlName="manufacturer">
+								</mat-form-field>
+							</div>
+							<div fxLayout="row">
+								<mat-form-field class="example-full-width" style="margin-right: 35px;">
+									<input matInput placeholder="Model" [(ngModel)]="hazards[0].model" formControlName="model">
+								</mat-form-field>
+								<mat-form-field class="example-full-width" style="margin-right: 35px;">
+									<input matInput placeholder="Type" [(ngModel)]="hazards[0].type" formControlName="type">
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Size" [(ngModel)]="hazards[0].size" formControlName="size">
+								</mat-form-field>
+							</div>
+							<div fxLayout="row" >
+								<!-- <mat-form-field class="example-full-width" style="margin-right: 35px;">
+							   <input matInput placeholder="Fireline" [(ngModel)]="hazards[0].fireline" formControlName="fireline">
+							</mat-form-field> -->
+								<!-- <mat-form-field class="example-full-width" style="margin-right: 35px;">
+						    	<input matInput placeholder="Bypass" [(ngModel)]="hazards[0].bypass" formControlName="bypass">
+							  </mat-form-field>  -->
+								<mat-form-field class="example-full-width" style="margin-right: 35px;display: none;">
+									<input matInput placeholder="Assembly id" [(ngModel)]="hazards[0].assemblyid" formControlName="assemblyid">
+								</mat-form-field>
+								<mat-form-field class="example-full-width" style="margin-right: 35px;display: none;">
+									<input matInput placeholder="Survey ID" [(ngModel)]="hazards[0].surveyId" formControlName="surveyId">
+								</mat-form-field>
+								<mat-form-field class="example-full-width" style = "display: none;">
+									<input matInput placeholder="UDH13" [(ngModel)]="hazards[0].udh13" formControlName="udh13">
+								</mat-form-field>
+							</div>
+							<div fxLayout="row">
+								<mat-form-field class="example-full-width" style="width:33%;margin-right: 35px; display:none">
+									<input matInput placeholder="UDH18" [(ngModel)]="hazards[0].udh18" formControlName="udh18">
+								</mat-form-field>
+								<mat-form-field class="example-full-width" style="width:33%;margin-right: 35px;">
+									<input matInput placeholder="Web Fee" [(ngModel)]="hazards[0].webfee" formControlName="webfee">
+									<mat-error *ngIf="myGroup.get('webfee').hasError('pattern') && myGroup.get('webfee').dirty || myGroup.get('webfee').touched">Enter a Numberic value with max of 2 decimal point.</mat-error>
+								</mat-form-field>
+								<div style="width:34%;margin-top: 20px;">
+									<mat-checkbox style="margin-right: 35px;padding-top: 20px;" [(ngModel)]="hazards[0].fireline" formControlName="fireline">Fireline</mat-checkbox>
+									<mat-checkbox style="margin-right: 35px;padding-top: 20px;" [(ngModel)]="hazards[0].bypass" formControlName="bypass">Bypass</mat-checkbox>
+								</div>
+							</div>
+							<!-- <div fxLayout="row"  >
+							
+						</div> -->
+						</div>
+						<div fxLayout="row" fxLayoutAlign="center center">
+							<button mat-raised-button color="accent" class="submit-button" [disabled]="!myGroup.valid || !isEditSiteInfo" (click)="UpdateHazard()"
+							 style="margin-right: 35px;">Update</button>
+							<button mat-raised-button color="accent" class="delete-button" [disabled]="!isEditSiteInfo" (click)="DeleteHazard()">Delete</button>
+						</div>
+					</mat-tab>
+					<mat-tab label="Hazard Status">
+						<div fxLayout="column">
+							<div fxLayout="row" class="mt-40">
+								<mat-form-field style="width:33%;margin-right: 30px;">
+									<input matInput [matDatepicker]="picker" placeholder="Install Due date" formControlName="installdueate" [(ngModel)]="hazards[0].installdueate">
+									<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+									<mat-datepicker #picker></mat-datepicker>
+								</mat-form-field>
+								<mat-form-field style="width:33%;margin-right: 30px;">
+									<input matInput [matDatepicker]="picker11" placeholder="Installed" [(ngModel)]="hazards[0].installed" formControlName="installed">
+									<mat-datepicker-toggle matSuffix [for]="picker11"></mat-datepicker-toggle>
+									<mat-datepicker #picker11></mat-datepicker>
+								</mat-form-field>
+								<mat-form-field style="width:34%;">
+									<input matInput [matDatepicker]="picker12" formControlName="removereplacedate" [(ngModel)]="hazards[0].removereplacedate"
+									 placeholder="Remove / Replace date">
+									<mat-datepicker-toggle matSuffix [for]="picker12"></mat-datepicker-toggle>
+									<mat-datepicker #picker12></mat-datepicker>
+								</mat-form-field>
+								<!-- <mat-form-field  style="width:25%;">
+								  <input matInput [matDatepicker]="picker13" placeholder="Replaced " 
+								  [(ngModel)]="hazards[0].replaceddate"  
+								  formControlName="replaceddate">
+							  	<mat-datepicker-toggle matSuffix [for]="picker13" ></mat-datepicker-toggle>
+							  	<mat-datepicker #picker13></mat-datepicker>
+							</mat-form-field> -->
+							</div>
+						</div>
+						<div fxLayout="column" style="margin: 20px 0px">
+							<h2>Installation Notice</h2>
+							<div fxLayout="row">
+								<mat-form-field style="width:25%;margin-right: 35px;">
+									<input matInput [matDatepicker]="installationdateone" placeholder="1st Notice" [(ngModel)]="hazards[0].iNoticeSent1" formControlName="iNoticeSent1">
+									<mat-datepicker-toggle matSuffix [for]="installationdateone"></mat-datepicker-toggle>
+									<mat-datepicker #installationdateone></mat-datepicker>
+								</mat-form-field>
+								<mat-form-field style="width:25%;margin-right: 35px;">
+									<input matInput [matDatepicker]="installationdatetwo" placeholder="2nd Notice" [(ngModel)]="hazards[0].iNoticeSent2" formControlName="iNoticeSent2">
+									<mat-datepicker-toggle matSuffix [for]="installationdatetwo"></mat-datepicker-toggle>
+									<mat-datepicker #installationdatetwo></mat-datepicker>
+								</mat-form-field>
+								<mat-form-field style="width:25%;margin-right: 35px;">
+									<input matInput [matDatepicker]="installationdatethree" placeholder="3rd Notice" [(ngModel)]="hazards[0].iNoticeSent3" formControlName="iNoticeSent3">
+									<mat-datepicker-toggle matSuffix [for]="installationdatethree"></mat-datepicker-toggle>
+									<mat-datepicker #installationdatethree></mat-datepicker>
+								</mat-form-field>
+								<mat-form-field style="width:25%;">
+									<input matInput [matDatepicker]="installationdatefour" placeholder="4th Notice" [(ngModel)]="hazards[0].iNoticeSent4" formControlName="iNoticeSent4">
+									<mat-datepicker-toggle matSuffix [for]="installationdatefour"></mat-datepicker-toggle>
+									<mat-datepicker #installationdatefour></mat-datepicker>
+								</mat-form-field>
+
+							</div>
+						</div>
+						<div fxLayout="column" style="margin: 20px 0px">
+							<h2>Test Notice</h2>
+							<div fxLayout="row">
+								<mat-form-field style="width:25%;margin-right: 35px;">
+									<input matInput [matDatepicker]="testdateone" placeholder="1st Notice" [(ngModel)]="hazards[0].notice1" formControlName="notice1">
+									<mat-datepicker-toggle matSuffix [for]="testdateone"></mat-datepicker-toggle>
+									<mat-datepicker #testdateone></mat-datepicker>
+								</mat-form-field>
+								<mat-form-field style="width:25%;margin-right: 35px;">
+									<input matInput [matDatepicker]="testdatetwo" placeholder="2nd Notice" [(ngModel)]="hazards[0].notice2" formControlName="notice2">
+									<mat-datepicker-toggle matSuffix [for]="testdatetwo"></mat-datepicker-toggle>
+									<mat-datepicker #testdatetwo></mat-datepicker>
+								</mat-form-field>
+								<mat-form-field style="width:25%;margin-right: 35px;">
+									<input matInput [matDatepicker]="testdatethree" placeholder="3rd Notice" [(ngModel)]="hazards[0].notice3" formControlName="notice3">
+									<mat-datepicker-toggle matSuffix [for]="testdatethree"></mat-datepicker-toggle>
+									<mat-datepicker #testdatethree></mat-datepicker>
+								</mat-form-field>
+								<mat-form-field style="width:25%;">
+									<input matInput [matDatepicker]="testdatefour" placeholder="4th Notice" [(ngModel)]="hazards[0].notice4" formControlName="notice4">
+									<mat-datepicker-toggle matSuffix [for]="testdatefour"></mat-datepicker-toggle>
+									<mat-datepicker #testdatefour></mat-datepicker>
+								</mat-form-field>
+							</div>
+						</div>
+						<div fxLayout="column">
+							<h2>Info</h2>
+							<div fxLayout="row">
+								<mat-form-field style="width:25%;margin-right: 35px;">
+									<input matInput [matDatepicker]="picker14" placeholder="Last Test" [(ngModel)]="hazards[0].lastdate" formControlName="lastdate">
+									<mat-datepicker-toggle matSuffix [for]="picker14"></mat-datepicker-toggle>
+									<mat-datepicker #picker14></mat-datepicker>
+								</mat-form-field>
+								<mat-form-field style="width:25%;margin-right: 35px;">
+									<input matInput [matDatepicker]="picker15" placeholder="Last Letter " [(ngModel)]="hazards[0].lastletter" formControlName="lastletter">
+									<mat-datepicker-toggle matSuffix [for]="picker15"></mat-datepicker-toggle>
+									<mat-datepicker #picker15></mat-datepicker>
+								</mat-form-field>
+								<mat-form-field style="width:25%;margin-right: 35px;">
+									<input matInput [matDatepicker]="picker16" placeholder="Shutoff Date " [(ngModel)]="hazards[0].shutoffdate" formControlName="shutoffdate">
+									<mat-datepicker-toggle matSuffix [for]="picker16"></mat-datepicker-toggle>
+									<mat-datepicker #picker16></mat-datepicker>
+								</mat-form-field>
+								<div fxLayout="row" style="width:25%;">
+									<mat-checkbox style="margin-right: 3px;padding-top: 20px;" [(ngModel)]="hazards[0].link1" formControlName="link1">Link</mat-checkbox>
+									<!-- <mat-form-field class="example-full-width">
+										<input matInput placeholder="">
+									</mat-form-field> -->
+								</div>
+							</div>
+							<div fxLayout="row">
+								<mat-form-field class="example-full-width" style="width:100%;">
+									<input matInput placeholder="UDH10" [(ngModel)]="hazards[0].udh10" formControlName="udh10">
+								</mat-form-field>
+							</div>
+						</div>
+
+						<div class="form-hazard-creation-btn" fxLayout="row" fxLayoutAlign="center center">
+							<button mat-raised-button color="accent" class="submit-button" (click)="UpdateHazard()" [disabled]="myGroup.invalid || !isEditSiteInfo"
+							 style="margin-right: 35px;">Update</button>
+							<button mat-raised-button color="accent" class="delete-button" (click)="DeleteHazard()" [disabled]="!isEditSiteInfo">Delete</button>
+						</div>
+					</mat-tab>
+					<mat-tab label="Test List">
+						<div fxLayout="row">
+							<table class="table" style="margin-top: 30px;">
+								<thead>
+									<tr>
+										<th>Test ID</th>
+										<th>Tester</th>
+										<th>Company</th>
+										<th>Test Status</th>
+										<th>CV1</th>
+										<th>CV2</th>
+										<th>RV</th>
+
+										<th>Initial Test Date</th>
+										<th>Final Test Date</th>
+										<th>Date Submitted</th>
+									</tr>
+								</thead>
+								<tbody *ngFor="let test of hazardTests| paginate: { itemsPerPage: 10, currentPage: p }">
+									<tr>
+										<td>
+											<a [routerLink]="['/apps/test/testview/',test.TestID,siteId]">{{test.TestID}}</a>
+										</td>
+										<td>{{test.iTestBy}}</td>
+										<td>{{test.iCompany}}</td>
+										<td>{{test.TESTOUTCOME}}</td>
+										<td>{{test.CV1}}</td>
+										<td>{{test.CV2}}</td>
+										<td>{{test.RV}}</td>
+										<td>{{test.InitialDate | date:'MM/dd/yyyy'}}</td>
+										<td>{{test.FinalDate | date:'MM/dd/yyyy'}}</td>
+										<td>{{test.DateSubmitted | date:'MM/dd/yyyy'}}</td>
+									</tr>
+								</tbody>
+							</table>
+
+						</div>
+						<pagination-controls (pageChange)="p = $event"></pagination-controls>
+					</mat-tab>
+				</mat-tab-group>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,64 @@
+<div class="mail-wrapper">
+  <div class="mail-header" style="height: 53px;">
+    <div style="float: left;">{{mailInfoItem['AddressType']}}</div>
+    <div style="float: right; ">
+      <a href="javascript:void(0)" title="Delete address" (click)="deleteAddress()">
+        <mat-icon _ngcontent-c35="" class="add-hazard-btn secondary-text  mat-icon material-icons" role="img"
+          aria-hidden="true"
+          style="border: 1px solid #797d84;
+        padding: 2px 2px 3px 2px;margin: 2px;border-radius: 50%;color: #fff;background: #777e86;width: 30px;height: 30px;">clear
+        </mat-icon>
+      </a>
+    </div>
+  </div>
+  <div class="mail-content" [formGroup]="mailInfoForm">
+    <div fxLayout="row">
+      <mat-form-field class="example-full-width" style="margin-right: 35px;width: 100%;margin-top: 15px;">
+        <input matInput placeholder="Company*" formControlName="m_company" maxlength="70">
+        <mat-error
+          *ngIf="mailInfoForm.get('m_company').hasError('required') && mailInfoForm.get('m_company').dirty||mailInfoForm.get('m_company').touched">
+          Company Name Required.</mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width" style="width: 100%;margin-top: 15px;">
+        <input matInput placeholder="Contact" formControlName="m_contact" maxlength="70">
+      </mat-form-field>
+
+    </div>
+    <div fxLayout="row">
+        <mat-form-field class="example-full-width" style="margin-right: 35px;width: 100%;">
+            <input matInput placeholder="Address" formControlName="m_address" maxlength="70">
+          </mat-form-field>
+      <mat-form-field class="example-full-width" style="margin-right: 35px;width: 100%">
+        <input matInput placeholder="City" formControlName="m_city" maxlength="35">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" style="width: 100%">
+        <input matInput placeholder="State" formControlName="m_state" maxlength="10">
+      </mat-form-field>
+
+    </div>
+    <div fxLayout="row">
+        <mat-form-field class="example-full-width" style="margin-right: 35px;width: 100%">
+            <input matInput placeholder="Zip" formControlName="m_zip" maxlength="25">
+            <mat-error
+              *ngIf="mailInfoForm.get('m_zip').hasError('pattern') && mailInfoForm.get('m_zip').dirty||mailInfoForm.get('m_zip').touched">
+              Enter a valid Zip Code.</mat-error>
+          </mat-form-field>
+      <mat-form-field class="example-full-width" style="margin-right: 35px;width: 100%">
+        <input matInput placeholder="Phone Number" formControlName="m_phone" maxlength="12">
+        <mat-error
+          *ngIf="mailInfoForm.get('m_phone').hasError('pattern') && mailInfoForm.get('m_phone').dirty||mailInfoForm.get('m_phone').touched">
+          Enter a valid Phone Number.</mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width" style="width: 100%">
+        <input matInput placeholder="Email" formControlName="m_email" maxlength="200">
+        <mat-error
+          *ngIf="mailInfoForm.get('m_email').hasError('email') && mailInfoForm.get('m_email').dirty||mailInfoForm.get('m_email').touched">
+          Enter a valid Email ID.</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-hazard-creation-btn" fxLayoutAlign="center center">
+      <button mat-raised-button color="accent" class="submit-button" [disabled]="mailInfoForm.invalid || !isEditable"
+        (click)="UpdateSiteMail()">Update</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,123 @@
+import { Address } from './../../../models/pawscAddress.model';
+import { VerifyHazardService } from './verifyhazard.service';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { parse } from 'date-fns';
+@Component({
+  selector: 'app-verifyhazard',
+  templateUrl: './verifyhazard.component.html',
+  styleUrls: ['./verifyhazard.component.scss']
+})
+export class VerifyhazardComponent implements OnInit {
+
+  verifyhazard: FormGroup;
+   company :any;
+     serialNum :any;
+   meter :any;
+   address :any;
+   verifyhazarddata:any;
+  constructor(private VerifyHazardService:VerifyHazardService,
+  private router:Router,private route: ActivatedRoute) {
+    debugger
+    this.company=route.snapshot.url[0].path;
+    this.serialNum=route.snapshot.url[1].path;
+    if(route.snapshot.url[2])
+    {
+      this.address=route.snapshot.url[2].path;
+      if(this.address==0){this.address=null}
+    }
+    this.meter=route.snapshot.url[3].path;
+
+    var veruifydata ={
+      "serialNum" :this.serialNum,
+      "meter" :this.meter,
+      "address":this.address
+      };
+      this.VerifyHazardService.searchVerifyHazard(veruifydata,this.company);
+    
+      this.VerifyHazardService.onVerifyHazardChanged.subscribe(data=>
+      {
+        this.verifyhazarddata=data;
+      })
+      
+    this.verifyhazard= new FormGroup(
+      {
+
+        Address:new FormControl(),
+        Company:new FormControl(),
+        Location:new FormControl(),
+        Location2:new FormControl(),
+        ServClass:new FormControl(),
+        Meter:new FormControl(),
+        SerialNum:new FormControl(),
+        MFG:new FormControl(),
+        existorreplace:new FormControl(),
+        Model:new FormControl(),
+        Type:new FormControl(),
+        devSize:new FormControl(),
+      }
+    )
+
+   }
+   VerifyHarard()
+   {
+     debugger;
+    let jsondata=JSON.parse(JSON.stringify(this.verifyhazard.value));
+
+    this.VerifyHazardService.verifyHazardSiteInfo(jsondata.SerialNum);
+    this.VerifyHazardService.ongetDetailsChanged.subscribe(sitedata=>
+    {
+        if(sitedata.length>0)
+        {
+          jsondata.site_id=sitedata[0].SiteID;
+          jsondata.haz_id=sitedata[0].HazID;
+          jsondata.address=jsondata.Address;
+          jsondata.address_current=jsondata.address;
+          jsondata.company=jsondata.Company;
+          jsondata.company_current=jsondata.company;
+
+
+          jsondata.location			=jsondata.Location		;
+    jsondata.location_current	=jsondata.location;
+    jsondata.hazardcat			=jsondata.HazardCat		;
+    jsondata.hazardcat_current	=jsondata.hazardcat;
+    jsondata.meter				=jsondata.Meter			;
+    jsondata.meter_current		=jsondata.meter	;
+    jsondata.serialnum			=jsondata.SerialNum		;
+    jsondata.serialnum_current	=jsondata.serialnum;
+    jsondata.mfg					=jsondata.MFG				;
+    jsondata.mfg_current			=jsondata.mfg		;
+    jsondata.model				=jsondata.Model			;
+    jsondata.model_current		=jsondata.model	;
+    jsondata.devtype				=jsondata.Type			;
+    jsondata.devtype_current		=jsondata.devtype	;
+    jsondata.devsize				=jsondata.devSize			;
+    jsondata.devsize_current		=jsondata.devsize	;
+
+    jsondata.testerid_mod		= null;//jsondata.testerid_mod	;
+    jsondata.tester_name			= null;// jsondata.tester_name		;
+    jsondata.companyid			=null;// jsondata.companyid		;
+    jsondata.tester_Company		=jsondata.Company	;
+    jsondata.uID					=null; //jsondata.uID				;
+    jsondata.dateStamp			=new Date()		;
+
+          console.log(jsondata);
+          // this.VerifyHazardService.createhazardhistory(jsondata);
+          this.VerifyHazardService.createhazardhistory(jsondata);//.subscribe
+          this.VerifyHazardService.oncreateverifyHazardChanged.subscribe(data=>
+          {
+              if(data.length>0)
+              {
+                this.router.navigate(['/apps/webtests/testentry'])
+              }
+          })
+        }
+    })
+
+   
+   }
+  ngOnInit() {
+  }
+
+}

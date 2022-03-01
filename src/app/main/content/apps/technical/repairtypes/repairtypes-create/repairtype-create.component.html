@@ -1,0 +1,34 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar [formGroup]="repairtypeForm">
+            <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field fxFlex>
+                    <input name="Code" formControlName="Code" placeholder="Code" matInput required>
+                </mat-form-field>
+            </div>
+
+            <div class="mb-24" fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field fxFlex>
+                    <input name="Description" formControlName="Description" placeholder="description" matInput required>
+                </mat-form-field>
+            </div>
+
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="space-between center">
+
+        <button mat-raised-button (click)="CreateFailType(action)" > {{buttoncaption}}</button>      
+
+        <button (click)="dialogRef.close(['delete',repairtypeForm])" mat-raised-button>Close</button>
+
+    </div>
+</div>

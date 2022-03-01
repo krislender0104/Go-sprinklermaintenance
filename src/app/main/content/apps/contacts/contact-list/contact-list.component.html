@@ -1,0 +1,47 @@
+<div style="width: 100%;padding: 20px;">
+    <div>
+        <mat-form-field style="width:300px;">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+        </mat-form-field>
+    </div>
+    <mat-table #table [dataSource]="dataSource" matSort class="mat-elevation-z8" [@animateStagger]="{value:'50'}" style="border:1px solid #eee">
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <ng-container cdkColumnDef="UserID">
+            <mat-header-cell *cdkHeaderCellDef mat-sort-header>User ID</mat-header-cell>
+            <mat-cell *cdkCellDef="let element">
+                <p class="text-truncate">
+                    <a href="javascript:void(0)" (click)="ViewUser(element.UserID)">{{element.UserID}}</a>
+                </p>
+            </mat-cell>
+        </ng-container>
+        <ng-container cdkColumnDef="Logon">
+            <mat-header-cell *cdkHeaderCellDef mat-sort-header>Log On</mat-header-cell>
+            <mat-cell *cdkCellDef="let element">
+                <p class="text-truncate">
+                    {{element.Logon}}
+                </p>
+            </mat-cell>
+        </ng-container>
+        <ng-container cdkColumnDef="FullName">
+            <mat-header-cell *cdkHeaderCellDef mat-sort-header>Full Name</mat-header-cell>
+            <mat-cell *cdkCellDef="let element">
+                <p class="text-truncate">{{element.FullName}}</p>
+            </mat-cell>
+        </ng-container>
+        <ng-container cdkColumnDef="Select">
+            <mat-header-cell *cdkHeaderCellDef>Select</mat-header-cell>
+            <mat-cell *cdkCellDef="let element">
+                <p class="text-truncate">
+                    <mat-checkbox [value]="element.UserID"  [checked]="selection.isSelected(element.UserID)" (click)="$event.stopPropagation()" (change)="toggleSelection(element.UserID, $event.checked)"></mat-checkbox>
+                </p>
+            </mat-cell>
+        </ng-container>
+    </mat-table>
+    <button mat-button *ngIf="selectedUserIds.length>0" style="color:red;" (click)="deleteSelected()">
+        <mat-icon>delete</mat-icon>
+        Deleted Selected ({{selectedUserIds.length}})
+    </button>
+    <mat-toolbar *ngIf="this.dataSource.filteredData.length==0">No records found!</mat-toolbar>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

@@ -1,0 +1,198 @@
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+
+	<!-- HEADER -->
+	<div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center">
+		<div fxLayout="column" fxLayoutAlign="center start">
+			<div class="h1 mt-16">Web Test Review</div>
+		</div>
+	</div>
+	<div fxLayout="row">
+		<div class="w-40-p">
+			<div class="mat-elevation-z4 p-20 m-20" style="height: 100%;overflow: scroll;">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Hazard ID</th>
+							<th>Test Date</th>
+							<th>Tester</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let webtest of webtests">
+							<td>
+								<a href="#" (click)="selecteWebTest(webtest)">{{webtest.haz_id}}</a>
+							</td>
+							<td>{{webtest.dateStamp | date}}</td>
+							<td>{{webtest.Tester_name}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="w-60-p">
+			<div class="mat-elevation-z4 p-20 m-20">
+				<div fxLayout="row">
+					<mat-form-field class="example-full-width" class="w-30-p" style="margin-right: 35px;">
+						<input matInput placeholder="Hazard Id" [(ngModel)]="selectedHazId">
+					</mat-form-field>
+					<mat-form-field class="example-full-width" class="w-30-p" style="margin-right: 35px;">
+						<input matInput placeholder="Tester" [(ngModel)]="selectedTesterName">
+					</mat-form-field>
+					<mat-form-field class="example-full-width" class="w-40-p">
+						<input matInput placeholder="Tester Company" [(ngModel)]="selectedTesterCompany">
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="mat-elevation-z4 p-20 m-20">
+				<div fxLayout="row">
+					<div style="margin-right: 20px;width: 33%">
+						<h2 style="height: 50px;">Original Data</h2>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Address" [(ngModel)]="originalData.address">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Company" [(ngModel)]="originalData.company">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Category" [(ngModel)]="originalData.hazardcat">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Location" [(ngModel)]="originalData.location">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Location 2" [(ngModel)]="originalData.location2">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Meter #" [(ngModel)]="originalData.meter">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Serial #" [(ngModel)]="originalData.serial">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Manufacturer" [(ngModel)]="originalData.mfg">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Model" [(ngModel)]="originalData.model">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Type" [(ngModel)]="originalData.type">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Size" [(ngModel)]="originalData.size">
+						</mat-form-field>
+					</div>
+					<div style="margin-right: 20px;width: 33%">
+						<h2 style="height: 50px;">Tester Suggested Changes</h2>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Address" [(ngModel)]="testerSuggestedData.address">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Company" [(ngModel)]="testerSuggestedData.company">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Category" [(ngModel)]="testerSuggestedData.hazardcat">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Location" [(ngModel)]="testerSuggestedData.location">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Location 2" [(ngModel)]="testerSuggestedData.location2">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Meter #" [(ngModel)]="testerSuggestedData.meter">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Serial #" [(ngModel)]="testerSuggestedData.serial">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Manufacturer" [(ngModel)]="testerSuggestedData.mfg">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Model" [(ngModel)]="testerSuggestedData.model">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Type" [(ngModel)]="testerSuggestedData.type">
+						</mat-form-field>
+						<mat-form-field class="example-full-width" class="w-100-p">
+							<input matInput placeholder="Size" [(ngModel)]="testerSuggestedData.size">
+						</mat-form-field>
+					</div>
+					<div style="width: 33%">
+						<h2 style="height: 50px;">Changes Mode</h2>
+						<div fxLayout="row">
+							<mat-checkbox style="margin-right: 10px;margin-top: 25px;" [(ngModel)]="changesMode.address"></mat-checkbox>
+							<mat-form-field class="example-full-width" class="w-100-p">
+								<input matInput placeholder="Address" [(ngModel)]="testerSuggestedData.address">
+							</mat-form-field>
+						</div>
+						<div fxLayout="row">
+							<mat-checkbox style="margin-right: 10px;margin-top: 25px;" [(ngModel)]="changesMode.company"></mat-checkbox>
+							<mat-form-field class="example-full-width" class="w-100-p">
+								<input matInput placeholder="Company" [(ngModel)]="testerSuggestedData.company">
+							</mat-form-field>
+						</div>
+						<div fxLayout="row">
+							<mat-checkbox style="margin-right: 10px;margin-top: 25px;" [(ngModel)]="changesMode.hazardcat"></mat-checkbox>
+							<mat-form-field class="example-full-width" class="w-100-p">
+								<input matInput placeholder="Category" [(ngModel)]="testerSuggestedData.hazardcat">
+							</mat-form-field>
+						</div>
+						<div fxLayout="row">
+							<mat-checkbox style="margin-right: 10px;margin-top: 25px;" [(ngModel)]="changesMode.location"></mat-checkbox>
+							<mat-form-field class="example-full-width" class="w-100-p">
+								<input matInput placeholder="Location" [(ngModel)]="testerSuggestedData.location">
+							</mat-form-field>
+						</div>
+						<div fxLayout="row">
+							<mat-checkbox style="margin-right: 10px;margin-top: 25px;" [(ngModel)]="changesMode.location2"></mat-checkbox>
+							<mat-form-field class="example-full-width" class="w-100-p">
+								<input matInput placeholder="Location 2" [(ngModel)]="testerSuggestedData.location2">
+							</mat-form-field>
+						</div>
+						<div fxLayout="row">
+							<mat-checkbox style="margin-right: 10px;margin-top: 25px;" [(ngModel)]="changesMode.meter"></mat-checkbox>
+							<mat-form-field class="example-full-width" class="w-100-p">
+								<input matInput placeholder="Meter #" [(ngModel)]="testerSuggestedData.meter">
+							</mat-form-field>
+						</div>
+						<div fxLayout="row">
+							<mat-checkbox style="margin-right: 10px;margin-top: 25px;" [(ngModel)]="changesMode.serial"></mat-checkbox>
+							<mat-form-field class="example-full-width" class="w-100-p">
+								<input matInput placeholder="Serial #" [(ngModel)]="testerSuggestedData.serial">
+							</mat-form-field>
+						</div>
+						<div fxLayout="row">
+							<mat-checkbox style="margin-right: 10px;margin-top: 25px;" [(ngModel)]="changesMode.mfg"></mat-checkbox>
+							<mat-form-field class="example-full-width" class="w-100-p">
+								<input matInput placeholder="Manufacturer" [(ngModel)]="testerSuggestedData.mfg">
+							</mat-form-field>
+						</div>
+						<div fxLayout="row">
+							<mat-checkbox style="margin-right: 10px;margin-top: 25px;" [(ngModel)]="changesMode.model"></mat-checkbox>
+							<mat-form-field class="example-full-width" class="w-100-p">
+								<input matInput placeholder="Model" [(ngModel)]="testerSuggestedData.model">
+							</mat-form-field>
+						</div>
+						<div fxLayout="row">
+							<mat-checkbox style="margin-right: 10px;margin-top: 25px;" [(ngModel)]="changesMode.type"></mat-checkbox>
+							<mat-form-field class="example-full-width" class="w-100-p">
+								<input matInput placeholder="Type" [(ngModel)]="testerSuggestedData.type">
+							</mat-form-field>
+						</div>
+						<div fxLayout="row">
+							<mat-checkbox style="margin-right: 10px;margin-top: 25px;" [(ngModel)]="changesMode.size"></mat-checkbox>
+							<mat-form-field class="example-full-width" class="w-100-p">
+								<input matInput placeholder="Size" [(ngModel)]="testerSuggestedData.size">
+							</mat-form-field>
+						</div>
+					</div>
+				</div>
+				<div fxLayoutAlign="center center">
+
+					<button mat-raised-button color="accent" class="submit-button" (click)="updateChanges()">Accept Changes</button>
+					<button mat-raised-button color="accent" class="delete-button" (click)="deleteChanges()" style="margin-right: 35px;">Reject Changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

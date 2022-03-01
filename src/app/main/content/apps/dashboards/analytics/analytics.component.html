@@ -1,0 +1,316 @@
+<div id="dashboard-analytics" class="page-layout blank grey-100-bg" fusePerfectScrollbar>
+
+    <!-- HEADER -->
+    <div class="header mat-accent-bg p-24 h-100" fxLayout="column" fxLayoutAlign="space-between">
+        <div fxLayout="row" fxLayoutAlign=" start center">
+            <span class="mat-display-1 mb-0 welcome-message" *fuseIfOnDom
+                [@animate]="{value:'*',params:{x:'50px'}}">CCC-SMART: Cross-Connection Control System Management
+                Awareness in Real Time
+            </span>
+            <button mat-icon-button fuseMatSidenavToggler="dashboards-right-sidenav" fxHide.gt-md>
+                <mat-icon>menu</mat-icon>
+            </button>
+        </div>
+        <div fxLayout="row">
+            
+        </div>
+    </div>
+
+    <div fxLayout="row wrap" *ngIf="dashboardData !== undefined">
+        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" style="margin:25px 25px 0px 25px;">
+            <div style="width:300px;float:right;margin-right: 35px;">
+                <div *ngIf="dashboardData !== undefined">
+                    <form [formGroup]="form">
+                        <mat-form-field style="padding:10px;margin-left:25px;min-width: 85px;" class="w-100-p">
+                          
+                            <mat-select placeholder="Select Dataset*" multiple [(ngModel)]="defaultvalue"
+                            (selectionChange)="changedataset($event)" formControlName="datasetId">
+                                <mat-option *ngIf="this.admin.AccessAll" #allSelected (click)="toggleAllSelection()" [value]="0">All</mat-option>
+                                <mat-option *ngFor="let dataset of datasets" [value]="dataset.clientId">
+                                    {{dataset.ClientName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+    <div class="content" *ngIf="dashboardData !== undefined">
+        <div class="left mr-lg-32">
+            <div fxLayout="column" fxLayoutAlign="start" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start">
+                <!-- Widget 4 -->
+                <div class="widget" fxFlex="100" fxFlex.gt-sm="25" style="margin-right: 25px;">
+                    <div class="fuse-card auto-width">
+                        <div class="p-16 pb-0" fxLayout="row wrap" fxLayoutAlign="start end">
+                            <div class="pr-16">
+                                <div class="h2 secondary-text"
+                                    style="padding-bottom: 45px;font-size: 18px;height: 60px;">
+                                    {{dashboardData[0].Title}}</div>
+                                <div class="font-size-36 font-weight-500 line-height-1 mt-8"
+                                    style="color:#1abc9c;padding-bottom: 10px">
+                                    <a href="javascript:void(0)" style="color:#1abc9c;"
+                                        (click)="export('Total Connections')">{{dashboardData[0].Count}}</a>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+                <!-- / Widget 4 -->
+                <!-- Widget 4 -->
+                <div class="widget" fxFlex="100" fxFlex.gt-sm="25" style="margin-right: 25px;">
+                    <div class="fuse-card auto-width">
+                        <div class="p-16 pb-0" fxLayout="row wrap" fxLayoutAlign="start end">
+                            <div class="pr-16">
+                                <div class="h2 secondary-text"
+                                    style="padding-bottom: 45px;font-size: 18px;height: 60px;">
+                                    {{dashboardData[1].Title}}</div>
+                                <div class="font-size-36 font-weight-500 line-height-1 mt-8"
+                                    style="color:#3498db;padding-bottom: 10px">
+                                    <a href="javascript:void(0)" style="color:#3498db;"
+                                        (click)="export('Backflows')">{{dashboardData[1].Count}}</a>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <!-- / Widget 4 -->
+                <!-- Widget 4 -->
+                <div class="widget" fxFlex="100" fxFlex.gt-sm="25" style="margin-right: 25px;">
+                    <div class="fuse-card auto-width">
+                        <div class="p-16 pb-0" fxLayout="row wrap" fxLayoutAlign="start end">
+                            <div class="pr-16">
+                                <div class="h2 secondary-text"
+                                    style="padding-bottom: 45px;font-size: 18px;height: 60px;">
+                                    {{dashboardData[2].Title}}</div>
+                                <div class="font-size-36 font-weight-500 line-height-1 mt-8"
+                                    style="color:#2c3e50;padding-bottom: 10px">
+                                    <a href="javascript:void(0)" style="color:#2c3e50;"
+                                        (click)="export('Letters Sent')">{{dashboardData[2].Count}}</a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- / Widget 4 -->
+
+                <!-- Widget 4 -->
+                <div class="widget" fxFlex="100" fxFlex.gt-sm="25" style="margin-right: 25px;">
+                    <div class="fuse-card auto-width">
+                        <div class="p-16 pb-0" fxLayout="row wrap" fxLayoutAlign="start end">
+                            <div class="pr-16">
+                                <div class="h2 secondary-text"
+                                    style="padding-bottom: 45px;font-size: 18px;height: 60px;">
+                                    {{dashboardData[3].Title}}</div>
+                                <div class="font-size-36 font-weight-500 line-height-1 mt-8"
+                                    style="color:#9b59b6;padding-bottom: 10px">
+                                    <a href="javascript:void(0)" style="color:#9b59b6;"
+                                        (click)="export('Surveys Received')">{{dashboardData[3].Count}}</a>
+                                </div>
+                            </div>
+                  
+                        </div>
+                    </div>
+                </div>
+                <!-- / Widget 4 -->
+                <!-- Widget 4 -->
+                <div class="widget" fxFlex="100" fxFlex.gt-sm="25">
+                    <div class="fuse-card auto-width">
+                        <div class="p-16 pb-0" fxLayout="row wrap" fxLayoutAlign="start end">
+                            <div class="pr-16">
+                                <div class="h2 secondary-text"
+                                    style="padding-bottom: 45px;font-size: 18px;height: 60px;">
+                                    {{dashboardData[4].Title}}</div>
+                                <div class="font-size-36 font-weight-500 line-height-1 mt-8"
+                                    style="color:#27ae60;padding-bottom: 10px">
+                                    <a href="javascript:void(0)" style="color:#27ae60;"
+                                        (click)="export('Tests Completed')">{{dashboardData[4].Count}}</a>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <!-- / Widget 4 -->
+            </div>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div fxLayout="row wrap" *ngIf="dashboardData !== undefined" style="margin-top: 25px;">
+
+        <!-- <div *ngIf="dashboardData !== undefined"> -->
+        <form [formGroup]="form1">
+            <mat-form-field style="padding:10px;margin-left:25px;min-width: 85px; max-width: 300px;">
+                <mat-select multiple placeholder="Select Compliance Category*" formControlName="limits">
+                    <mat-option value="all">All</mat-option>
+                    <mat-option value="more than or equal to 61 days"><i class="fa fa-circle" style="color:green;"
+                            aria-hidden="true"></i> Compliant</mat-option>
+                    <mat-option value="less than or equal 60 days"><i class="fa fa-circle" style="color:yellow;"
+                            aria-hidden="true"></i> Compliant, within 60 days of testing date</mat-option>
+                    <mat-option value="between 1 and 60 days"><i class="fa fa-circle" style="color:red;"
+                            aria-hidden="true"></i> Compliant, within 60 days of testing date</mat-option>
+                    <mat-option value="more than or equal to 61 days past their due date without a completed test"><i
+                            class="fa fa-circle" style="color:black;" aria-hidden="true"></i> Non-Complaint</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field style="padding:10px;margin-left:25px;min-width: 150px; max-width: 415px;">
+                <mat-select placeholder="Select Dataset*" multiple formControlName="dset">
+                    <mat-option *ngFor="let dataset of gdatasets" [value]="dataset.clientId">
+                        {{dataset.ClientName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field style="padding:10px;margin-left:25px;min-width: 85px; max-width: 200px;">
+                <mat-select multiple placeholder="Select Harzard Type*" formControlName="hazard_type">
+                    <mat-option value="all">All</mat-option>
+                    <mat-option value="Double Check"> DC (Double Check)</mat-option>
+                    <mat-option value="Reduced Pressure Zone"> RP (Reduced Pressure Zone)</mat-option>
+                    <mat-option value="Double Check Detector Assembly"> DCDA (Double Check Detector Assembly)</mat-option>
+                    <mat-option value="Pressure Vacuum Breaker"> PVB (Pressure Vacuum Breaker)</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+        <!-- </div> -->
+        <div>
+            <button mat-raised-button color="accent" class="submit-button" [disabled]="!form1.valid"
+                (click)="Getdataformap()">Generate System Map</button>
+        </div>
+    </div>
+    <div fxLayout="row wrap" *ngIf="dashboardData !== undefined" style="margin-top: 25px;">
+        <form [formGroup]="form2">
+            <mat-form-field style="padding:10px;margin-left:25px;min-width: 300px; max-width: 500px;">
+                <input type="text" placeholder="Address" aria-label="Number"
+                    (keypress)="searchAddress($event.target.value)" matInput formControlName="address"
+                    [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let item of searchAddressResult" [value]="item.Address">
+                        {{ item.Address }}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </form>
+        <div>
+            <button mat-raised-button color="accent" class="submit-button" [disabled]="!form2.valid"
+                (click)="Getdataformapfromaddress()">Generate System Map</button>
+        </div>
+    </div>
+    <!-- <div  *ngFor= "let mark of  [1,2,3,4,5,6]; let i = index">
+        {{ test(mark, i) }}
+        
+    </div> -->
+    <div fxLayout="row wrap" *ngIf= "dashboardData !== undefined">
+        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100" style="margin: 25px;">
+            <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#edb948" type="line-spin-fade">
+            </ngx-spinner>
+            
+            <mat-card>
+                <agm-map [latitude]="lat" [longitude]="lng" [minZoom]='3' [scrollwheel]="null" [zoom]="6"
+                [gestureHandling]="'cooperative'" >
+                <!-- <agm-marker-spider> -->
+                    <agm-marker-cluster  minimumClusterSize = '10' imagePath="assets/icons/m">
+                        <agm-marker *ngFor="let mark of  data;" [iconUrl]="mark.Color"
+                        [latitude]="mark.lat" [longitude]="mark.long">
+                        
+                        <!-- {{ loadPage(mark.lat) }} -->
+                                <agm-info-window [disableAutoPan]="true" #infoWindow [isOpen]="false">
+                                    <h4>Address: <a href="javascript:void(0);"
+                                            (click)="GetDetailsofTest(mark.HazId)">{{mark.Address}}</a> <br></h4>
+                                </agm-info-window>
+                            </agm-marker>
+                    </agm-marker-cluster>
+                    
+                    <!-- {{ loadPage(mark.lat) }} -->
+                     
+                    <!-- </agm-marker-spider> -->
+                </agm-map>
+            </mat-card>
+        </div>
+    </div>
+    <div *ngIf="testdetails!=undefined">
+        <div>
+            <h2 style="margin: 30px;">Site Information</h2>
+            <div fxLayout="row wrap" style="margin: 30px;">
+                <div fxFlex="33"><b>Site Id :</b>&nbsp;{{this.testdetails.Site_Haz[0].SiteID}}</div>
+                <div fxFlex="33"><b>Company :</b>&nbsp;{{this.testdetails.Site_Haz[0].Company}}</div>
+                <div fxFlex="34"><b>Dataset :</b>&nbsp;{{this.testdetails.Site_Haz[0].ClientName}}</div>
+            </div>
+            <div fxLayout="row wrap" style="margin: 30px;">
+                <div fxFlex="100"><b>Address : </b>&nbsp; {{this.testdetails.Site_Haz[0].Address}}</div>
+            </div>
+            <div fxLayout="row wrap" style="margin: 30px;">
+                <div fxFlex="33"><b>City :</b>&nbsp;{{this.testdetails.Site_Haz[0].City}}</div>
+                <div fxFlex="33"><b>State :</b>&nbsp;{{this.testdetails.Site_Haz[0].State}}</div>
+                <div fxFlex="34"><b>Zip :</b>&nbsp;{{this.testdetails.Site_Haz[0].zip}}</div>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <h2 style="margin: 30px;">Mailing Address</h2>
+        <div *ngFor="let address of testdetails.MailAddress">
+            <div fxLayout="row wrap" style="margin: 30px;">
+                <div fxFlex="100"><b>Address :</b>&nbsp;{{address.MAddress}}</div>
+            </div>
+            <div fxLayout="row wrap" style="margin: 30px;">
+                <div fxFlex="33"><b>City :</b>&nbsp;{{address.MCity}}</div>
+                <div fxFlex="33"><b>State :</b>&nbsp;{{address.MState}}</div>
+                <div fxFlex="34"><b>Zip :</b>&nbsp;{{address.Mzip}}</div>
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+        <div>
+            <h2 style="margin: 30px;">Hazard Information</h2>
+            <div *ngFor ="let hazardInfo of testdetails.Site_Haz">
+                <div fxLayout="row wrap" style="margin: 30px;">
+                    <div fxFlex="33"><b>Hazard Id :</b>&nbsp;{{hazardInfo.HazID}}</div>
+                    <div fxFlex="33"><b>Test Due :</b>&nbsp;{{hazardInfo.TestDue|date:"MM/dd/yyyy"}}</div>
+                    <div fxFlex="34"><b>Installed Date
+                            :</b>&nbsp;{{hazardInfo.InstalledDate|date:"MM/dd/yyyy"}}
+                    </div>
+                </div>
+                <div fxLayout="row wrap" style="margin: 30px;">
+                    <div fxFlex="33"><b>Serial Number :</b>&nbsp;{{hazardInfo.SerialNum}}</div>
+                    <div fxFlex="33"><b>Meter :</b>&nbsp;{{hazardInfo.Meter}}</div>
+                    <div fxFlex="34"><b>Manufacturer :</b>&nbsp;{{hazardInfo.MFG}}</div>
+                </div>
+                <div fxLayout="row wrap" style="margin: 30px;">
+                    <div fxFlex="33"><b>Type :</b>&nbsp;{{hazardInfo.Type}}</div>
+                    <div fxFlex="33"><b>Size :</b>&nbsp;{{hazardInfo.devSize}}</div>
+                    <div fxFlex="34"><b>Model :</b>&nbsp;{{hazardInfo.Model}}</div>
+                </div>
+                <mat-divider></mat-divider>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <h2 style="margin: 30px;">Test History</h2>
+        <div fxLayout="row">
+            <table class="table" style="margin: 0px 30px;">
+                <thead>
+                    <tr>
+                        <th>Test ID</th>
+                        <th>I Test date</th>
+                        <th>I status</th>
+                        <th>F.Test Date</th>
+                        <th>F. Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let test of testdetails.DevTests| paginate: { itemsPerPage: 10, currentPage: p_test,id:'test' }">
+                        <a [routerLink]="['/apps/test/testview/',test.TestID,this.testdetails.Site_Haz[0].SiteID]">{{test.TestID}}</a>
+                        <!-- <td>{{test.TestID}}</td> -->
+                        <td>{{test.iDate|date:"MM/dd/yyyy"}}</td>
+                        <td>{{test.iPass}}</td>
+                        <td>{{test.fDate|date:"MM/dd/yyyy"}}</td>
+                        <td>{{test.fPass}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <pagination-controls style="margin: 30px;" *ngIf="testdetails.DevTests.length>0" (pageChange)="p_test = $event"
+            id="test"></pagination-controls>
+    </div>
+</div>

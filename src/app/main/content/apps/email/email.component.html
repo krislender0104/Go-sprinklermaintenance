@@ -1,0 +1,114 @@
+<!-- <div id="summernote" >
+    <h2>WYSIWYG Editor</h2> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam ullamcorper sapien non nisl facilisis bibendum in quis tellus. Duis in urna bibendum turpis pretium fringilla. Aenean neque velit, porta eget
+    mattis ac, imperdiet quis nisi. Donec non dui et tortor vulputate luctus. Praesent consequat rhoncus velit, ut molestie arcu venenatis sodales.
+    <h4>Lacinia</h4>
+    <ul>
+        <li>Suspendisse tincidunt urna ut velit ullamcorper fermentum.</li>
+        <li>Nullam mattis sodales lacus, in gravida sem auctor at.</li>
+        <li>Praesent non lacinia mi.</li>
+        <li>Mauris a ante neque.</li>
+        <li>Aenean ut magna lobortis nunc feugiat sagittis.</li>
+    </ul>
+    <h4>Pellentesque Adipiscing</h4> Maecenas quis ante ante. Nunc adipiscing rhoncus rutrum. Pellentesque adipiscing urna mi, ut tempus lacus ultrices ac. Pellentesque sodales, libero et mollis interdum, dui odio vestibulum dolor,
+    eu pellentesque nisl nibh quis nunc. Sed porttitor leo adipiscing venenatis vehicula. Aenean quis viverra enim. Praesent porttitor ut ipsum id ornare.</div> -->
+
+<!-- <quill-editor>
+  <div quill-editor-toolbar>
+    <span class="ql-formats">
+      <button class="ql-bold" [title]="'Bold'"></button>
+    </span>
+    <span class="ql-formats">
+      <select class="ql-align" [title]="'Aligment'">
+        <option selected></option>
+        <option value="center"></option>
+        <option value="right"></option>
+        <option value="justify"></option>
+      </select>
+      <select class="ql-align" [title]="'Aligment2'">
+        <option selected></option>
+        <option value="center"></option>
+        <option value="right"></option>
+        <option value="justify"></option>
+      </select>
+    </span>
+  </div>
+</quill-editor> -->
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+  <!-- HEADER -->
+  <div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center">
+    <div fxLayout="column" fxLayoutAlign="center start">
+      <div class="h1 mt-16">Compose mail</div>
+    </div>
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div>
+    <div>
+      <form class="mat-elevation-z4 m-20" [formGroup]="emailForm" >
+        <mat-toolbar class="mat-accent m-0">
+          <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">New Message</span>
+          </mat-toolbar-row>
+        </mat-toolbar>
+        <div class="w-100-p">
+          <!-- <mat-form-field class="example-full-width" style="padding: 10px 20px 0px 20px;" class="w-100-p">
+            <input matInput placeholder="From" value="">
+          </mat-form-field> -->
+          <mat-form-field class="example-full-width" style="padding: 10px 20px 0px 20px;" class="w-100-p">
+            <input matInput placeholder="To*" value="" formControlName="to">
+          </mat-form-field>
+          <span style="color: red; padding-left: 20px;" *ngIf="emailForm.controls['to'].hasError('required') && isSubmitted">* Please enter email</span>
+          <span style="color: red; padding-left: 20px;" *ngIf="emailForm.controls['to'].hasError('email') && isSubmitted">* Invalid Email</span>
+          <!-- <p class="toggle-cc" *ngIf="showCC" (click)="toggleCCAndBCC()">Hide CC & BCC</p> -->
+          <!-- <p class="toggle-cc" *ngIf="!showCC" (click)="toggleCCAndBCC()">Show CC & BCC</p> -->
+          <!-- <mat-form-field *ngIf="showCC" class="example-full-width" style="padding: 0px 20px 0px 20px;" class="w-100-p">
+            <input matInput placeholder="Cc" value="" formControlName="cc">
+          </mat-form-field> -->
+          <!-- <mat-form-field *ngIf="showCC" class="example-full-width" style="padding: 0px 20px 0px 20px;" class="w-100-p">
+            <input matInput placeholder="Bcc" value="" formControlName="bcc">
+          </mat-form-field> -->
+          <mat-form-field class="example-full-width" style="padding: 0px 20px 0px 20px;" class="w-100-p">
+            <input matInput placeholder="Subject" value="" formControlName="subject">
+          </mat-form-field>
+          <div style="padding: 10px 20px 20px 20px;">
+            <!-- <quill-editor>
+              <div quill-editor-toolbar>
+                <span class="ql-formats">
+                  <button class="ql-bold" [title]="'Bold'"></button>
+                </span>
+                <span class="ql-formats">
+                  <select class="ql-align" [title]="'Aligment2'">
+                    <option selected></option>
+                    <option value="center"></option>
+                    <option value="right"></option>
+                    <option value="justify"></option>
+                  </select>
+                </span>
+              </div>
+            </quill-editor> -->
+            <quill-editor [style]="{height: '250px'}" formControlName="body"></quill-editor>
+            <span style="color: red;top: 20px;position: relative;" *ngIf="emailForm.controls['body'].hasError('required') && isSubmitted">* Please enter email body</span>
+          </div>
+          <div style="padding: 10px 20px 20px 20px;" *ngIf="fileList.length>0">
+            <mat-chip-list>
+              <mat-chip *ngFor="let file of fileList; let i=index;">
+                {{ file.name }}
+                <mat-icon matChipRemove (click)="removeFile(i)">cancel</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+          <div style="padding: 0px 20px 10px 20px; display: -webkit-inline-box;position: relative;top: 10px;">
+            <button mat-raised-button color="accent" style="margin-bottom: 10px;" class="submit-button" [disabled]="isSendingEmail" (click)="sendEmail()">Send
+              <mat-icon aria-hidden="true" class="secondary-text mat-icon material-icons" role="img">send</mat-icon>
+            </button>
+            <!-- <mat-progress-spinner *ngIf="isSendingEmail" mode="indeterminate"></mat-progress-spinner> -->
+            <input type="file" style="display: none;" multiple #file (change)="selectFiles(file.files)">
+            <mat-icon aria-hidden="true" class="secondary-text s-48_new mat-icon material-icons" role="img" (click)="file.click()">attach_file</mat-icon>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

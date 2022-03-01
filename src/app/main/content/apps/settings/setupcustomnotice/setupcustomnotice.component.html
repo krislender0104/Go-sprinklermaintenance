@@ -1,0 +1,83 @@
+<!-- <div class=" pjt-tree">
+</div> -->
+ <div class="simple" fxLayout="column" style="width:100vw;overflow: scroll;">
+	
+   
+    <div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center"  style="background-image: url(header-bg.png);">
+        <div fxLayout="column" fxLayoutAlign="center start">
+            <div class="h1 mt-16">Setup Custom Notices</div>
+        </div>
+    </div>
+	<div class="mat-elevation-z4 p-20 m-20">
+		<div  class="py-20 m-20" fxLayout="row" fxLayoutAlign="start center">
+			<div style="width: 300px;margin: 15px 35px 0px 0px;">
+				   	<mat-select placeholder="Select Option" (selectionChange)="dataSetChange($event)" style="border-bottom: 1px solid #919191">
+						 <mat-option value="test1">Test 1</mat-option>
+						 <mat-option value="test2">Test 2</mat-option>
+						 <mat-option value="test3">Test 3</mat-option>
+						 <mat-option value="inst1">Installation 1</mat-option>
+						 <mat-option value="inst2">Installation 2</mat-option>
+						 <mat-option value="inst3">Installation 3</mat-option>
+						 <mat-option value="surv1">Survey 1</mat-option>
+						 <mat-option value="surv2">Survey 2</mat-option>
+						 <mat-option value="surv3">Survey 3</mat-option> 
+				   	</mat-select>
+			</div>
+		</div>
+		<div>
+			 <table style="width: 100%;margin:10px;">
+				 <thead>
+					 <tr >
+						 <th style="width: 20%;padding:10px">DataSet</th>
+						 <th style="width: 6%;padding:10px">Letter</th>
+						 <th style="width: 6%;padding:10px">TestRPT</th>
+						 <th style="width: 6%;padding:10px">Testers</th>
+						 <th style="width: 6%;padding:10px">Regs</th>
+						 <th style="width: 6%;padding:10px">survey</th>
+						 <th style="width: 6%;padding:10px">Doc 6</th>
+						 <th style="width: 6%;padding:10px">Doc 7</th>
+						 <th style="width: 6%;padding:10px">Doc 8</th>
+						 <th style="width: 6%;padding:10px">Doc 9</th>
+						 <th style="width: 6%;padding:10px">Doc 10</th>
+						 <th style="width: 20%;padding:10px">Code</th>
+					 </tr>
+				 </thead>
+				 <tbody>
+					 <tr style="border-bottom: 1px solid #e3e3e3;padding: 10px 0px;" *ngFor="let person of personList; let id = index"  >
+						<td  style="width: 26%;padding:10px">{{person.DatasetName}}</td>
+						<td contenteditable="true" (keyup)="changeValue(id, 'Letter', $event.target.textContent)" style="width: 10%;padding:10px">
+							{{person.Letter}}
+						</td>
+						<td contenteditable="true" (keyup)="changeValue(id, 'TestRPT', $event.target.textContent)" style="width: 6%;padding:10px">
+							{{person.TestRPT}}
+						</td><td contenteditable="true" (keyup)="changeValue(id, 'Testers', $event.target.textContent)" style="width: 6%;padding:10px">
+							{{person.Testers}}
+						</td><td contenteditable="true" (keyup)="changeValue(id, 'Regs', $event.target.textContent)" style="width: 6%;padding:10px">
+							{{person.Regs}}
+						</td><td contenteditable="true" (keyup)="changeValue(id, 'Survey', $event.target.textContent)" style="width: 6%;padding:10px">
+							{{person.Survey}}
+						</td><td contenteditable="true" (keyup)="changeValue(id, 'Doc6', $event.target.textContent)" style="width: 6%;padding:10px">
+							{{person.Doc6}}
+						</td><td contenteditable="true" (keyup)="changeValue(id, 'Doc7', $event.target.textContent)" style="width: 6%;padding:10px">
+							{{person.Doc7}}
+						</td><td contenteditable="true" (keyup)="changeValue(id, 'Doc8', $event.target.textContent)" style="width: 6%;padding:10px">
+							{{person.Doc8}}
+						</td><td contenteditable="true" (keyup)="changeValue(id, 'Doc9', $event.target.textContent)" style="width: 6%;padding:10px">
+							{{person.Doc9}}
+						</td><td contenteditable="true" (keyup)="changeValue(id, 'Doc10', $event.target.textContent)" style="width: 6%;padding:10px">
+							{{person.Doc10}}
+						</td>
+						 <td contenteditable="true" (keyup)="changeValue(id, 'code', $event.target.textContent)" style="width: 10%;padding:10px">
+						 	{{person.code}}
+						 </td>    					
+					 </tr>
+			 </tbody>
+			 </table>
+			 <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+			 <div fxLayout="row"  fxLayoutAlign="center center">
+				 <button type="button" mat-raised-button color="accent"  class="submit-button" (click)="onDataSave()" >Save</button>
+			 </div>
+		 </div>
+ </div>
+   
+</div> 

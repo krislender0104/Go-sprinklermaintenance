@@ -1,0 +1,385 @@
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+<!-- HEADER -->
+    <div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center">
+        <div fxLayout="column" fxLayoutAlign="center start">
+            <div class="h1 mt-16">Technician Details Create</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+	<form class="mat-elevation-z4 p-20 m-20" [formGroup]="techcreateform">
+		
+			<div fxLayout="column" style="width: 100%;margin: 20px;" class="p-20">
+				<div fxLayout="row">
+					<mat-form-field class="example-full-width">
+				    	<input matInput placeholder="Status" formControlName="status">
+				  	</mat-form-field>
+				</div>
+				<div fxLayout="row">
+				  	<mat-form-field class="example-full-width" style="margin-right: 10px;">
+				    	<input matInput placeholder="First Name" formControlName="firstName">
+				  	</mat-form-field>
+			  	
+				  	<mat-form-field class="example-full-width">
+				  	  	<input matInput placeholder="Last Name" formControlName="lastName">
+				  	</mat-form-field>
+				</div>
+			  	
+				
+			  	<div fxLayout="row">
+				  	<mat-form-field class="example-full-width" style="margin-right: 10px;">
+				    	<input matInput placeholder="Address1" formControlName="address1">
+				  	</mat-form-field>
+				  	<mat-form-field class="example-full-width">
+				    	<input matInput placeholder="Address2" formControlName="address2">
+				  	</mat-form-field>
+				</div>
+			  	<div fxLayout="row">
+				  	<mat-form-field class="example-full-width" style="margin-right: 10px;">
+				  	  	<input matInput placeholder="City" formControlName="city" >
+				  	</mat-form-field>
+				  	<mat-form-field class="example-full-width" style="margin-right: 10px;">
+				    	<input matInput placeholder="State" formControlName="state">
+				  	</mat-form-field>
+				  	<mat-form-field class="example-full-width">
+				    	<input matInput placeholder="Zip" formControlName="zip">
+				  	</mat-form-field>
+				</div>
+				<div fxLayout="row">
+				  	<mat-form-field class="example-full-width" style="margin-right: 10px;">
+				  	  	<input matInput placeholder="Phone" formControlName="phone" >
+				  	</mat-form-field>
+				  	<mat-form-field class="example-full-width">
+				    	<input matInput placeholder="Email" formControlName="email">
+				  	</mat-form-field>
+				</div>
+				<div fxLayout="row">
+				  	<mat-form-field class="example-full-width" style="margin-right: 10px;">
+				    	<input matInput placeholder="Cell" formControlName="cell">
+				  	</mat-form-field>
+				  	<mat-form-field class="example-full-width">
+				    	<input matInput placeholder="UDF1" formControlName="uDF1">
+				  	</mat-form-field>
+				</div>
+				<div fxLayout="row">
+				  	<mat-form-field class="example-full-width" style="margin-right: 10px;">
+				    	<input matInput placeholder="Fee" formControlName="fee">
+				  	</mat-form-field>
+				  	<!-- <mat-form-field style="margin-right: 20px;">
+					  <mat-select placeholder="Fee Paid">
+					    <mat-option *ngFor="let food of foods" [value]="feepaid">
+					     
+					    </mat-option>
+					  </mat-select>
+					</mat-form-field> -->
+				</div>
+			  	<mat-form-field class="example-full-width">
+			    	<input matInput placeholder="Notes" formControlName="comments">
+			  	</mat-form-field> 			  		
+			</div>
+			<div fxLayout="column" style="width: 100%;margin: 50px 0px;">
+				<h1>Insurance</h1>
+				<mat-form-field class="example-full-width">
+			    	<input matInput placeholder="Agency" formControlName="iNSURANCE">
+			  	</mat-form-field>
+			  	<mat-form-field class="example-full-width">
+			    	<input matInput placeholder="Phone" formControlName="iNSURPHO">
+			  	</mat-form-field>
+			  	<mat-form-field class="example-full-width">
+			    	<input matInput placeholder="Carrier" formControlName="iNSURAGT">
+			  	</mat-form-field>
+			  	<mat-form-field class="example-full-width">
+			    	<input matInput placeholder="Policy #" formControlName="pOLICY">
+			  	</mat-form-field>
+			  	<mat-form-field style="margin-right: 10px;">
+					<input matInput [matDatepicker]="picker12" placeholder="Expire" formControlName="iNSUREXP">
+					<mat-datepicker-toggle matSuffix [for]="picker12"></mat-datepicker-toggle>
+					<mat-datepicker #picker12></mat-datepicker>
+				</mat-form-field>
+			  	<mat-form-field class="example-full-width">
+			    	<input matInput placeholder="Liability Amount" formControlName="lIABILITY">
+			  	</mat-form-field>
+				
+			</div>
+	
+		<div fxLayout="row" style="width: 100%" >
+			<div fxLayout="column" style="width: 75%;margin: 20px;" class="mat-elevation-z4 p-20 m-20">
+				<h2>Licenses</h2>
+				<div fxLayout="row">
+					<div style="width: 330px;padding-top: 27px;">
+						<mat-checkbox style="padding-top: 24px;margin-right: 20px;width: 150px;">City</mat-checkbox>
+					</div>
+					<mat-form-field class="example-full-width" style="margin-right: 20px;">
+				    	<input matInput placeholder="License #" formControlName="cITYLICNUM">
+				  	</mat-form-field>
+				  	<mat-form-field style="margin-right: 10px;">
+						<input matInput [matDatepicker]="picker20" placeholder="Expire"  formControlName="lICEXPDATE"  >
+						<mat-datepicker-toggle matSuffix [for]="picker20"></mat-datepicker-toggle>
+						<mat-datepicker #picker20></mat-datepicker>
+					</mat-form-field>				  	
+				</div>
+				<div fxLayout="row">
+					<div style="width: 330px;padding-top: 27px;">
+						<mat-checkbox style="padding-top: 24px;margin-right: 20px;width: 150px;">Country</mat-checkbox>
+					</div>
+					<mat-form-field class="example-full-width" style="margin-right: 20px;">
+				    	<input matInput placeholder="License #" formControlName="cOLICENSE">
+				  	</mat-form-field>	
+				  	<mat-form-field style="margin-right: 10px;">
+						<input matInput [matDatepicker]="picker21" placeholder="Expire"   >
+						<mat-datepicker-toggle matSuffix [for]="picker21"></mat-datepicker-toggle>
+						<mat-datepicker #picker21></mat-datepicker>
+					</mat-form-field>			  	
+				</div>	
+				<div fxLayout="row">
+					<div style="width: 330px;padding-top: 27px;">
+						<mat-checkbox style="padding-top: 24px;margin-right: 20px;">Plumber</mat-checkbox>
+					</div>
+					<mat-form-field class="example-full-width" style="margin-right: 20px;">
+				    	<input matInput placeholder="License #" formControlName="pLUMNUM">
+				  	</mat-form-field>	
+				  	<mat-form-field style="margin-right: 10px;">
+						<input matInput [matDatepicker]="picker31" placeholder="Expire"   >
+						<mat-datepicker-toggle matSuffix [for]="picker31"></mat-datepicker-toggle>
+						<mat-datepicker #picker31></mat-datepicker>
+					</mat-form-field>			  	
+				</div>	
+				<div fxLayout="row">
+					<div style="width: 330px;padding-top: 27px;">
+						<mat-checkbox style="padding-top: 24px;margin-right: 20px;">Landscape</mat-checkbox>
+					</div>
+					<mat-form-field class="example-full-width" style="margin-right: 20px;">
+				    	<input matInput placeholder="License #" formControlName="lANDNUM">
+				  	</mat-form-field>
+				  	<mat-form-field style="margin-right: 10px;">
+						<input matInput [matDatepicker]="lia" placeholder="Expire"   >
+						<mat-datepicker-toggle matSuffix [for]="lia"></mat-datepicker-toggle>
+						<mat-datepicker #lia></mat-datepicker>
+					</mat-form-field>
+				</div>	
+				<div fxLayout="row">
+					<div style="width: 330px;padding-top: 27px;">
+						<mat-checkbox style="padding-top: 24px;margin-right: 20px;">Fire</mat-checkbox>
+					</div>
+					<mat-form-field class="example-full-width" style="margin-right: 20px;">
+				    	<input matInput placeholder="License #" formControlName="fIRENUM">
+				  	</mat-form-field>
+				  	<mat-form-field style="margin-right: 10px;">
+						<input matInput [matDatepicker]="lia1" placeholder="Expire"   >
+						<mat-datepicker-toggle matSuffix [for]="lia1"></mat-datepicker-toggle>
+						<mat-datepicker #lia1></mat-datepicker>
+					</mat-form-field>
+				</div>	
+				<div fxLayout="row">
+					<div style="width: 330px;padding-top: 27px;">
+						<mat-checkbox style="padding-top: 24px;margin-right: 20px;">Confined Space</mat-checkbox>
+					</div>
+					<mat-form-field class="example-full-width" style="margin-right: 20px;">
+				    	<input matInput placeholder="License #" formControlName="confinedLicNum">
+				  	</mat-form-field>
+				  	<mat-form-field style="margin-right: 10px;">
+						<input matInput [matDatepicker]="lia2" placeholder="Expire"   >
+						<mat-datepicker-toggle matSuffix [for]="lia2"></mat-datepicker-toggle>
+						<mat-datepicker #lia2></mat-datepicker>
+					</mat-form-field>
+				</div>	
+				
+					  		
+			</div>
+			<div fxLayout="row" style="width: 25%;">
+				
+				<div fxLayout="column" class="mat-elevation-z4 p-20 m-20">
+					<h2>Last Letter</h2>
+					<mat-form-field class="example-full-width">
+				    	<input matInput placeholder="Letter" formControlName="lastLetter">
+				  	</mat-form-field>
+				  	<div class="form-hazard-creation-btn">
+						<button mat-raised-button class="sitebtn" >Sent</button>
+					</div>
+					<br><br><br>
+					<h2>Tester's Web Login</h2>
+					<mat-form-field class="example-full-width">
+				    	<input matInput placeholder="Initials" formControlName="webStatus">
+				  	</mat-form-field>
+					<mat-form-field class="example-full-width">
+				    	<input matInput placeholder="User Id" formControlName="testerUserID">
+				  	</mat-form-field>
+				  	<mat-form-field class="example-full-width">
+				    	<input matInput placeholder="Password" formControlName="password">
+				  	</mat-form-field>					
+				</div>
+			</div>
+		</div>
+		<div fxLayout="column" style="width: 100%"  class="mat-elevation-z4 p-20 m-20">
+			<h2>Certification</h2>
+			<div fxLayout="column">
+				<div fxLayout="row">
+					<div style="width: 330px;padding-top: 27px;">
+						<mat-checkbox style="padding-top: 24px;margin-right: 20px;">Test</mat-checkbox>
+					</div>
+					<mat-form-field class="example-full-width" style="margin-right: 20px;">
+				    	<input matInput placeholder="Certification #" formControlName="testCertNum">
+				  	</mat-form-field>
+				  	<mat-form-field style="margin-right: 10px;">
+						<input matInput [matDatepicker]="lia13" placeholder="Expire Date"   >
+						<mat-datepicker-toggle matSuffix [for]="lia13"></mat-datepicker-toggle>
+						<mat-datepicker #lia13></mat-datepicker>
+					</mat-form-field>	
+					<mat-form-field class="example-full-width" style="margin-right: 20px;">
+				    	<input matInput placeholder="Certified By" formControlName="">
+				  	</mat-form-field>
+				  	<mat-form-field style="margin-right: 10px;">
+						<input matInput [matDatepicker]="lia131" placeholder="Certified Date"   >
+						<mat-datepicker-toggle matSuffix [for]="lia131"></mat-datepicker-toggle>
+						<mat-datepicker #lia131></mat-datepicker>
+					</mat-form-field>			  	
+				</div>
+				<div fxLayout="row">
+					<div style="width: 330px;padding-top: 27px;">
+						<mat-checkbox style="padding-top: 24px;margin-right: 20px;">Surveys</mat-checkbox>
+					</div>
+					<mat-form-field class="example-full-width" style="margin-right: 20px;">
+				    	<input matInput placeholder="Certification #" formControlName="survCertNum">
+				  	</mat-form-field>	
+				  	<mat-form-field style="margin-right: 10px;">
+						<input matInput [matDatepicker]="lia12" placeholder="Expire Date"   >
+						<mat-datepicker-toggle matSuffix [for]="lia12"></mat-datepicker-toggle>
+						<mat-datepicker #lia12></mat-datepicker>
+					</mat-form-field>	
+					<mat-form-field class="example-full-width" style="margin-right: 20px;">
+				    	<input matInput placeholder="Certified By" formControlName="survCertAgcy">
+				  	</mat-form-field>	
+				  	<mat-form-field style="margin-right: 10px;">
+						<input matInput [matDatepicker]="lia121" placeholder="Certified Date"   >
+						<mat-datepicker-toggle matSuffix [for]="lia121"></mat-datepicker-toggle>
+						<mat-datepicker #lia121></mat-datepicker>
+					</mat-form-field>	  	
+				</div>	
+				<div fxLayout="row">
+					<div style="width: 330px;padding-top: 27px;">
+						<mat-checkbox style="padding-top: 24px;margin-right: 20px;">Instalation</mat-checkbox>
+					</div>
+					<mat-form-field class="example-full-width" style="margin-right: 20px;">
+				    	<input matInput placeholder="Certification #" formControlName="instCertNum">
+				  	</mat-form-field>	
+				  	<mat-form-field style="margin-right: 10px;">
+						<input matInput [matDatepicker]="lia11" placeholder="Expire Date"   >
+						<mat-datepicker-toggle matSuffix [for]="lia11"></mat-datepicker-toggle>
+						<mat-datepicker #lia11></mat-datepicker>
+					</mat-form-field>	
+					<mat-form-field class="example-full-width" style="margin-right: 20px;">
+				    	<input matInput placeholder="Certified By" formControlName="instCertAgcy">
+				  	</mat-form-field>	
+				  	<mat-form-field style="margin-right: 10px;">
+						<input matInput [matDatepicker]="lia111" placeholder="Certified Date"   >
+						<mat-datepicker-toggle matSuffix [for]="lia111"></mat-datepicker-toggle>
+						<mat-datepicker #lia111></mat-datepicker>
+					</mat-form-field>	  	
+				</div>	
+				<div fxLayout="row">
+					<div style="width: 330px;padding-top: 27px;">
+						<mat-checkbox style="padding-top: 24px;margin-right: 20px;">Repairs</mat-checkbox>
+					</div>
+					<mat-form-field class="example-full-width" style="margin-right: 20px;">
+				    	<input matInput placeholder="Certification #" formControlName="repCertNum">
+				  	</mat-form-field>
+				  	<mat-form-field style="margin-right: 10px;">
+						<input matInput [matDatepicker]="lia10" placeholder="Expire Date"   >
+						<mat-datepicker-toggle matSuffix [for]="lia10"></mat-datepicker-toggle>
+						<mat-datepicker #lia10></mat-datepicker>
+					</mat-form-field>
+					<mat-form-field class="example-full-width" style="margin-right: 20px;">
+				    	<input matInput placeholder="Certified By" formControlName="repCertAgcy">
+				  	</mat-form-field>
+				  	<mat-form-field style="margin-right: 10px;">
+						<input matInput [matDatepicker]="lia101" placeholder="Certified Date"   >
+						<mat-datepicker-toggle matSuffix [for]="lia101"></mat-datepicker-toggle>
+						<mat-datepicker #lia101></mat-datepicker>
+					</mat-form-field>
+				</div>	
+			</div>
+		</div>
+
+		<div fxLayout="column" style="width: 100%"  class="mat-elevation-z4 p-20 m-20">
+			<h2>Companies / TestKit</h2>
+			<div>
+                <a href="apps/hazard/create"><mat-icon _ngcontent-c35="" class="add-hazard-btn secondary-text s-30 mat-icon material-icons" role="img" aria-hidden="true">add</mat-icon></a>
+            </div>
+			<div fxLayout="row">
+				<!-- <mat-form-field style="margin-right: 20px;">
+				  <mat-select placeholder="select company">
+				    <mat-option *ngFor="let food of foods" [value]="">
+				     
+				    </mat-option>
+				  </mat-select>
+				</mat-form-field>
+				<mat-form-field style="margin-right: 20px;">
+				  <mat-select placeholder="select Kit">
+				    <mat-option *ngFor="let food of foods" [value]="">
+				     
+				    </mat-option>
+				  </mat-select>
+				</mat-form-field> -->
+			</div>
+			<div fxLayout="row">
+				<!-- <mat-form-field style="margin-right: 20px;">
+				  <mat-select placeholder="select company">
+				    <mat-option *ngFor="let food of foods" [value]="">
+				     
+				    </mat-option>
+				  </mat-select>
+				</mat-form-field>
+				<mat-form-field style="margin-right: 20px;">
+				  <mat-select placeholder="select Kit">
+				    <mat-option *ngFor="let food of foods" [value]="">
+				     
+				    </mat-option>
+				  </mat-select>
+				</mat-form-field> -->
+			</div>
+		</div>
+		
+		<!-- <div fxLayout="column" style="width: 100%"  class="mat-elevation-z4 p-20 m-20">			<h2></h2>
+			<div fxLayout="column" >
+				<div class="mat-elevation-z4 p-20 m-20" >
+					<div fxLayout="row">
+						<mat-form-field class="w-50-p"  style="padding:10px;">
+							<input matInput placeholder="Windows Logon" formControlName="logon">
+						  </mat-form-field> 
+						  <mat-form-field class="w-50-p" style="padding:10px;">
+							<input matInput placeholder="Initials" formControlName="initials" >
+						  </mat-form-field> 
+					</div>
+					<div fxLayout="row">
+						  <mat-form-field class="w-50-p"  style="padding:10px;">
+							<input matInput placeholder="User ID" formControlName="uID">
+						  </mat-form-field> 
+					
+						  <mat-form-field class="w-50-p"  style="padding:10px;" >
+							<input matInput placeholder="Full Name" formControlName="fullName">
+						  </mat-form-field> 
+					</div>
+					<div fxLayout="row">
+						<mat-form-field class="w-50-p"  style="padding:10px;">
+						  <input type="password" matInput placeholder="Password" formControlName="userpassword">
+					  </mat-form-field>
+				  </div>	
+					<div fxLayout="row">
+						  <mat-form-field class="w-100-p"  style="padding:10px;">
+							<textarea matInput placeholder="Notes" formControlName="notes"></textarea>
+						</mat-form-field>
+					</div>	
+					<div fxLayout="row" class="p-15">
+						<p>Licence Type</p>
+						<mat-radio-group formControlName="licenseType" >
+							<mat-radio-button value="N"  style="padding-right: 20px;">Named User</mat-radio-button>
+							<mat-radio-button value="F" >Floating User</mat-radio-button>
+						</mat-radio-group>
+					</div>				
+				</div>    	
+			</div>
+		</div> -->
+		<div class="form-hazard-creation-btn">
+			<button mat-raised-button class="sitebtn" (click)="CreateTechnician()">Create</button>
+		</div>
+</form>
+</div>

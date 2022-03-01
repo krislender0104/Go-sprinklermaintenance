@@ -1,0 +1,230 @@
+// This file meant to be imported only once! Use fuse.scss to access
+// to the core Fuse and Angular Material mixins
+
+// ngx-datatable
+@import '~@swimlane/ngx-datatable/release/themes/material';
+
+// Perfect scrollbar
+@import '~perfect-scrollbar/css/perfect-scrollbar';
+
+// Fuse
+@import "fuse";
+
+// Include core Angular Material styles
+@include mat-core();
+
+// Setup the typography
+@include angular-material-typography($typography);
+
+// Create an Angular Material theme from the $theme map
+@include angular-material-theme($theme);
+
+// Partials
+@import "partials/reset";
+@import "partials/normalize";
+@import "partials/scrollbars";
+@import "partials/helpers";
+@import "partials/global";
+@import "partials/icons";
+@import "partials/colors";
+@import "partials/material";
+@import "partials/angular-material-fix";
+@import "partials/typography";
+@import "partials/page-layouts";
+@import "partials/cards";
+@import "partials/navigation";
+@import "partials/forms";
+@import "partials/toolbar";
+@import "partials/print";
+
+// Plugins
+@import "partials/plugins/plugins";
+
+.mat-toolbar.mat-accent{
+	background:#0d2a52  !important;
+}
+body{
+    font-family: "roboto" !important;
+}
+table{
+    border: 1px solid #d3d3d3;
+    border-top: none;
+}
+thead{
+    background: #2196f3;
+    color:#fff;
+}
+th{
+    font-weight: 100;
+}
+tr:nth-child(even) {
+    background: #eeeeee
+}
+
+.mat-divider {
+    display: block;
+    margin: 0;
+    border-top-width: 2px !important;
+    border-top-style: solid;
+    border-color: #2094c8 !important;
+}
+.ngx-pagination{
+    padding: 0px;
+    margin: 0px;
+}
+.submit-button[_ngcontent-c28] {
+    display: block;
+    color: white;
+    transition: all 0.5s;
+    position: relative;
+    border: 1px solid #2196F3;
+    overflow: hidden;
+    line-height: 50px;
+    height: 50px;
+    text-align: center;
+    margin: 10px;
+    width: 200px;
+    cursor: pointer;
+    background: transparent;
+}
+.mat-raised-button:not([class*=mat-elevation-z]) {
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+.mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent {
+    background-color: #039be5;
+}
+.mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent {
+    color: white;
+}
+.mat-raised-button {
+    box-sizing: border-box;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    outline: 0;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    margin: 0;
+    min-width: 88px;
+    line-height: 36px;
+    padding: 0 16px;
+    border-radius: 2px;
+    overflow: visible;
+    transform: translate3d(0,0,0);
+    transition: background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);
+}
+.mat-flat-button, .mat-raised-button, .mat-fab, .mat-mini-fab {
+    color: rgba(0, 0, 0, 0.87);
+    background-color: white;
+}
+.mat-button, .mat-raised-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button, .mat-fab, .mat-mini-fab {
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+.submit-button[_ngcontent-c28]:hover::before {
+    opacity: 0;
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+.submit-button[_ngcontent-c28]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transition: all 0.5s;
+    opacity: 1;
+    -webkit-transform: translate(-105%, 0);
+    transform: translate(-105%, 0);
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: white;
+    background-color: #fff;
+}
+a:hover{
+    text-decoration: none !important;
+}
+button:focus {
+    outline: none !important;
+}
+.nav .nav-item .nav-link > .nav-link-title {
+    flex: 1;
+    white-space: normal !important;
+}
+.nav .nav-item .nav-link {
+    padding: 0 16px;
+}
+.record-picker {
+    padding-top: 15px;
+}
+.error-field{
+    color: red;
+    padding-left: 10px;
+    bottom: 23px;
+    position: relative;
+}
+.mat-calendar-table-header {
+    color: #fff;
+}
+.mat-calendar-table-header th {
+    text-align: center;
+    padding: 12px 0 8px 0 !important;
+}
+#academy-courses .header{
+    background:#039be5 !important;
+    color:#fff !important;
+}
+#academy-courses .content .courses .course .course-content .header .category{
+color:#fff !important}
+#academy-courses .content .courses .course .course-content .content .h1 {
+    font-size: 14px !important;
+    text-align: left !important;
+}
+#academy-courses .content .filters {
+    margin-left: 0px !important;
+   padding: 0px !important;
+    }
+#academy-courses .content .courses {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0px !important;
+    padding: 16px 16px 16px 0px !important;
+}
+#academy-courses .content .courses .course {
+    padding: 0px 16px 0px 0px !important;
+}
+.mat-header-cell {
+    color: #fff !important;
+    background: #039be5 !important;
+        font-size: 14px !important;
+    font-weight: 400 !important;
+}
+.add-btn{
+    background: #d3d3d3;
+    border-radius: 50%;
+    float: right;
+    margin: 42px 15px 15px 15px  !important;
+}
+.group-items.ng-star-inserted {
+    position: relative;
+    top: -50px;
+}
+.mat-calendar-body-selected {
+    background-color: #2196f3 !important;
+    color: rgba(255, 255, 255, 0.87);
+}
+.toast-card .card-body {
+    padding: .5rem 2.2rem .5rem .5rem;
+    font-size:15px !important;
+}

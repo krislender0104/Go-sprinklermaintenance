@@ -1,0 +1,73 @@
+<div class="dual-list">
+	<div style="width: 40%;height: 400px;float: left;overflow: scroll;" class="mat-elevation-z4 p-20 my-20 mx-0 pr-0"	>
+		<div class="listbox">
+			<h1 class="p-0 m-0">{{sourceName}}</h1>
+			<div class="record-picker">
+				<!-- <ul [ngStyle]="{'max-height': height, 'min-height': height}" [ngClass]="{over:available.dragOver}"
+					(drop)="drop($event, confirmed)" (dragover)="allowDrop($event, available)" (dragleave)="dragLeave()"> -->
+					<div *ngFor="let item of available.sift; let idx=index;" style="width: 100%;">
+							<mat-checkbox (click)="selectItem(available.pick, item); 
+							shiftClick($event, idx, available, item)">{{item._name}}</mat-checkbox><br>
+					</div>
+					
+					<!-- <li *ngFor="let item of available.sift; let idx=index;"
+						(click)="selectItem(available.pick, item); shiftClick($event, idx, available, item)"
+						[ngClass]="{selected: isItemSelected(available.pick, item)}"
+						draggable="true" (dragstart)="drag($event, item, available)" (dragend)="dragEnd(available)"
+					><label>{{item._name}}</label></li> -->
+				<!-- </ul> -->
+			</div>
+		</div>
+	</div>
+	<!-- <div class="buttonbox">
+		<button type="button" class="btn btn-primary btn-block" (click)="moveItem(available, confirmed)" 
+			[disabled]="available.pick.length === 0"><i class="fa fa-arrow-right">Add</i></button>
+		
+		<button type="button" class="btn btn-primary btn-block" (click)="moveAll()"
+				[disabled]="isAllSelected(available)"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-right">Add All</i></button>
+
+
+		<button type="button" class="btn btn-primary btn-block" (click)="moveItem(confirmed, available)"
+			[disabled]="confirmed.pick.length === 0"><i class="fa fa-arrow-left">Remove</i></button>
+
+			<button type="button" class="btn btn-primary btn-block" (click)="removeAll()"
+				[disabled]="isAllSelected(confirmed)"><i class="fa fa-arrow-left">Remove All</i><i class="fa fa-arrow-left"></i></button>
+
+	</div> -->
+	<div style="width: 10%;float: left;text-align: center;padding-top: 150px;" >
+		<!-- <button type="button" class="btn btn-primary btn-block" (click)="moveItem(available, confirmed)" 
+			[disabled]="available.pick.length === 0"><i class="fa fa-arrow-right">Add</i></button> -->
+		
+		<!-- <button type="button" class="btn btn-primary btn-block" (click)="moveAll()"
+				[disabled]="isAllSelected(available)"><i class="fa fa-arrow-right"></i><i class="fa fa-arrow-right">Add All</i></button> -->
+				<button mat-raised-button color="accent" (click)="moveItem(available, confirmed)" 
+				[disabled]="available.pick.length === 0" style="width: 100%;font-size: 14px;padding: 10px 0px;">Add</button>	<br><br>
+
+		<!-- <button type="button" class="btn btn-primary btn-block" (click)="moveItem(confirmed, available)"
+			[disabled]="confirmed.pick.length === 0"><i class="fa fa-arrow-left">Remove</i></button> -->
+
+			<!-- <button type="button" class="btn btn-primary btn-block" (click)="removeAll()"
+				[disabled]="isAllSelected(confirmed)"><i class="fa fa-arrow-left">Remove All</i><i class="fa fa-arrow-left"></i></button> -->
+				<button mat-raised-button color="accent"  (click)="moveItem(confirmed, available)"
+				[disabled]="confirmed.pick.length === 0"  style="width: 100%;font-size: 14px;padding: 10px 0px;">Remove</button>	<br><br>
+	</div>
+	<div style="width: 40%;height: 400px;float: left;overflow: scroll;margin:20px 20px 20px 0px" 
+											class="mat-elevation-z4 p-20 ">
+		<div class="listbox">
+			<h1 class="p-0 m-0">{{targetName}}</h1>
+			<div class="record-picker">
+				<!-- <ul [ngStyle]="{'max-height': height, 'min-height': height}" [ngClass]="{over:confirmed.dragOver}"
+					(drop)="drop($event, available)" (dragover)="allowDrop($event, confirmed)" (dragleave)="dragLeave()">
+					<li *ngFor="let item of confirmed.sift; let idx=index;"
+						(click)="selectItem(confirmed.pick, item); shiftClick($event, idx, confirmed, item)"
+						[ngClass]="{selected: isItemSelected(confirmed.pick, item)}"
+						draggable="true" (dragstart)="drag($event, item, confirmed)" (dragend)="dragEnd(confirmed)"
+					><label>{{item._name}}</label></li>
+				</ul> -->
+				<div *ngFor="let item of confirmed.sift; let idx=index;">
+						<mat-checkbox (click)="selectItem(confirmed.pick, item)">{{item._name}}</mat-checkbox><br>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

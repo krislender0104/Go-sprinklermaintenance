@@ -1,0 +1,82 @@
+<div id="login" fxLayout="column" fusePerfectScrollbar>
+
+    <div *ngIf="this.deviceInfo.browser!='IE'"  id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+
+        <div id="login-form" *fuseIfOnDom [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+
+            <div class="logo" style = "display: flex;">
+                <img src="assets/images/logos/water.png" style = "width: 38px; height: 38px; margin-top: 9px;">
+                <div class="title">Sprinkler</div>
+            </div>
+
+            <div class="title">LOGIN TO ADMIN ACCOUNT</div>
+
+            <form name="loginForm" [formGroup]="loginForm" novalidate>
+
+                <mat-form-field>
+                    <input matInput placeholder="Username" formControlName="email">
+                    <mat-error *ngIf="loginFormErrors.email.required">
+                        Username is required
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput type="password"  placeholder="Password" formControlName="password">
+                    <mat-error *ngIf="loginFormErrors.password.required">
+                        Password is required
+                    </mat-error>
+                </mat-form-field>
+
+                <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column"
+                     fxLayoutAlign="space-between center">
+                    <mat-checkbox class="remember-me" aria-label="Remember Me">
+                        Remember me 
+                    </mat-checkbox>
+
+                    <a class="forgot-password" [routerLink]="'/pages/auth/forgot-password'">
+                        Get My Password
+                    </a>
+                </div>
+                <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+                <button mat-raised-button color="accent" class="submit-button" aria-label="LOG IN"
+                  (click)="btnLogIn()"  [disabled]="isSubmitting">
+                    LOGIN
+                </button>
+
+            </form>
+
+            <!-- <div class="separator">
+                <span class="text">OR</span>
+            </div>
+
+            <button mat-raised-button class="google">
+                Log in with Google
+            </button>
+
+            <button mat-raised-button class="facebook">
+                Log in with Facebook
+            </button>
+
+            <div class="register" fxLayout="column" fxLayoutAlign="center center">
+                <span class="text">Don't have an account?</span>
+                <a class="link" [routerLink]="'/pages/auth/register'">Create an account</a>
+            </div> -->
+
+        </div>
+
+    </div>
+    <div fxLayoutAlign="center center" style="color: white" style="padding: 50px 0 15px 0 ;color: #fff;" *ngIf="this.deviceInfo.browser=='IE'">
+        <p>Unfortunately we detect you are using Internet Explorer.<br>
+            For security and performance reasons, this application does not support Internet Explorer.<br>
+            <br>
+            Windows 7 users, we recommend using Chrome or Firefox.<br>
+            Windows 10 users, we recommend Edge, Chrome or FireFox.<br>
+            Mac Users, we recommend Safari or Chrome.<br>
+            <br>
+            Any questions, please contact out support team.</p>
+    </div>
+    <div *ngIf="this.deviceInfo.browser!='IE'" fxLayoutAlign="center center" style="color: white" style="padding-bottom: 15px;color: #fff;">
+        Copyrights © 2019 · National Water Specialties Company. <a href="" [routerLink]="'/pages/auth/terms-policy'" style="color: #fff;">Terms of Use |&nbsp;Privacy Policy</a>
+    </div>
+
+</div>

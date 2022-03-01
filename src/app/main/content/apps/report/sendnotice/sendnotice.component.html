@@ -1,0 +1,176 @@
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+  <!-- HEADER -->
+  <div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center">
+      <div fxLayout="column" fxLayoutAlign="center start">
+          <div class="h1 mt-16">Send NOtice</div>
+      </div>
+  </div>
+<div class="vertical-stepper-wrapper" >
+	<div fxLayoutAlign="center center">
+		<h1 class="m-20">Campaign Name - 28/06/2018</h1>
+	</div>
+<div >
+            <!-- VERTICAL STEPPER EXAMPLE -->
+            <mat-vertical-stepper [linear]="true" >
+
+                <mat-step >
+
+                    <form >
+
+                        <ng-template matStepLabel><h1>To</h1></ng-template>
+                        <h3>Who are you sending this campaign to?</h3>
+                        <div>
+                             <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+			                    <mat-form-field fxFlex="40">
+			                        <mat-select placeholder="Select Group" formControlName="country" required>
+			                            <mat-option [value]="'United States of America'">
+			                                Select Group
+			                            </mat-option>
+			                            <mat-option [value]="'United Kingdom'">
+			                                Option 1
+			                            </mat-option>
+			                            <mat-option [value]="'Russia'">
+			                                Option 2
+			                            </mat-option>
+			                            <mat-option [value]="'China'">
+			                                Option 3
+			                            </mat-option>
+			                            <mat-option [value]="'Japan'">
+			                                Option 4
+			                            </mat-option>
+			                            <mat-option [value]="'Turkey'">
+			                                Option 5
+			                            </mat-option>
+			                        </mat-select>
+			                        
+			                    </mat-form-field>
+
+			                </div>
+
+                        </div>
+
+                        <div class="pt-24" fxLayout="row" fxLayoutAlign="start center">
+                            <button mat-raised-button matStepperNext type="button" color="accent">
+                                Next
+                            </button>
+                        </div>
+
+                    </form>
+
+                </mat-step>
+
+                <mat-step >
+
+                    <form >
+
+                        <ng-template matStepLabel><h1>From</h1></ng-template>
+                        <h3>Who is sending this campaign?</h3>
+                        <div>
+                        	 <mat-form-field class="mr-35" style="width: 300px;">
+                                <input matInput placeholder="Name" formControlName="firstName" required style="width: 300px;">
+                                <mat-error *ngIf="verticalStepperStep1Errors.firstName.required">
+                                    First Name is required!
+                                </mat-error>
+                            </mat-form-field>&nbsp;
+                            <mat-form-field style="width: 300px;">
+                                <input matInput placeholder="Email Address" formControlName="lastName" required style="width: 300px;">
+                                <mat-error *ngIf="formErrors.lastName.required">
+                                    Last Name is required!
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                       
+                        <div class="pt-24" fxLayout="row" fxLayoutAlign="start center">
+                            <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                                Previous
+                            </button>
+                            <button mat-raised-button matStepperNext type="button" color="accent">
+                                Next
+                            </button>
+                        </div>
+
+                    </form>
+
+                </mat-step>
+
+                <mat-step>
+
+                    <form>
+
+                        <ng-template matStepLabel><h1>Subject</h1></ng-template>
+                     	<h3>Who are you sending this campaign to?</h3>
+
+                        <div>
+
+                            <mat-form-field fxFlex="60" style="width: 630px;">
+                                <input matInput placeholder="Subject" formControlName="city" required style="width: 630px;">
+                                
+                            </mat-form-field>
+                           
+
+                        </div>
+
+                        <div class="pt-24" fxLayout="row" fxLayoutAlign="start center">
+                            <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                                Previous
+                            </button>
+                            <button mat-raised-button matStepperNext type="button" color="accent">
+                                Next
+                            </button>
+                        </div>
+
+                    </form>
+
+                </mat-step>
+
+                <mat-step>
+
+                    <ng-template matStepLabel><h1>Select Template</h1></ng-template>
+                    <h3>Design the content for your email.</h3>
+                    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+			                    <mat-form-field fxFlex="40">
+			                        <mat-select placeholder="Select Template" formControlName="country" required>
+			                            
+			                            <mat-option [value]="'United Kingdom'">
+			                                Design 1
+			                            </mat-option>
+			                            <mat-option [value]="'Russia'">
+			                                Design 2
+			                            </mat-option>
+			                            <mat-option [value]="'China'">
+			                                Design 3
+			                            </mat-option>
+			                            <mat-option [value]="'Japan'">
+			                                Design 4
+			                            </mat-option>
+			                            <mat-option [value]="'Turkey'">
+			                                Design 5
+			                            </mat-option>
+			                        </mat-select>
+			                        <mat-error *ngIf="formErrors.country.required">
+			                            Country is required!
+			                        </mat-error>
+			                    </mat-form-field>
+
+			                </div>
+                    
+
+                    <div class="pt-24" fxLayout="row" fxLayoutAlign="start center">
+                        <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                            Previous
+                        </button>
+                        <button mat-raised-button type="button" color="accent" (click)="finishVerticalStepper()">
+                            Send
+                        </button>
+                    </div>
+
+                </mat-step>
+
+            </mat-vertical-stepper>
+            <!-- / VERTICAL STEPPER EXAMPLE -->
+    </div>
+
+        </div>
+    </div>

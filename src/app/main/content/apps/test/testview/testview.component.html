@@ -1,0 +1,279 @@
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+
+	<!-- HEADER -->
+	<div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center">
+		<div fxLayout="column" fxLayoutAlign="center start">
+			<div class="h1 mt-16">Test Details</div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+
+	<form [formGroup]="testgrpview">
+		<div fxLayout="column">
+			<div class="mat-elevation-z4 p-20 m-20">
+				<div>
+					<!-- <div fxLayout="column" fxLayoutAlign="start start">
+										<h2>Notice</h2>
+										<div fxLayout="row">
+											<h4 style="margin-right: 35px;">1st Notice : {{tests[0].notice1|date}}</h4>
+											<h4 style="margin-right: 35px;">2nd Notice : {{tests[0].notice2|date}}</h4>
+											<h4>3rd Notice : {{tests[0].notice3|date}}</h4>
+										</div>
+										<mat-form-field style="padding-top: 20px;">
+											<input matInput [matDatepicker]="picker" placeholder="Test due" [(ngModel)]="tests[0].testdue" formControlName="TestDueDate">
+											<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+											<mat-datepicker #picker></mat-datepicker>
+										</mat-form-field>
+									</div> -->
+					<div fxLayout="column" fxLayoutAlign="end end">
+						<mat-form-field class="example-full-width my-20" style="width: 400px;">
+							<input type="text" placeholder="Search Site" aria-label="Number" (keypress)="searchClient($event.target.value)" [(ngModel)]="test" matInput
+							 [formControl]="searchTerm" [matAutocomplete]="auto">
+							<mat-autocomplete (optionSelected)="onSelectionChanged($event)" #auto="matAutocomplete">
+								<mat-option *ngFor="let item of searchResult" [value]="item.ClientId">
+									{{ item.ClientId }}-{{ item.ClientName }}
+								</mat-option>
+							</mat-autocomplete>
+						</mat-form-field>
+					</div>
+					<div fxLayout="row">
+						<h1 style="margin-right: 35px;"><a href="javascript:void(0);" [routerLink]="['/apps/site/',tests[0].siteId]">Site ID : {{tests[0].siteId}}</a></h1>
+						<h1><a href="javascript:void(0);" [routerLink]="['/apps/hazard/hazardview/',tests[0].hazardId,tests[0].siteId]">Hazard ID : {{tests[0].hazardId}}</a></h1>
+					</div>
+					
+				</div>
+				<mat-tab-group>
+					<mat-tab label="Initial Test">
+						<div fxLayout="row" class="my-20">
+							<div fxLayout="column" style="width: 100%;margin-right: 20px;">
+								<mat-form-field>
+									<input matInput [matDatepicker]="picker17" [(ngModel)]="tests[0].itestdate" placeholder="Test Date" formControlName="itestdate">
+									<mat-datepicker-toggle matSuffix [for]="picker17"></mat-datepicker-toggle>
+									<mat-datepicker #picker17></mat-datepicker>
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Tester ID" [(ngModel)]="tests[0].itesterid" formControlName="itesterid">
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Tester Name" [(ngModel)]="tests[0].itestername" formControlName="itestername">
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Company" [(ngModel)]="tests[0].icompany" formControlName="icompany">
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Test Type" [(ngModel)]="tests[0].itesttype" formControlName="itesttype">
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Test Kit ID" [(ngModel)]="tests[0].itestkit" formControlName="itestkit">
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Flag" [(ngModel)]="tests[0].UDT4" formControlName="UDT4">
+								</mat-form-field>
+								<!-- <mat-form-field class="example-full-width">
+									<input matInput placeholder="UDT5" [(ngModel)]="tests[0].itestudt5" formControlName="itestudt5">
+								</mat-form-field> -->
+							</div>
+							<div fxLayout="column" style="width: 100%;">
+								<div fxLayout="row" style="padding-top: 35px;">
+									<p style="padding-right: 20px;">Test Status : </p>
+									<mat-radio-group formControlName="ipass" [(ngModel)]="tests[0].ipass" fxLayout="row" style="width: 50%;">
+										<mat-radio-button value="Pass" style="padding-right: 20px;width: 50%;">Pass</mat-radio-button>
+										<mat-radio-button value="Fail" style="width: 50%;">Fail</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Line PSI" [(ngModel)]="tests[0].ilinepsi" formControlName="ilinepsi">
+								</mat-form-field>
+								<div fxLayout="row">
+									<mat-form-field class="example-full-width" style="padding-right: 30px;width: 50%">
+										<input matInput placeholder="Value 1" [(ngModel)]="tests[0].ivalue1" formControlName="ivalue1">
+										<mat-error *ngIf="testgrpview.get('ivalue1').hasError('pattern') && (testgrpview.get('ivalue1').dirty || testgrpview.get('ivalue1').touched)">
+											Enter a Numberic Value (max of 4 digits).
+										</mat-error>
+									</mat-form-field>
+									<mat-radio-group fxLayout="row" style="width: 50%;" formControlName="ivalue1_close" [(ngModel)]="tests[0].ivalue1_close">
+										<mat-radio-button value="Pass" style="padding-right: 30px;width: 50%;padding-top: 25px;">Close</mat-radio-button>
+										<mat-radio-button value="Fail" style="width: 50%;padding-top: 25px;">Leak</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div fxLayout="row">
+									<mat-form-field class="example-full-width" style="padding-right: 30px;width: 50%">
+										<input matInput placeholder="Value 2" [(ngModel)]="tests[0].ivalue2" formControlName="ivalue2">
+										<mat-error *ngIf="testgrpview.get('ivalue2').hasError('pattern') && (testgrpview.get('ivalue2').dirty || testgrpview.get('ivalue2').touched)">
+											Enter a Numberic Value (max of 4 digits).
+										</mat-error>
+									</mat-form-field>
+									<mat-radio-group fxLayout="row" style="width: 50%" formControlName="ivalue2_close" [(ngModel)]="tests[0].ivalue2_close">
+										<mat-radio-button value="Pass" style="padding-right: 30px;width: 50%;padding-top: 25px;">Close</mat-radio-button>
+										<mat-radio-button value="Fail" style="width: 50%;padding-top: 25px;">Leak</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div fxLayout="row">
+									<mat-form-field class="example-full-width" style="padding-right: 30px;width: 50%">
+										<input matInput placeholder="Relief" [(ngModel)]="tests[0].ivaluerelief" formControlName="ivaluerelief">
+										<mat-error *ngIf="testgrpview.get('ivaluerelief').hasError('pattern') && (testgrpview.get('ivaluerelief').dirty || testgrpview.get('ivaluerelief').touched)">
+											Enter a Numberic Value (max of 4 digits).
+										</mat-error>
+									</mat-form-field>
+									<mat-radio-group fxLayout="row" style="width: 50%" formControlName="ivaluerelief_close" [(ngModel)]="tests[0].ivaluerelief_close">
+										<mat-radio-button value="Pass" style="padding-right: 30px;width: 50%;padding-top: 25px;">Open</mat-radio-button>
+										<mat-radio-button value="Fail" style="width: 50%;padding-top: 25px;">Not</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Buffer" [(ngModel)]="tests[0].ibuffer" formControlName="ibuffer">
+									<mat-error *ngIf="testgrpview.get('ibuffer').hasError('pattern') && (testgrpview.get('ibuffer').dirty || testgrpview.get('ibuffer').touched)">
+										Enter a Numberic Value (max of 4 digits).
+									</mat-error>
+								</mat-form-field>
+								<!-- <mat-form-field class="example-full-width">
+									<input matInput placeholder="Svc Pnt ID">
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Dev ID">
+								</mat-form-field> -->
+							</div>
+						</div>
+						<div class="form-hazard-creation1">
+							<mat-form-field class="example-full-width">
+								<textarea matInput placeholder="Notes" [(ngModel)]="tests[0].inotes" formControlName="inotes"></textarea>
+							</mat-form-field>
+						</div>
+						<div  fxLayout="row" fxLayoutAlign="center center">
+							<button mat-raised-button color="accent" class="submit-button" [disabled]="testgrpview.invalid || !isEditSiteInfo" (click)="UpdateTest()">Update</button>
+							<button mat-raised-button color="accent" class="delete-button" [disabled]="!isEditSiteInfo" (click)="DeleteTest()">Delete</button>
+						</div>
+					</mat-tab>
+					<mat-tab label="Final Test">
+						<div fxLayout="row" class="my-20">
+							<div fxLayout="column" style="width: 100%;margin-right: 20px;">
+								<mat-form-field>
+									<input matInput [matDatepicker]="picker18" placeholder="Test Date" [(ngModel)]="tests[0].ftestdate" formControlName="ftestdate">
+									<mat-datepicker-toggle matSuffix [for]="picker18"></mat-datepicker-toggle>
+									<mat-datepicker #picker18></mat-datepicker>
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Tester ID" [(ngModel)]="tests[0].ftesterid" formControlName="ftesterid">
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Tester Name" [(ngModel)]="tests[0].ftestername" formControlName="ftestername">
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Company" [(ngModel)]="tests[0].fcompany" formControlName="fcompany">
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Test Type" [(ngModel)]="tests[0].ftesttype" formControlName="ftesttype">
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Test Kit ID" [(ngModel)]="tests[0].ftestkit" formControlName="ftestkit">
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Fail Type" [(ngModel)]="tests[0].failtype" formControlName="failtype">
+								</mat-form-field>
+								<mat-form-field>
+									<input matInput [matDatepicker]="picker181" placeholder="Repaired" [(ngModel)]="tests[0].repairdate" formControlName="repairdate">
+									<mat-datepicker-toggle matSuffix [for]="picker181"></mat-datepicker-toggle>
+									<mat-datepicker #picker181></mat-datepicker>
+								</mat-form-field>
+							</div>
+							<div fxLayout="column" style="width: 100%;">
+
+								<div fxLayout="row" style="padding-top: 35px;">
+									<p style="padding-right: 20px;">Test Status : </p>
+									<mat-radio-group fxLayout="row" style="width: 50%;" formControlName="fpass" [(ngModel)]="tests[0].fpass">
+										<mat-radio-button value="Pass" style="padding-right: 20px;width: 50%;">Pass</mat-radio-button>
+										<mat-radio-button value="Fail" style="width: 50%;">Fail</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Repair By" [(ngModel)]="tests[0].frepairby" formControlName="frepairby">
+								</mat-form-field>
+								<div fxLayout="row">
+									<mat-form-field class="example-full-width" style="padding-right: 30px;width:50%;">
+										<input matInput placeholder="Value 1" [(ngModel)]="tests[0].fvalue1" formControlName="fvalue1">
+										<mat-error *ngIf="testgrpview.get('fvalue1').hasError('pattern') && (testgrpview.get('fvalue1').dirty || testgrpview.get('fvalue1').touched)">
+											Enter a Numberic Value (max of 4 digits).
+										</mat-error>
+									</mat-form-field>
+									<mat-radio-group fxLayout="row" style="width: 50%;" formControlName="fvalue1_close" [(ngModel)]="tests[0].fvalue1_close">
+										<mat-radio-button value="Pass" style="padding-right: 30px;width: 50%;padding-top: 25px;">Close</mat-radio-button>
+										<mat-radio-button value="Fail" style="width: 50%;padding-top: 25px;">Leak</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div fxLayout="row">
+									<mat-form-field class="example-full-width" style="padding-right: 30px;width:50%;">
+										<input matInput placeholder="Value 2" [(ngModel)]="tests[0].fvalue2" formControlName="fvalue2">
+										<mat-error *ngIf="testgrpview.get('fvalue2').hasError('pattern') && (testgrpview.get('fvalue2').dirty || testgrpview.get('fvalue2').touched)">
+											Enter a Numberic Value (max of 4 digits).
+										</mat-error>
+									</mat-form-field>
+									<mat-radio-group fxLayout="row" style="width: 50%;" formControlName="fvalue2_close" [(ngModel)]="tests[0].fvalue2_close">
+										<mat-radio-button value="Pass" style="padding-right: 30px;width: 50%;padding-top: 25px;">Close</mat-radio-button>
+										<mat-radio-button value="Fail" style="width: 50%;padding-top: 25px;">Leak</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<div fxLayout="row">
+									<mat-form-field class="example-full-width" style="padding-right: 30px;width:50%;">
+										<input matInput placeholder="Relief" [(ngModel)]="tests[0].fvaluerelief" formControlName="fvaluerelief">
+										<mat-error *ngIf="testgrpview.get('fvaluerelief').hasError('pattern') && (testgrpview.get('fvaluerelief').dirty || testgrpview.get('fvaluerelief').touched)">
+											Enter a Numberic Value (max of 4 digits).
+										</mat-error>
+									</mat-form-field>
+									<mat-radio-group fxLayout="row" style="width: 50%;" formControlName="fvaluerelief_close" [(ngModel)]="tests[0].fvaluerelief_close">
+										<mat-radio-button value="Pass" style="padding-right: 30px;width: 50%;padding-top: 25px;">Open</mat-radio-button>
+										<mat-radio-button value="Fail" style="width: 50%;padding-top: 25px;">Not</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Buffer" [(ngModel)]="tests[0].fbuffer" formControlName="fbuffer">
+									<mat-error *ngIf="testgrpview.get('fbuffer').hasError('pattern') && (testgrpview.get('fbuffer').dirty || testgrpview.get('fbuffer').touched)">
+										Enter a Numberic Value (max of 4 digits).
+									</mat-error>
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Tran. ID" [(ngModel)]="tests[0].tranid" formControlName="tranid">
+								</mat-form-field>
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Udt9" [(ngModel)]="tests[0].udt9" formControlName="udt9">
+								</mat-form-field>
+							</div>
+						</div>
+						<mat-form-field class="example-full-width">
+							<textarea matInput placeholder="Repairs" [(ngModel)]="tests[0].frepairtype" formControlName="frepairtype"></textarea>
+						</mat-form-field>
+						<!-- <div class="form-hazard-creation1">
+						
+						<mat-form-field class="example-full-width">
+						    <textarea matInput placeholder="Notes" [(ngModel)]="tests[0].fnotes" formControlName="fnotes"></textarea>
+						</mat-form-field>
+					</div> -->
+						<div  fxLayout="row" fxLayoutAlign="center center">
+							<button mat-raised-button color="accent" class="submit-button" [disabled]="testgrpview.invalid || !isEditSiteInfo" (click)="UpdateTest()">Update</button>
+							<button mat-raised-button color="accent" class="delete-button" [disabled]="!isEditSiteInfo" (click)="DeleteTest()">Delete</button>
+						</div>
+					</mat-tab>
+					<mat-tab label="Test Report">
+						<div fxLayout="column" class="my-60">
+							<h2>Notice</h2>
+							<div fxLayout="row">
+								<h4 style="margin-right: 35px;">1st Notice : {{tests[0].notice1|date}}</h4>
+								<h4 style="margin-right: 35px;">2nd Notice : {{tests[0].notice2|date}}</h4>
+								<h4>3rd Notice : {{tests[0].notice3|date}}</h4>
+							</div>
+							<mat-form-field style="padding-top: 20px;">
+								<input matInput [matDatepicker]="picker" placeholder="Test due" [(ngModel)]="tests[0].testdue" formControlName="testdue">
+								<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+								<mat-datepicker #picker></mat-datepicker>
+							</mat-form-field>
+						</div>
+
+						<div fxLayout="row" fxLayoutAlign="center center">
+							<button mat-raised-button class="submit-button" (click)="UpdateTest()" [disabled]="!isEditSiteInfo">Update</button>
+							<button mat-raised-button class="delete-button" [disabled]="!isEditSiteInfo" (click)="DeleteTest()">Delete</button>
+						</div>
+					</mat-tab>
+				</mat-tab-group>
+			</div>
+		</div>
+	</form>
+</div>

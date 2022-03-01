@@ -1,0 +1,93 @@
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+	<!-- HEADER -->
+		<div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center">
+			<div fxLayout="column" fxLayoutAlign="center start">
+				<div class="h1 mt-16">Test Kit Create</div>
+			</div>
+		</div>
+		<!-- / HEADER -->
+		<form class="mat-elevation-z4 p-20 m-20" [formGroup]="createtestkitform">
+	
+			<div fxLayout="row" style="width: 100%" >
+				<div fxLayout="column" style="width: 100%;margin-right: 20px;" >
+					<!-- <div fxLayout="row">
+						<mat-form-field class="example-full-width">
+							<input matInput placeholder="Status" formControlName="status">
+						  </mat-form-field>
+					</div> -->
+					  <mat-form-field class="example-full-width">
+						<input matInput placeholder="Serial #" formControlName="serialNum">
+					  </mat-form-field>
+					  <mat-form-field class="example-full-width">
+							<input matInput placeholder="Manufacturer" formControlName="testKitMfg">
+					  </mat-form-field>
+					  <mat-form-field class="example-full-width">
+						<textarea matInput placeholder="Model" formControlName="testKitMod"></textarea>
+					  </mat-form-field>
+					  <!-- <mat-form-field>
+						<input matInput [matDatepicker]="picker11" placeholder="Purchase Date" formControlName="issueDate" >
+						<mat-datepicker-toggle matSuffix [for]="picker11"></mat-datepicker-toggle>
+						<mat-datepicker #picker11></mat-datepicker>
+					</mat-form-field> -->
+					  <mat-form-field class="example-full-width">
+						<input matInput placeholder="Notes" formControlName="comments">
+					  </mat-form-field> 			  		
+				</div>
+				<div fxLayout="column" style="width: 100%;" >
+					
+					<div fxLayout="row">
+						<mat-form-field style="margin-right: 10px;width: 50%;">
+							<input matInput [matDatepicker]="picker12" placeholder="Expire" formControlName="renewDate" >
+							<mat-datepicker-toggle matSuffix [for]="picker12"></mat-datepicker-toggle>
+							<mat-datepicker #picker12></mat-datepicker>
+						</mat-form-field>
+						<mat-form-field style="width: 50%;">
+							<input matInput [matDatepicker]="picker13" placeholder="Last Calibrations" formControlName="calDate" >
+							<mat-datepicker-toggle matSuffix [for]="picker13"></mat-datepicker-toggle>
+							<mat-datepicker #picker13></mat-datepicker>
+						</mat-form-field>
+					</div>
+					<h3>Calibration By:</h3>
+					<mat-form-field class="example-full-width">
+						<input matInput placeholder="Company" formControlName="calCompany">
+					  </mat-form-field>
+					  <mat-form-field class="example-full-width">
+						<input matInput placeholder="Address" formControlName="calAddress">
+					  </mat-form-field>
+					  <div fxLayout="row">
+						  <mat-form-field class="example-full-width" style="margin-right: 10px;">
+								<input matInput placeholder="City" formControlName="calCity" >
+						  </mat-form-field>
+						  <mat-form-field class="example-full-width" style="margin-right: 10px;">
+							<input matInput placeholder="State" formControlName="calState">
+						  </mat-form-field>
+						  <mat-form-field class="example-full-width">
+							<input matInput placeholder="Zip" formControlName="calZip" maxlength="25">
+							<mat-error *ngIf="createtestkitform.get('calZip').hasError('pattern') && (createtestkitform.get('calZip').dirty || createtestkitform.get('calZip').touched)">
+								Please enter a valid Zip Code.
+							</mat-error>
+						  </mat-form-field>
+					</div>
+					<div fxLayout="row">
+						  <mat-form-field class="example-full-width" style="margin-right: 10px;">
+							<input matInput placeholder="Phone" formControlName="calPhone" maxlength="10" >
+							<mat-error *ngIf="createtestkitform.get('calPhone').hasError('pattern')||createtestkitform.get('calPhone').hasError('minlength') && (createtestkitform.get('calPhone').dirty || createtestkitform.get('calPhone').touched)">
+								Please enter a valid Phone Number.
+							</mat-error>
+						  </mat-form-field> 
+						  <mat-form-field class="example-full-width">
+							<input type="email" matInput placeholder="Email" formControlName="calEmail">
+							<mat-error *ngIf="createtestkitform.get('calEmail').hasError('pattern') && (createtestkitform.get('calEmail').dirty || createtestkitform.get('calEmail').touched)">
+									Please enter a valid email ID.
+								</mat-error>
+						  </mat-form-field>
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-hazard-creation-btn" fxLayoutAlign="center center">
+				<button  mat-raised-button color="accent" class="submit-button" [disabled]="createtestkitform.invalid" (click)="CreateTestKit()" >Create</button>
+			</div>
+	
+	</form>	
+	</div>

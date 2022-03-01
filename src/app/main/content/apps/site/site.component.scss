@@ -1,0 +1,90 @@
+:host {
+
+    .content {
+
+        form {
+            width: 100%;
+            max-width: 400px !important;
+        }
+
+        .form-errors-model {
+            flex: 1;
+
+            code {
+                background: none !important;
+            }
+        }
+
+        .horizontal-stepper-wrapper,
+        .vertical-stepper-wrapper {
+            max-width: 800px;
+        }
+    }
+    .add-hazard-btn{
+        background: #d3d3d3;
+        border-radius: 50%;
+    }
+    .test-list-area{
+        float:left !important;
+    }
+    .element.style {
+        place-content: stretch flex-start;
+        align-items: stretch;
+        flex-direction: row;
+        box-sizing: border-box;
+    }
+    .pjt-tree{
+        background: #f5f7fa;
+        width:280px;
+        box-shadow:2px 10px 30px 0 rgba(0, 0, 0, .42), 0 4px 25px 0 rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2);
+        overflow: scroll;
+    }
+}
+.submit-button {
+        
+display: block;
+color: #2c3e50;
+-webkit-transition: all 0.5s;
+-moz-transition: all 0.5s;
+-o-transition: all 0.5s;
+transition: all 0.5s;
+position: relative;
+border: 1px solid #919191;
+overflow: hidden;
+line-height: 50px;
+height: 50px;
+text-align: center;
+margin:5px;
+width: 200px;
+cursor: pointer;
+background:transparent;
+border-radius: 4px;
+        
+
+        
+}
+    
+
+.delete-button {
+        
+display: block;
+color: #2c3e50;
+-webkit-transition: all 0.5s;
+-moz-transition: all 0.5s;
+-o-transition: all 0.5s;
+transition: all 0.5s;
+position: relative;
+border: 1px solid #919191;
+overflow: hidden;
+line-height: 50px;
+height: 50px;
+text-align: center;
+margin:5px;
+width: 200px;
+cursor: pointer;
+background:transparent;
+border-radius: 4px;
+        
+
+        
+}

@@ -1,0 +1,360 @@
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+<!-- HEADER -->
+    <div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center">
+        <div fxLayout="column" fxLayoutAlign="center start">
+            <div class="h1 mt-16">Technician Details Update</div>
+        </div>
+	</div>
+	<!-- {{technician.TechnicianID}} -->
+	<!-- / HEADER -->
+<form [formGroup]="myGroup">
+	<!-- <div *ngIf="technician == undefined"><h1>No Data Found!!</h1></div> -->
+	<div class="mat-elevation-z4 p-20 m-20" *ngIf="technician!== undefined">
+			<div fxLayout="column">
+				<div fxLayout="row">
+					<mat-form-field class="example-full-width">
+				    	<input matInput placeholder="Status" [(ngModel)]="technician.Status" formControlName="Status">
+					  </mat-form-field>
+					  <!-- ShowOnList-{{technician.ShowOnList}} -->
+				  	<!-- <mat-checkbox style="padding-top: 24px;margin-left: 5px;"   [(ngModel)] = "technician.ShowOnList" formControlName="ShowOnList">Show on list</mat-checkbox> -->
+				</div>
+				<div fxLayout="row">
+				  	<mat-form-field class="example-full-width" style="margin-right: 10px;">
+				    	<input matInput placeholder="First Name" [(ngModel)]="technician.FirstName" formControlName="FirstName">
+				  	</mat-form-field>
+			  	
+				  	<mat-form-field class="example-full-width">
+				  	  	<input matInput placeholder="Last Name" [(ngModel)]="technician.LastName" formControlName="LastName">
+				  	</mat-form-field>
+				</div>
+			  	<div fxLayout="row">
+				  	<mat-form-field class="example-full-width" style="margin-right: 10px;">
+				    	<input matInput placeholder="Address1" [(ngModel)]="technician.Address1" formControlName="Address1">
+				  	</mat-form-field>
+				  	<mat-form-field class="example-full-width">
+				    	<input matInput placeholder="Address2" [(ngModel)]="technician.Address2" formControlName="Address2">
+				  	</mat-form-field>
+				</div>
+			  	<div fxLayout="row">
+				  	<mat-form-field class="example-full-width" style="margin-right: 10px;">
+				  	  	<input matInput placeholder="City" [(ngModel)]="technician.City" formControlName="City">
+				  	</mat-form-field>
+				  	<mat-form-field class="example-full-width" style="margin-right: 10px;">
+				    	<input matInput placeholder="State" [(ngModel)]="technician.State" formControlName="State">
+				  	</mat-form-field>
+				  	<mat-form-field class="example-full-width">
+						<input matInput placeholder="Zip" [(ngModel)]="technician.Zip" formControlName="Zip" >
+				  	</mat-form-field>
+				</div>
+				<div fxLayout="row">
+				  	<mat-form-field class="example-full-width" style="margin-right: 10px;">
+							<input matInput placeholder="Phone"  formControlName="Phone" maxlength="14" [(ngModel)]="technician.Phone" (keypress) = "phoneNumberVerification_Phone($event.target.value)" >
+				  	</mat-form-field>
+				  	<mat-form-field class="example-full-width" style="margin-right: 10px;">
+						<input matInput placeholder="Ext" [(ngModel)]="technician.Ext" formControlName="Ext" maxlength="30"  >
+					</mat-form-field>
+				  	<mat-form-field class="example-full-width">
+						<input matInput placeholder="Email" [(ngModel)]="technician.Email" formControlName="Email">
+						<mat-error *ngIf="myGroup.get('Email').hasError('pattern') && (myGroup.get('Email').dirty || myGroup.get('Email').touched)">
+							Please enter a valid email ID.
+						</mat-error>
+				  	</mat-form-field>
+				</div>
+				<div fxLayout="row">
+				  	<mat-form-field class="example-full-width" style="margin-right: 10px;">
+						<input matInput placeholder="Cell" [(ngModel)]="technician.Cell" formControlName="Cell">
+				  	</mat-form-field>
+				  	<mat-form-field class="example-full-width" style = " display: none;">
+				    	<input matInput placeholder="UDF1" [(ngModel)]="technician.UDF1" formControlName="UDF1">
+				  	</mat-form-field>
+				</div>
+				<div fxLayout="row">
+				  	<mat-form-field class="example-full-width" style="margin-right: 10px; display: none;">
+				    	<input matInput placeholder="Fee" [(ngModel)]="technician.Fee" formControlName="Fee">
+				  	</mat-form-field>
+				  	<mat-form-field  style="width: 50%;  display: none; ">
+							<input matInput [matDatepicker]="picker17" placeholder="Fee Paid" [(ngModel)]="technician.FeePaid" formControlName="FeePaid">
+							<mat-datepicker-toggle matSuffix [for]="picker17"></mat-datepicker-toggle>
+							<mat-datepicker #picker17></mat-datepicker>
+					</mat-form-field>
+				</div>
+			  	<mat-form-field class="example-full-width">
+			    	<input matInput placeholder="Notes" [(ngModel)]="technician.Comments" formControlName="Comments">
+			  	</mat-form-field> 			  		
+			</div>
+			<div style = "display: none;">
+				<div fxLayout="column" style="margin: 50px 0px; ">
+					<h1>Insurance</h1>
+					<div fxLayout="row">
+						<mat-form-field class="example-full-width" style="margin-right: 20px;">
+							<input matInput placeholder="Agency" [(ngModel)]="technician.INSURANCE" formControlName="INSURANCE">
+						  </mat-form-field>
+						  <mat-form-field class="example-full-width">
+							<input matInput placeholder="Phone" [(ngModel)]="technician.INSURPHO" formControlName="INSURPHO" (keypress) = "phoneNumberVerification_INSURPHO($event.target.value)" maxlength="14">
+						  </mat-form-field>
+					  </div>
+					  <div fxLayout="row">
+						  <mat-form-field class="example-full-width" style="margin-right: 20px;">
+							<input matInput placeholder="Carrier" [(ngModel)]="technician.INSURAGT" formControlName="INSURAGT">
+						  </mat-form-field>
+						  <mat-form-field class="example-full-width">
+							<input matInput placeholder="Policy #" [(ngModel)]="technician.POLICY" formControlName="POLICY">
+						  </mat-form-field>
+					</div>
+					<div fxLayout="row">
+						  <mat-form-field style="margin-right: 20px;width: 50%">
+							<input matInput [matDatepicker]="picker12" placeholder="Expire" [(ngModel)]="technician.INSUREXP" formControlName="INSUREXP" >
+							<mat-datepicker-toggle matSuffix [for]="picker12"></mat-datepicker-toggle>
+							<mat-datepicker #picker12></mat-datepicker>
+						</mat-form-field>
+						  <mat-form-field class="example-full-width"  style="width: 50%">
+							<input matInput placeholder="Liability Amount" [(ngModel)]="technician.LIABILITY" formControlName="LIABILITY">
+							<mat-error *ngIf="myGroup.get('LIABILITY').hasError('pattern') && (myGroup.get('LIABILITY').dirty || myGroup.get('LIABILITY').touched)">
+								Please enter a valid LIABILITY Value.
+							</mat-error>
+						  </mat-form-field>
+					</div>
+					
+				</div>
+				<h1>Licenses</h1>
+				<div fxLayout="column" >
+					<div fxLayout="row">
+						<div style="width: 330px;padding-top: 23px;">
+							<mat-checkbox style="padding-top: 24px;margin-right: 20px;width: 150px;" [(ngModel)]="technician.CityCheck" formControlName="CityCheck">City&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</mat-checkbox>
+						</div>
+						<mat-form-field class="example-full-width" style="margin-right: 20px;">
+							<input matInput placeholder="License #" [(ngModel)]="technician.CITYLICNUM" formControlName="CITYLICNUM">
+						  </mat-form-field>
+						  <mat-form-field >
+							<input matInput [matDatepicker]="picker20" placeholder="Expire" [(ngModel)]="technician.LICEXPDATE"  formControlName="LICEXPDATE" >
+							<mat-datepicker-toggle matSuffix [for]="picker20"></mat-datepicker-toggle>
+							<mat-datepicker #picker20></mat-datepicker>
+						</mat-form-field>				  	
+					</div>
+					<div fxLayout="row">
+						<div style="width: 330px;padding-top: 23px;">
+						<mat-checkbox style="padding-top: 24px;margin-right: 20px;width: 150px;" [(ngModel)]="technician.CountyCheck" formControlName="CountyCheck">Country</mat-checkbox>
+					</div>
+						<mat-form-field class="example-full-width" style="margin-right: 20px;">
+							<input matInput placeholder="License #" [(ngModel)]="technician.COLICENSE" formControlName="COLICENSE">
+						  </mat-form-field>	
+						  <mat-form-field>
+							<input matInput [matDatepicker]="picker21" placeholder="Expire" [(ngModel)]="technician.CNTRYLICex" formControlName="CNTRYLICex" >
+							<mat-datepicker-toggle matSuffix [for]="picker21"></mat-datepicker-toggle>
+							<mat-datepicker #picker21></mat-datepicker>
+						</mat-form-field>			  	
+					</div>	
+					<div fxLayout="row">
+						<!-- Fix -->
+						<div style="width: 330px;padding-top: 23px;">
+						<mat-checkbox style="padding-top: 24px;margin-right: 20px;width: 150px;" [(ngModel)]="technician.PlumberCheck" formControlName="PlumberCheck">Plumber</mat-checkbox>
+					</div>
+						<mat-form-field class="example-full-width" style="margin-right: 20px;">
+							<input matInput placeholder="License #" [(ngModel)]="technician.PLUMNUM" formControlName="PLUMNUM">
+						  </mat-form-field>	
+						  <mat-form-field>
+							<input matInput [matDatepicker]="picker31" placeholder="Expire" [(ngModel)]="technician.PLUMEXPIR" formControlName="PLUMEXPIR">
+							<mat-datepicker-toggle matSuffix [for]="picker31"></mat-datepicker-toggle>
+							<mat-datepicker #picker31></mat-datepicker>
+						</mat-form-field>			  	
+					</div>	
+					<div fxLayout="row">
+						<div style="width: 330px;padding-top: 23px;">
+						<mat-checkbox style="padding-top: 24px;margin-right: 20px;width: 150px;" [(ngModel)]="technician.LandScapeCheck" formControlName="LandScapeCheck">Landscape</mat-checkbox>
+					</div>
+						<mat-form-field class="example-full-width" style="margin-right: 20px;">
+							<input matInput placeholder="License #" [(ngModel)]="technician.LANDNUM" formControlName="LANDNUM">
+						  </mat-form-field>
+						  <mat-form-field>
+							<input matInput [matDatepicker]="lia" placeholder="Expire" [(ngModel)]="technician.LANDEXPIR"  formControlName="LANDEXPIR" >
+							<mat-datepicker-toggle matSuffix [for]="lia"></mat-datepicker-toggle>
+							<mat-datepicker #lia></mat-datepicker>
+						</mat-form-field>
+					</div>	
+					<div fxLayout="row">
+						<div style="width: 330px;padding-top: 23px;">
+						<mat-checkbox style="padding-top: 24px;margin-right: 20px;width: 150px;" [(ngModel)]="technician.FireCheck" formControlName="FireCheck">Fire</mat-checkbox>
+					</div>
+						<mat-form-field class="example-full-width" style="margin-right: 20px;">
+							<input matInput placeholder="License #" [(ngModel)]="technician.FIRENUM" formControlName="FIRENUM">
+						  </mat-form-field>
+						  <mat-form-field>
+							<input matInput [matDatepicker]="lia1" placeholder="Expire" [(ngModel)]="technician.FIREEXPIR" formControlName="FIREEXPIR" >
+							<mat-datepicker-toggle matSuffix [for]="lia1"></mat-datepicker-toggle>
+							<mat-datepicker #lia1></mat-datepicker>
+						</mat-form-field>
+					</div>	
+					<div fxLayout="row">
+						<div style="width: 330px;padding-top: 23px;">
+						<mat-checkbox style="padding-top: 24px;margin-right: 20px;width: 150px;" [(ngModel)]="technician.ConfinedCheck" formControlName="ConfinedCheck">Confined Space</mat-checkbox>
+					</div>
+						<mat-form-field class="example-full-width" style="margin-right: 20px;">
+							<input matInput placeholder="License #" [(ngModel)]="technician.ConfinedLicNum" formControlName="ConfinedLicNum">
+						  </mat-form-field>
+						  <mat-form-field>
+							<input matInput [matDatepicker]="lia2" placeholder="Expire" [(ngModel)]="technician.ConfinedLicExp"  formControlName="ConfinedLicExp" >
+							<mat-datepicker-toggle matSuffix [for]="lia2"></mat-datepicker-toggle>
+							<mat-datepicker #lia2></mat-datepicker>
+						</mat-form-field>
+					</div>					  		
+				</div>
+				<div fxLayout="column" style="margin: 50px 0px;">
+					<h1>Last letter</h1>
+					<div fxLayout="row" >
+						<mat-form-field class="example-full-width"  style="margin-top: 10px;margin-right:20px;">
+							<input matInput placeholder="Letter Name" [(ngModel)]="technician.LastLetterName" formControlName="LastLetterName">
+						  </mat-form-field>
+						  <mat-form-field  class="example-full-width"  style="margin-top: 10px;">
+							<input matInput [matDatepicker]="lia7" placeholder="Letter Date" [(ngModel)]="technician.LastLetter"  formControlName="LastLetter" >
+							<mat-datepicker-toggle matSuffix [for]="lia7"></mat-datepicker-toggle>
+							<mat-datepicker #lia7></mat-datepicker>
+						</mat-form-field>
+					</div>
+					  
+				</div>
+
+			</div>
+		
+			
+				<div fxLayout="column" style="margin: 50px 0px;">
+					<h1>Tester's Web Login</h1>
+					<div fxLayout="row" >
+						<mat-form-field class="example-full-width" style="margin-right:20px; display: none;">
+					    	<input matInput placeholder="Initials" [(ngModel)]="technician.WebStatus" formControlName="WebStatus">
+					  	</mat-form-field>
+						<mat-form-field class="example-full-width" style="margin-right:20px;">
+					    	<input matInput placeholder="User Id" [(ngModel)]="technician.TesterUserID" formControlName="TesterUserID">
+					  	</mat-form-field>
+					  	<mat-form-field class="example-full-width">
+					    	<input matInput placeholder="Password" [(ngModel)]="technician.Password" formControlName="Password">
+					  	</mat-form-field>
+				  	</div>					
+				</div>
+				
+		<div fxLayout="column" style="margin: 50px 0px;">
+			<h1>Certification</h1>
+			<div fxLayout="column">
+				<div fxLayout="row">
+					<div style="width: 20%;padding-top: 23px;">
+						<mat-checkbox style="padding-top: 24px;margin-right: 20px;" [(ngModel)]="technician.TestCertified" formControlName="TestCertified">Test</mat-checkbox>
+					</div>
+					<mat-form-field class="example-full-width" style="margin-right: 20px;width: 20%">
+				    	<input matInput placeholder="Certification #" [(ngModel)]="technician.TestCertNum" formControlName="TestCertNum">
+				  	</mat-form-field>
+				  	<mat-form-field style="margin-right: 10px;width: 20%">
+						<input matInput [matDatepicker]="lia13" placeholder="Expire" [(ngModel)]="technician.TestCertExp" formControlName="TestCertExp" >
+						<mat-datepicker-toggle matSuffix [for]="lia13"></mat-datepicker-toggle>
+						<mat-datepicker #lia13></mat-datepicker>
+					</mat-form-field>	
+					<mat-form-field class="example-full-width" style="margin-right: 20px;width: 20%">
+						<!-- Fix test certifi by -->
+				    	<input matInput placeholder="Certified By" [(ngModel)]="technician.CERTAGCY" formControlName="CERTAGCY">
+				  	</mat-form-field>	
+				  	<mat-form-field style="width: 20%">
+						<input matInput [matDatepicker]="mlia111" placeholder="Certified Date" [(ngModel)]="technician.CERTDATE" formControlName="CERTDATE">
+						<mat-datepicker-toggle matSuffix [for]="mlia111"></mat-datepicker-toggle>
+						<mat-datepicker #mlia111></mat-datepicker>
+					</mat-form-field>		  	
+				</div>
+				<div style = "display: none;">
+					<div fxLayout="row">
+						<div style="width: 20%;padding-top: 23px;">
+							<mat-checkbox style="padding-top: 24px;margin-right: 20px;" [(ngModel)]="technician.SurvCertified" formControlName="SurvCertified">Surveys</mat-checkbox>
+						</div>
+						<mat-form-field class="example-full-width" style="margin-right: 20px;width: 20%">
+							<input matInput placeholder="Certification #" [(ngModel)]="technician.SurvCertNum" formControlName="SurvCertNum">
+						  </mat-form-field>	
+						  <mat-form-field style="margin-right: 10px;width: 20%">
+							<input matInput [matDatepicker]="lia12" placeholder="Expire"  [(ngModel)]="technician.SurvCertExp" formControlName="SurvCertExp" >
+							<mat-datepicker-toggle matSuffix [for]="lia12"></mat-datepicker-toggle>
+							<mat-datepicker #lia12></mat-datepicker>
+						</mat-form-field>	
+						<mat-form-field class="example-full-width" style="margin-right: 20px;width: 20%">
+							<input matInput placeholder="Certified By" [(ngModel)]="technician.SurvCertAgcy" formControlName="SurvCertAgcy">
+						  </mat-form-field>		
+						  <mat-form-field style="width: 20%">
+							<input matInput [matDatepicker]="mmlia111" placeholder="Certified Date" [(ngModel)]="technician.SurvCertDate" formControlName="SurvCertDate">
+							<mat-datepicker-toggle matSuffix [for]="mmlia111"></mat-datepicker-toggle>
+							<mat-datepicker #mmlia111></mat-datepicker>
+						</mat-form-field>  	
+					</div>	
+					<div fxLayout="row">
+						<div style="width: 20%;padding-top: 23px;">
+							<mat-checkbox style="padding-top: 24px;margin-right: 20px;" [(ngModel)]="technician.InstCertified" formControlName="InstCertified">Installation</mat-checkbox>
+						</div>
+						<mat-form-field class="example-full-width" style="margin-right: 20px;width: 20%">
+							<input matInput placeholder="Certification #" [(ngModel)]="technician.InstCertNum" formControlName="InstCertNum">
+						  </mat-form-field>	
+						  <mat-form-field style="margin-right: 10px;width: 20%">
+							<input matInput [matDatepicker]="lia11" placeholder="Expire" [(ngModel)]="technician.InstCertExp"  formControlName="InstCertExp" >
+							<mat-datepicker-toggle matSuffix [for]="lia11"></mat-datepicker-toggle>
+							<mat-datepicker #lia11></mat-datepicker>
+						</mat-form-field>	
+						<mat-form-field class="example-full-width" style="margin-right: 20px;width: 20%">
+							<input matInput placeholder="Certified By" [(ngModel)]="technician.InstCertAgcy" formControlName="InstCertAgcy">
+						  </mat-form-field>
+						  <mat-form-field style="width: 20%">
+							<input matInput [matDatepicker]="mmmlia111" placeholder="Certified Date" [(ngModel)]="technician.InstCertDate"  formControlName="InstCertDate" >
+							<mat-datepicker-toggle matSuffix [for]="mmmlia111"></mat-datepicker-toggle>
+							<mat-datepicker #mmmlia111></mat-datepicker>
+						</mat-form-field>		  	
+					</div>	
+					<div fxLayout="row">
+						<div style="width: 20%;padding-top: 23px;">
+						<mat-checkbox style="padding-top: 24px;margin-right: 20px;" [(ngModel)]="technician.REPCERTIFIED" formControlName="REPCERTIFIED">Repairs</mat-checkbox>
+					</div>
+						<mat-form-field class="example-full-width" style="margin-right: 20px;width: 20%">
+							<input matInput placeholder="Certification #" [(ngModel)]="technician.RepCertNum" formControlName="RepCertNum">
+						  </mat-form-field>
+						  <mat-form-field style="margin-right: 10px;width: 20%">
+							<input matInput [matDatepicker]="lia10" placeholder="Expire"  [(ngModel)]="technician.RepCertExp"  formControlName="RepCertExp" >
+							<mat-datepicker-toggle matSuffix [for]="lia10"></mat-datepicker-toggle>
+							<mat-datepicker #lia10></mat-datepicker>
+						</mat-form-field>
+						<mat-form-field class="example-full-width" style="margin-right: 20px;width: 20%">
+							<input matInput placeholder="Certified By" [(ngModel)]="technician.RepCertAgcy" formControlName="RepCertAgcy">
+						  </mat-form-field>
+						  <mat-form-field style="width: 20%">
+							<input matInput [matDatepicker]="m1lia111" placeholder="Certified Date" [(ngModel)]="technician.RepCertDate"  formControlName="RepCertDate">
+							<mat-datepicker-toggle matSuffix [for]="m1lia111"></mat-datepicker-toggle>
+							<mat-datepicker #m1lia111></mat-datepicker>
+						</mat-form-field>
+					</div>	
+				</div>
+			</div>
+		</div>
+
+		<div fxLayout="column">
+			<h1>Companies</h1>
+			<!-- {{technician.CompanyID}} -->
+			<div fxLayoutAlign="end center">
+				<!-- <a href="apps/hazard/create"> -->
+					<mat-icon _ngcontent-c35="" class="add-hazard-btn secondary-text s-30 mat-icon material-icons" role="img" aria-hidden="true" (click)="addTestCompanies()">add</mat-icon>
+				<!-- </a> -->
+            </div>
+			
+			<div fxLayout="row" *ngFor="let comp of companyList; let i=index;">
+				<mat-form-field style="margin-right: 20px;width: 50%;">
+					<input type="text" [(ngModel)]="comp.id" [ngModelOptions]="{standalone: true}" placeholder="Select Company" aria-label="Number" (keypress)="searchcompany($event.target.value)" matInput
+							[matAutocomplete]="auto">
+							<mat-autocomplete #auto="matAutocomplete">
+								<mat-option *ngFor="let item of searchResult" value="{{item.Company}}-{{item.CompanyID}}">
+									{{ item.Company }} 
+								</mat-option>
+							</mat-autocomplete>
+				  
+				</mat-form-field>
+				<mat-icon class="add-hazard-btn secondary-text s-30 mat-icon material-icons" role="img" aria-hidden="true" (click)="removeTestCompanies(i)">remove</mat-icon>
+				<a href="javascript:void(0)" (click)="redirecttosite(comp.id)" *ngIf="comp.id!='-1'">Link To Technican Company</a>
+			</div>
+		</div>
+		<div class="form-hazard-creation1">
+			<p style="padding-right: 30px;">Last Updated: {{technician.LastUpdate|date:'MM/dd/yyyy'}}</p>
+		</div>
+		<div class="form-hazard-creation-btn" fxLayoutAlign="center center">
+			<button mat-raised-button class="submit-button" [disabled]="myGroup.invalid || !isEditPermission" (click)="onUpdateTechnician()" >Update</button>
+			<button mat-raised-button class="delete-button" [disabled]="!isEditPermission" (click)="ondeleteTechnician()" >Delete</button>
+		</div>
+	</div>
+</form>
+</div>

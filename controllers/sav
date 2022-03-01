@@ -1,0 +1,41 @@
+
+  // connect to your database sql.connect(dbConfig,function (err) {
+      sql.close();
+
+
+          if (err) console.log(err);
+
+          // create Request object
+          var request = new sql.Request();
+
+          // query to the database and get the records
+          request.query('select * from users', function (err, recordset) {
+              console.log("inside user request");
+               if (err){
+                console.log(err)
+               } else{
+
+                 if (recordset !=undefined){
+                     users=recordset.recordsets[0];
+                      console.log("users: " + JSON.stringify(users));
+                     res.json(users);
+                  }
+               }
+          });
+      });
+
+
+sql.close();
+  sql.connect(dbConfig,function (err) {
+    if (typeof err !== "undefined" && err !== null) {
+      cb( err );
+      return
+    }
+
+   var request = new sql.Request();// or: var request = connection.request();
+    request.query(query, function(err, recordset) {
+     var newJson=recordset.recordsets[0];
+      cb( err, newJson );
+    });
+
+  });

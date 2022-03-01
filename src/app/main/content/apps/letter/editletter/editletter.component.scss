@@ -1,0 +1,52 @@
+.submit-button {
+        
+    display: block;
+    color: #2c3e50;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    position: relative;
+    border: 1px solid #919191;
+    overflow: hidden;
+    line-height: 50px;
+    height: 50px;
+    text-align: center;
+    margin:5px;
+    width: 200px;
+    cursor: pointer;
+    background:transparent;
+    border-radius: 4px;
+            
+   
+            
+    }
+
+
+    quill-editor {
+        display: block;
+      }
+      .ng-invalid {
+        border: 1px dashed red;
+      }
+      /* Set default font-family */
+      [quill-editor-element] {
+        font-family: "Roboto";
+      }
+      /* Set dropdown font-families */
+      [quill-editor-toolbar] .ql-font span[data-label="Aref Ruqaa"]::before {
+        font-family: "Aref Ruqaa";
+      }
+      [quill-editor-toolbar] .ql-font span[data-label="Mirza"]::before {
+        font-family: "Mirza";
+      }
+      [quill-editor-toolbar] .ql-font span[data-label="Roboto"]::before {
+        font-family: "Roboto";
+      }
+      /* Set content font-families */
+      .ql-font-mirza {
+        font-family: "Mirza";
+      }
+      .ql-font-aref {
+        font-family: "Aref Ruqaa";
+      }

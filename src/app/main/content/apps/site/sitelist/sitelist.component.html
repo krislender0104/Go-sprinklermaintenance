@@ -1,0 +1,528 @@
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+
+  <!-- HEADER -->
+  <div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center">
+    <div fxLayout="column" fxLayoutAlign="center start">
+      <div class="h1 mt-16">Site Information</div>
+    </div>
+  </div>
+  <!-- / HEADER -->
+
+  <!-- CONTENT -->
+  <div>
+    <div *ngIf="Basicfilter">
+      <div class="p-20" fxLayout="row" fxLayoutAlign="end center" style="height: 35px;margin:20px 0px;">
+        <a href="javascript:void(0);" (click)="CreateSite($event)" class="text-right" title="Add New Site">
+          <mat-icon _ngcontent-c35="" class="add-btn secondary-text s-30 mat-icon material-icons " role="img" aria-hidden="true">add</mat-icon>
+        </a>
+      </div>
+      <!-- REACTIVE FORM EXAMPLE -->   
+      <form class="mat-elevation-z4 m-20" [formGroup]="form">
+        <div >
+          <mat-toolbar class="mat-accent m-0">
+            <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+              <span class="title dialog-title">Filter</span>
+            </mat-toolbar-row>
+          </mat-toolbar>
+          <div class="p-20 m-20">
+            <!-- / REACTIVE FORM EXAMPLE -->
+            <div fxLayout="row" style="padding:10px;">
+              <!-- {{datasetId}} -->
+              <div class="w-25-p">
+                <mat-form-field style="padding:10px;margin-right:35px;" class="w-100-p">
+                  <mat-select placeholder="Select Dataset*" [(ngModel)]="defaultdataset" formControlName="datasetId">
+                    <mat-option *ngFor="let dataset of datasets" [value]="dataset.clientId">{{dataset.ClientName}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="this.form.get('datasetId').hasError('required')">Required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="w-25-p">
+                <mat-form-field class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+                  <input matInput placeholder="Site ID" value="" id="Site_ID" formControlName="site_Id">
+                  <mat-error *ngIf="this.form.get('site_Id').hasError('required')">Required</mat-error>
+                  <mat-error *ngIf="this.form.get('site_Id').hasError('pattern') && (this.form.get('site_Id').dirty||this.form.get('site_Id').touched)">
+                    Enter numberic value</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="w-25-p">
+                <mat-form-field class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+                  <input matInput placeholder="Customer No #" value="" id="customerNum" formControlName="customerNumber">
+                  <!-- <mat-error *ngIf="this.form.get('customerNumber').hasError('pattern') && (this.form.get('customerNumber').dirty || this.form.get('customerNumber').touched)">
+                    Enter numberic value</mat-error> -->
+                </mat-form-field>
+              </div>
+              <div class="w-25-p">
+                <mat-form-field class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+                  <input type="text" placeholder="Address" aria-label="Number" (keypress)="searchAddress($event.target.value)" matInput formControlName="address"
+                    [matAutocomplete]="auto">
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let item of searchAddressResult" [value]="item.Address">
+                      {{ item.Address }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row" style="padding:10px;">
+              <div class="w-25-p">
+                <mat-form-field class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+                  <input matInput placeholder="Serial Number" value="" id="serialNumber" formControlName="serialNumber">
+                  <!-- <mat-error *ngIf="this.form.get('serialNumber').hasError('pattern') && (this.form.get('serialNumber').dirty||this.form.get('serialNumber').touched)">
+                    Enter numberic value</mat-error> -->
+                </mat-form-field>
+              </div>
+              <div class="w-25-p">
+                <mat-form-field class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+                  <input matInput placeholder="Hazard ID" value="" id="HazardId" formControlName="hazardId">
+                  <mat-error *ngIf="this.form.get('hazardId').hasError('pattern') && (this.form.get('hazardId').dirty||this.form.get('hazardId').touched)">
+                    Enter numberic value</mat-error>
+                </mat-form-field>
+              </div>
+              <!-- <div class="w-25-p">
+                <mat-form-field class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+                  <input matInput [matDatepicker]="picker" placeholder="Initial Test date(mm/dd/yyyy)" formControlName="testdate" [(ngModel)]="iDateInputField">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="w-25-p">
+                <mat-form-field class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+                  <input matInput [matDatepicker]="picker2" placeholder="Final Test date(mm/dd/yyyy)" formControlName="finalTestDate" [(ngModel)]="fDateInputField">
+                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+              </div> -->
+            </div>
+            <span class="error-msg" *ngIf="searchCriteria === 'NA'">* Required one or more paramater(s)</span>
+            <div class="form-hazard-creation-btn" fxLayoutAlign="center center" style="padding:10px;margin:15px 35px 0px 0px;">
+              <button mat-raised-button color="accent" class="submit-button" [disabled]="this.form.invalid" (click)="SiteSearch()">Site Search</button>
+              <button *ngIf="!showAdvanceFilter || showgroupFilter " mat-raised-button color="accent" class="submit-button" (click)="ShowFilter('advanced'); clear()">Advanced Filter</button>
+              <button *ngIf="!showAdvanceFilter || showgroupFilter" mat-raised-button color="accent" class="submit-button" [disabled]="this.editsiteprivilage==false" (click)="ShowFilter('group'); clear()">Group Update</button>
+              <button *ngIf="datasetprivilage" mat-raised-button color="accent" class="submit-button" (click)="Showmovedataset(); clear();">Dataset</button>
+            </div>
+          </div>
+        </div>
+      </form>  
+    </div>
+    <div *ngIf="showAdvanceFilter" class="mat-elevation-z4 m-20">
+      <mat-toolbar class="mat-accent m-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="title dialog-title">Advanced Filter</span>
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <mat-radio-group fxLayout="row" [(ngModel)]="filtercondition">
+        <mat-radio-button value="and" style="padding: 10px;">And</mat-radio-button>
+        <mat-radio-button value="or" style="padding: 10px;">Or</mat-radio-button>
+      </mat-radio-group>
+      <div fxLayout="row" style="padding:10px;" *ngFor="let item of filterRow ; let i = index;trackBy: trackByFn">
+        <div class="w-25-p">
+          <div style="padding:10px;margin-right:35px;" class="w-100-p">
+            <mat-select placeholder="Select Table" [(ngModel)]="filterRow[i].tableId" (selectionChange)="LoadColumns($event.value,i)">
+              <mat-option value="DevTests">DevTests</mat-option>
+              <mat-option value="Hazards">Hazards</mat-option>
+              <mat-option value="SiteMailing">SiteMailing</mat-option>
+              <mat-option value="Sites">Sites</mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="this.form_filter.controls['tableId'].hasError('required')">Required</mat-error> -->
+          </div>
+        </div>
+        <div class="w-25-p">
+          <div class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+            <mat-select placeholder="Select Column" [(ngModel)]="filterRow[i].Column" [disabled]="filterRow[i].tableId==''">
+              <mat-option *ngFor="let dataset of columns[i]" [value]="dataset">{{dataset}}
+              </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="this.form_filter.controls['Column'].hasError('required')">Required</mat-error> -->
+          </div>
+        </div>
+        <div class="w-25-p">
+          <div class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+            <mat-select placeholder="Select Operator" [(ngModel)]="filterRow[i].Operator" 
+               (selectionChange)="checkBetween($event,i)" [disabled]="filterRow[i].Column==''">
+              <mat-option value="=">Equal to</mat-option>
+              <mat-option value="!=">Not Equal to</mat-option>
+              <mat-option value=">">Greater than</mat-option>
+              <mat-option value="<">Lesser than</mat-option>
+              <mat-option value="like">Contains</mat-option>
+              <mat-option value="not like">Not Contains</mat-option>
+              <mat-option value="between">Between</mat-option>
+              <mat-option value="Is null">Is Empty</mat-option>
+              <mat-option value="Is not null">Is Not Empty</mat-option>
+              <mat-option value="starts with">Starts with</mat-option>
+
+              <!-- <mat-option value="SiteMailing">SiteMailing</mat-option>
+                      <mat-option value="Sites">Sites</mat-option> -->
+            </mat-select>
+          </div>
+        </div>
+        <div class="w-25-p">
+          <div class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+            <input matInput placeholder="Value" value="" id="Value" [(ngModel)]="filterRow[i].Value" [disabled]="filterRow[i].Operator==''">
+          </div>
+        </div>
+        <div class="w-25-p" *ngIf="betweenFlag[i]">
+          <div class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+            <input matInput placeholder="Value1" value="" id="Value1" [(ngModel)]="filterRow[i].Value1">
+          </div>
+        </div>
+        <div class="w-25-p">
+          <div class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+            <button mat-raised-button color="accent" class="submit-button" (click)="AddRow()">Add</button>
+          </div>
+        </div>
+        <div class="w-25-p" >
+          <div class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+            <div *ngIf="i===0"  style="width: 200px"></div>
+            <button *ngIf="i!==0"  mat-raised-button color="accent" class="submit-button" (click)="RemoveRow(i)">Remove</button>
+          </div>
+        </div>
+      </div>
+      <div class="form-hazard-creation-btn" fxLayoutAlign="center center" style="padding:10px;margin:15px 35px 0px 0px;">
+        <button mat-raised-button color="accent" class="submit-button" (click)="filterSearch()">Search</button>
+        <button *ngIf="!Basicfilter" mat-raised-button color="accent" class="submit-button" (click)="ShowBasicfilter(); clear()">Basic Filter</button>
+      </div>
+    </div>
+    <div *ngIf="showGroupFilter" class="mat-elevation-z4 m-20" [formGroup]="groupFilterForm">
+      <mat-toolbar class="mat-accent m-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+          <span class="title dialog-title">Group Update</span>
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <h4>Update Field</h4>
+      <div fxLayout="row" >
+        <div class="w-25-p">
+          <mat-form-field style="padding:10px;margin-right:35px;" class="w-100-p">
+            <mat-select placeholder="Select Dataset" [(ngModel)]="gdefaultdataset" formControlName="groupfilterdatasetId">
+              <mat-option *ngFor="let dataset of datasets" [value]="dataset.clientId">{{dataset.ClientName}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="this.groupFilterForm.controls['groupfilterdatasetId'].hasError('required')">Required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="w-25-p">
+          <mat-form-field style="padding:10px;margin-right:35px;" class="w-100-p">
+            <mat-select placeholder="Select Table" formControlName="groupfiltertable" [(ngModel)]="groupfiltertable" (selectionChange)="LoadGroupColumns($event.value,'in')">
+              <mat-option value="DevTests">DevTests</mat-option>
+              <mat-option value="Hazards">Hazards</mat-option>
+              <mat-option value="SiteMailing">SiteMailing</mat-option>
+              <mat-option value="Sites">Sites</mat-option>
+            </mat-select>
+            <mat-error *ngIf="this.groupFilterForm.controls['groupfiltertable'].hasError('required')">Required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="w-25-p">
+          <mat-form-field class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+            <mat-select placeholder="Select Column" [(ngModel)]="groupfiltercolumn" formControlName="groupfiltercolumn">
+              <mat-option *ngFor="let dataset of groupcolumn" [value]="dataset">{{dataset}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="this.groupFilterForm.controls['groupfiltercolumn'].hasError('required')">Required</mat-error>
+          </mat-form-field>
+        </div>
+       
+      </div>
+      <h4>New Value</h4>
+      <div fxLayout="row" >
+        <div class="w-25-p">
+          <mat-form-field class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+            <input matInput placeholder="Value" value="" [(ngModel)]="groupfiltervalue" formControlName="groupfiltervalue">
+            <mat-error *ngIf="this.groupFilterForm.controls['groupfiltervalue'].hasError('required')">Required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <h4>Where</h4>
+      <div fxLayout="row" >
+        <div class="w-25-p">
+          <mat-form-field style="padding:10px;margin-right:35px;" class="w-100-p">
+            <mat-select placeholder="Select Table" formControlName="groupfilterintable" (selectionChange)="LoadGroupColumns($event.value,'where')">
+              <mat-option value="DevTests">DevTests</mat-option>
+              <mat-option value="Hazards">Hazards</mat-option>
+              <mat-option value="SiteMailing">SiteMailing</mat-option>
+              <mat-option value="Sites">Sites</mat-option>
+            </mat-select>
+            <mat-error *ngIf="this.groupFilterForm.controls['groupfilterintable'].hasError('required')">Required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="w-25-p">
+          <mat-form-field class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+            <mat-select placeholder="Select Column" formControlName="groupfilterincolumn">
+              <mat-option *ngFor="let dataset of groupincolumn" [value]="dataset">{{dataset}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="this.groupFilterForm.controls['groupfilterincolumn'].hasError('required')">Required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="w-25-p">
+          <mat-form-field class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+            <mat-select placeholder="Select Operator" formControlName="groupfilterinOperator">
+              <mat-option value="=">=</mat-option>
+              <mat-option value="!=">!=</mat-option>
+              <mat-option value=">">Greater than</mat-option>
+              <mat-option value="<">Lesser than</mat-option>
+              <mat-option value="like">Contains</mat-option>
+              <mat-option value="not like">Not Contains</mat-option>
+              <mat-option value="Is null">Is Empty</mat-option>
+              <mat-option value="Is not null">Is Not Empty</mat-option>
+              <mat-option value="starts with">Starts with</mat-option>
+            </mat-select>
+            <mat-error *ngIf="this.groupFilterForm.controls['groupfilterinOperator'].hasError('required')">Required</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="w-25-p">
+          <mat-form-field class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+            <input matInput placeholder="Value" value="" id="Value" formControlName="groupfilterinvalue">
+            <mat-error *ngIf="this.groupFilterForm.controls['groupfilterinvalue'].hasError('required')">Required</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-hazard-creation-btn" fxLayoutAlign="center center" style="padding:10px;margin:15px 35px 0px 0px;">
+        <button mat-raised-button color="accent" class="submit-button" [disabled]="!groupFilterForm.valid" (click)="GroupFilterSearch(); clear()">Update</button>
+        <button *ngIf="!Basicfilter" mat-raised-button color="accent" class="submit-button" (click)="ShowBasicfilter(); clear()">Basic Filter</button>
+      </div>
+    </div>
+    <div class="" *ngIf="BasicTable">
+      <div class="form-errors-model mat-white-bg m-20">
+        <table class="table">
+          <thead>
+            <tr *ngIf="siteTableHeaders.length > 0">
+              <th *ngFor="let head of siteTableHeaders">{{head}}</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="siteList.length > 0 && (searchCriteria === 'ALLWithDatasetId' || searchCriteria === 'DatasetWithSitId' || searchCriteria === 'DatatsetWithAddress')">
+            <tr *ngFor="let site of siteList| paginate: { itemsPerPage: 10, currentPage: p }">
+              <td style="width: 15%">
+                <a href="javascript:void(0)" (click)="ViewSite(site.SiteId)">{{site.SiteId}}</a>
+              </td>
+              <td style="width: 15%">{{site.SiteType}}</td>
+              <td style="width: 30%">{{site.Company}}</td>
+              <td style="width: 30%">{{site.Address}}</td>
+              <td style="width: 10%">{{site.Hazardcount}}</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="siteList.length > 0 && searchCriteria === 'DatasetWithCustomer'">
+            <tr *ngFor="let site of siteList| paginate: { itemsPerPage: 10, currentPage: p }">
+              <td>
+                <a href="javascript:void(0)" (click)="ViewSite(site.SiteId)">{{site.AccountNum}}</a>
+              </td>
+              <td>{{site.SiteType}}</td>
+              <td>{{site.Company}}</td>
+              <td>{{site.Address}}</td>
+              <td>{{site.Hazardcount}}</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="siteList.length > 0 && searchCriteria === 'DatasetWithSerialNumber'">
+            <tr *ngFor="let site of siteList| paginate: { itemsPerPage: 10, currentPage: p }">
+              <td>
+                <a [routerLink]="['/apps/hazard/hazardview/',site.HazID, site.SiteId]">{{site.SerialNum}}</a>
+              </td>
+              <td>{{site.HazID}}</td>
+              <td>{{site.Company}}</td>
+              <td>{{site.Address}}</td>
+              <td>{{site.Model}}</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="siteList.length > 0 && searchCriteria === 'DatasetWithFinalTest'">
+            <tr *ngFor="let site of siteList| paginate: { itemsPerPage: 10, currentPage: p }">
+              <td>
+                <a href="javascript:void(0)" (click)="ViewSite(site.SiteId)">{{site.SiteId}}</a>
+              </td>
+              <td>{{site.Company}}</td>
+              <td>
+                <a [routerLink]="['/apps/hazard/hazardview/',site.HazID, site.SiteId]">
+                  {{site.HazID}}</a>
+              </td>
+              <!-- <td>{{site.TestID}}</td> -->
+              <td>{{site.fdate | date:'MM/dd/yyyy'}}</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="siteList.length > 0 && searchCriteria === 'DatasetWithInitialTest'">
+            <tr *ngFor="let site of siteList| paginate: { itemsPerPage: 10, currentPage: p }">
+              <td>
+                <a href="javascript:void(0)" (click)="ViewSite(site.SiteId)">{{site.SiteId}}</a>
+              </td>
+              <td>{{site.Company}}</td>
+              <td>
+                <a [routerLink]="['/apps/hazard/hazardview/',site.HazID, site.SiteId]">
+                  {{site.HazID}}</a>
+              </td>
+              <td>{{site.idate | date:'MM/dd/yyyy'}}</td>
+              <td>
+                  <a [routerLink]="['/apps/test/testview/',site.TestID, site.SiteId]">
+                {{site.TestID}}</a></td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="siteList.length > 0 && searchCriteria === 'DatasetWithHarzarId'">
+            <tr *ngFor="let site of siteList| paginate: { itemsPerPage: 10, currentPage: p }">
+              <td>
+                <a href="javascript:void(0)" (click)="ViewSite(site.SiteId)">{{site.AccountNum}}</a>
+              </td>
+              <td>{{site.SiteType}}</td>
+              <td>{{site.Company}}</td>
+              <td>{{site.Address}}</td>
+              <td>
+                <a [routerLink]="['/apps/hazard/hazardview/',site.HazID, site.SiteId]">
+                  {{site.HazID}}</a>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="siteList.length > 0 && searchCriteria === 'DatasetWithAdvancedFilter'">
+            <tr *ngFor="let site of siteList| paginate: { itemsPerPage: 10, currentPage: p }">
+              <!-- <td>{{site.TestID}}</td> -->
+              <td>
+                <a href="javascript:void(0)" (click)="ViewSite(site.SiteId)">{{site.SiteID}}</a>
+              </td>
+              <td>
+                <a [routerLink]="['/apps/hazard/hazardview/',site.HazID, site.SiteId]">
+                  {{site.HazID}}</a>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot *ngIf="siteList.length === 0 && siteTableHeaders.length > 0">
+            <tr>
+              <td colspan="3"> No results found</td>
+            </tr>
+          </tfoot>
+        </table>
+        <pagination-controls *ngIf="siteList.length > 0" (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+    <div *ngIf="advancedListTable" class="form-errors-model mat-white-bg m-20">
+      <table class="table">
+        <thead>
+          <tr>
+            <!-- <th>TestID</th> -->
+            <th>Site ID</th>
+            <th>Hazard ID</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="advancedList.length > 0">
+          <tr *ngFor="let site of advancedList| paginate: { itemsPerPage: 10, currentPage: p }">
+            <!-- <td>{{site.TestID}}</td> -->
+            <td>
+              <a href="javascript:void(0)" (click)="ViewSite(site.SiteID)">{{site.SiteID}}</a>
+            </td>
+            <td>
+              <a [routerLink]="['/apps/hazard/hazardview/',site.HazID, site.SiteID]">
+                {{site.HazID}}</a>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot *ngIf="advancedList.length === 0">
+          <tr>
+            <td colspan="3"> No results found</td>
+          </tr>
+        </tfoot>
+      </table>
+      <pagination-controls *ngIf="advancedList.length > 0" (pageChange)="p = $event"></pagination-controls>
+    </div>
+    <div *ngIf="showdatasetmove">
+      <div [formGroup]="movedataform" class="mat-elevation-z4 m-20">
+        <mat-toolbar class="mat-accent m-0">
+          <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Move Dataset</span>
+          </mat-toolbar-row>
+        </mat-toolbar>
+        <div fxLayout="row" style="padding:10px;">
+          <div class="w-25-p">
+            <mat-form-field style="padding:10px;margin-right:35px;" class="w-100-p">
+                <mat-select placeholder="Select Dataset*" [(ngModel)]="gdefaultdataset" formControlName="cdatasetId">
+                  <mat-option *ngFor="let dataset of datasets" [value]="dataset.clientId">{{dataset.ClientName}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="this.movedataform.get('cdatasetId').hasError('required')">Required</mat-error>
+              </mat-form-field>
+          </div>
+          <div class="w-25-p">
+            <mat-form-field class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+              <input matInput placeholder="Site ID*" [(ngModel)]="csiteID" formControlName="csiteID">
+              <mat-error *ngIf="this.movedataform.controls['csiteID'].hasError('required')||this.movedataform.controls['csiteID'].hasError('pattern')">Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-hazard-creation-btn" fxLayoutAlign="center center" style="padding:10px;margin:15px 35px 0px 0px;">
+            <button mat-raised-button color="accent" class="submit-button" [disabled]="!movedataform.valid" (click)="Movedataset()">Update</button>
+            <button mat-raised-button color="accent" class="submit-button" (click)="Basicfilter=true;showdatasetmove=false;cleardataset()">Basic Filter</button>  
+          </div>
+        </div>
+      </div>
+      <div [formGroup]="movegroupdataform"class="mat-elevation-z4 m-20">
+        <mat-toolbar class="mat-accent m-0">
+          <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Move Group Dataset</span>
+          </mat-toolbar-row>
+        </mat-toolbar>
+        <div fxLayout="row" style="padding:5px;">
+          <div class="w-20-p">
+              <mat-form-field style="padding:15px;margin-right:5px;" class="w-100-p">
+              <mat-select placeholder="Select Table*" [(ngModel)]="movegroupdataform.gtablename" formControlName="gtablename" (selectionChange)="LoadGColumns($event.value,'in')">
+                <mat-option value="DevTests">DevTests</mat-option>
+                <mat-option value="Hazards">Hazards</mat-option>  
+                <mat-option value="SiteMailing">SiteMailing</mat-option>
+                <mat-option value="Sites">Sites</mat-option>
+              </mat-select>
+              <mat-error *ngIf="this.movegroupdataform.controls['gtablename'].hasError('required')">Required</mat-error>
+              </mat-form-field>
+          </div>
+          <div class="w-20-p">
+              <mat-form-field style="padding:15px;margin-right:5px;" class="w-100-p">
+              <mat-select placeholder="Select Column*" [(ngModel)]="movegroupdataform.gcolumnname" formControlName="gcolumnname">
+                <mat-option *ngFor="let column of Ggroupcolumn" [value]="column">{{column}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="this.movegroupdataform.controls['gcolumnname'].hasError('required')">Required</mat-error>
+              </mat-form-field>
+          </div>
+          <div class="w-20-p">
+              <mat-form-field style="padding:15px;margin-right:5px;" class="w-100-p">
+              <mat-select placeholder="Select Operator*" [(ngModel)]="movegroupdataform.goperator" formControlName="goperator">
+                <mat-option value="=">Equal to</mat-option>
+                <mat-option value="!=">Not Equal to</mat-option>
+              </mat-select>
+              <mat-error *ngIf="this.movegroupdataform.controls['goperator'].hasError('required')">Required</mat-error>
+              </mat-form-field>
+          </div>
+          <div class="w-20-p">
+              <mat-form-field style="padding:15px;margin-right:5px;" class="w-100-p">
+              <input matInput placeholder="Value*" value="" id="Value" [(ngModel)]="movegroupdataform.gvalue"  formControlName="gvalue">
+              <mat-error *ngIf="this.movegroupdataform.controls['gvalue'].hasError('required')">Required</mat-error>
+              </mat-form-field>
+          </div>
+          <div class="w-20-p">
+              <mat-form-field style="padding:15px;margin-right:5px;" class="w-100-p">
+                  <mat-select placeholder="Select Dataset*" [(ngModel)]="mgdefaultdataset" formControlName="gdataset">
+                    <mat-option *ngFor="let gdataset of gdatasets" [value]="gdataset.clientId">{{gdataset.ClientName}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="this.movegroupdataform.controls['gdataset'].hasError('required')">Required</mat-error>
+                  </mat-form-field>
+            </div>
+          
+        </div>
+        <div class="form-hazard-creation-btn" fxLayoutAlign="center center" style="padding:15px;margin:5px 20px 0px 0px;">
+            <button mat-raised-button color="accent" class="submit-button" [disabled]="movegroupdataform.invalid" (click)="UpdateGroupDataset()">Update</button>
+        </div>
+      </div>
+      <div [formGroup]="createdataform" class="mat-elevation-z4 m-20" >
+        <mat-toolbar class="mat-accent m-0">
+          <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Create Dataset</span>
+          </mat-toolbar-row>
+        </mat-toolbar>
+        <div fxLayout="row" style="padding:10px;">
+          <div class="w-25-p">
+            <mat-form-field class="example-full-width" style="padding:10px;margin-right:35px;" class="w-100-p">
+              <input matInput placeholder="Dataset*" value="" [(ngModel)]="datasetname" formControlName="datasetname">
+              <mat-error *ngIf="this.createdataform.get('datasetname').hasError('required')&&this.createdataform.get('datasetname').touched||this.createdataform.get('datasetname').dirty ">Required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-hazard-creation-btn" fxLayoutAlign="center center" style="padding:10px;margin:15px 35px 0px 0px;">
+            <button mat-raised-button color="accent" class="submit-button" [disabled]="!createdataform.valid" (click)="Createdataset()">Create</button>
+            <button mat-raised-button color="accent" class="submit-button" (click)="Basicfilter=true;showdatasetmove=false;cleardataset()">Basic Filter</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- / CONTENT -->

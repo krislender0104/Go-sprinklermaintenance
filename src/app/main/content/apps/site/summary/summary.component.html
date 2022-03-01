@@ -1,0 +1,430 @@
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+  <div class="m-20 py-20" fxLayout="row" fxLayoutAlign="start center">
+    <form [formGroup]="form">
+    <mat-form-field class="example-full-width" style="margin-right: 35px;">
+      <input matInput placeholder="Customer No #" [(ngModel)]="summary.companyNumber" formControlName="customerNumber">
+    </mat-form-field>
+    <mat-form-field class="example-full-width" style="margin-right: 35px;">
+      <input matInput placeholder="Serial Number"  formControlName="serialNumber">
+    </mat-form-field>
+    <mat-form-field class="example-full-width" style="margin-right: 35px;">
+      <input matInput placeholder="Hazard Id"  formControlName="hazardId">
+      <mat-error *ngIf="this.form.get('hazardId').hasError('pattern') && (this.form.get('hazardId').dirty||this.form.get('hazardId').touched)">
+          Enter numberic value</mat-error>
+    </mat-form-field>
+    <mat-form-field style="width: 300px;">
+      <mat-select [(ngModel)]="defaultdataSet"  placeholder="Select Dataset"  formControlName="datasetId">
+        <mat-option *ngFor="let dataset of dataSets"  [value]="dataset.clientId">{{dataset.ClientName}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="this.form.get('datasetId').hasError('required')">Required</mat-error>
+    </mat-form-field>
+  </form>
+  </div>
+  <div class="form-hazard-creation-btn" fxLayoutAlign="center center" style="padding:10px;margin:15px 35px 0px 0px;">
+      <button mat-raised-button color="accent" class="submit-button" [disabled]="this.form.invalid||disableDS" (click)="getSite()">Search</button>
+    </div><br><br>
+  <div class="mat-elevation-z4 p-20 m-20 mt-0">
+    <form class="example-form">
+      <div fxLayout="row">
+        <div class="w-50">
+        </div>
+        <div class="w-50" fxLayoutAlign="end center">
+          <button mat-raised-button color="accent" [disabled]="!isEditSiteInfo||isNoEditSite" (click)="SiteEditMethod(siteInfo.siteInformation.SiteID)"
+            class="submit-button">Edit</button>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <div class="w-50 " style="padding-right: 10px;">
+          <h1>Site Information</h1>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Site Type</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{siteInfo.siteInformation.SiteType}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Site Use</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{siteInfo.siteInformation.SiteUse}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Contact</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{siteInfo.siteInformation.Contact}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Company</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{siteInfo.siteInformation.Company}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Address</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{siteInfo.siteInformation.Address}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">City</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{siteInfo.siteInformation.City}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">State</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{siteInfo.siteInformation.State}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Zip</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{siteInfo.siteInformation.zip}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Phone Number</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{siteInfo.siteInformation.Phone}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Email</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{siteInfo.siteInformation.Email}}</h3>
+          </div>
+        </div>
+        <div class="w-50" style="padding-left: 10px;">
+          <h1>Mail Information</h1>
+
+          <div fxLayout="row">
+
+            <h3 style="width: 18%;letter-spacing: 1px;">Company</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{siteInfo.siteInformation.MCompany}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Address</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{siteInfo.siteInformation.MAddress}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">City</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{siteInfo.siteInformation.MCity}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">State</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{siteInfo.siteInformation.MState}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Zip</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{siteInfo.siteInformation.MZip}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Phone Number</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{siteInfo.siteInformation.MPhone}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Email</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{siteInfo.siteInformation.MEmail}}</h3>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="mat-elevation-z4 p-20 m-20 mt-0">
+    <form class="example-form">
+      <mat-form-field style="width: 300px;">
+        <mat-select placeholder="Select Hazard">
+          <mat-option *ngFor="let hazard of siteInfo.hazardList" (click)="switchHazard(hazard)" value="{{hazard.HazID}}"> {{hazard.HazID}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div fxLayout="row">
+        <div class="w-50">
+          <h1>Hazard Information</h1>
+        </div>
+        <div class="w-50" fxLayoutAlign="end center">
+          <button mat-raised-button color="accent" [disabled]="!isEditSiteInfo||isNoEditHaz" (click)="HazardEditMethod(selectedHazard.HazID,selectedHazard.SiteID)"
+            class="submit-button">Edit</button>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <div class="w-50 " style="padding-right: 10px;">
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Priority</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.Priority}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Serv Class</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.UDh1}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Protection</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.UDh2}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Seasonal</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.UDh4}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Heat Type</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.UDh5}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Meter</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.Meter}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Line Size</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.LineSize}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Line Status</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.Status}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Tap</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.UDh7}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Device status</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.Installed}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Install Due Date </h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.InstallDue|date:"MM/dd/yy"}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Installed</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.InstalledDate|date:"MM/dd/yy"}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Remove / Replace Date </h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.RemovedDate|date:"MM/dd/yy"}}</h3>
+            <!-- <h3 style="width: 18%;letter-spacing: 1px;">Replace</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.Replace}}</h3> -->
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Location</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 80%;">{{selectedHazard.Location}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Meter Location</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 80%;">{{selectedHazard.Location2}}</h3>
+          </div>
+        </div>
+        <div class="w-50" style="padding-left: 10px;">
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Serial #</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.SerialNum}}</h3>
+            <h3 style="width: 23%;letter-spacing: 1px;">Manufacturer</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 25%;">{{selectedHazard.MFG}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Model</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.Model}}</h3>
+            <h3 style="width: 23%;letter-spacing: 1px;">Type</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 25%;">{{selectedHazard.Type}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Size</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.devSize}}</h3>
+            <h3 style="width: 23%;letter-spacing: 1px;">Fireline</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 25%;">{{selectedHazard.FireLine}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Bypass</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.ByPass}}</h3>
+            <h3 style="width: 23%;letter-spacing: 1px;">UDH10</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 25%;">{{selectedHazard.UDh10}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">1st Notice</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.NoticeDue1|date:"MM/dd/yy"}}</h3>
+            <h3 style="width: 23%;letter-spacing: 1px;">2nd Notice</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 25%;">{{selectedHazard.NoticeDue2|date:"MM/dd/yy"}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">3rd Notice</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.NoticeDue3|date:"MM/dd/yy"}}</h3>
+            <h3 style="width: 23%;letter-spacing: 1px;">Last Date</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 25%;">{{selectedHazard.LastTest|date:"MM/dd/yy"}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Last Letter</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedHazard.LastLetter|date:"MM/dd/yy"}}</h3>
+            <h3 style="width: 23%;letter-spacing: 1px;">Shutoff Date</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 25%;">{{selectedHazard.ShutOffDate|date:"MM/dd/yy"}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 30%;letter-spacing: 1px;">Recommendation</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 68%;">{{selectedHazard.Recommend}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Notes</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 80%;">{{selectedHazard.Notes}}</h3>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="mat-elevation-z4 p-20 m-20 mt-0">
+    <form class="example-form">
+      <div fxLayout="row">
+        <div class="w-50">
+          <mat-form-field style="width: 300px;margin-right: 35px;">
+            <mat-select placeholder="Select Test">
+              <mat-option *ngFor="let devTest of devTests" (click)="switchdev(devTest)" value="{{devTest.TestID}}"> {{devTest.TestID}} </mat-option>
+              <!-- <mat-option>Option</mat-option> -->
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="w-50" fxLayoutAlign="end center">
+          <button mat-raised-button color="accent" [disabled]="!isEditSiteInfo||isNoEditTest" (click)="TestEditMethod(selectedDev.TestID,selectedDev.SiteID)"
+            class="submit-button">Edit</button>
+        </div>
+      </div>
+      <div fxLayout="row">
+        <div class="w-50 " style="padding-right: 10px;">
+          <h1>Initial Test</h1>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Test Date</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.iDate|date:"MM/dd/yy"}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Tester ID</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.itestbyid}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Tester Name</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.iTestBy}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Company</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.iCompany}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Test Type</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.iType}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Test Kit</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.iTestKit}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Line PSI</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.LinePsi}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Relief</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.IrPsi}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Value 1</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.I1AiPsi}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Value 2</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.I2CvPsi}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Buffer</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.IBuffer}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Test Status</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.iPass}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Notes</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 80%;"></h3>
+          </div>
+        </div>
+        <div class="w-50 " style="padding-right: 10px;">
+          <h1>Final Test</h1>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Test Date</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.fDate|date:"MM/dd/yy"}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Tester ID</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.ftestbyid}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Tester Name</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.fTestBy}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Company</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.fCompany}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Test Type</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.iType}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Test Kit</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.fTestKit}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Line PSI</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.LinePsi}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Relief</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.FrPsi}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Value 1</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.F1AiPsi}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Value 2</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.F2CvPsi}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Buffer</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.FBuffer}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Test Status</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.fPass}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Fail Type</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.FailType}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Flag</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.UDT4}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Repairs</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.Repair}}</h3>
+            <h3 style="width: 18%;letter-spacing: 1px;">Tran. ID</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.UDT8}}</h3>
+          </div>
+          <div fxLayout="row">
+            <h3 style="width: 18%;letter-spacing: 1px;">Udt9</h3>
+            <h3 style="width: 2%;">:</h3>
+            <h3 style="width: 30%;">{{selectedDev.UDT9}}</h3>
+          </div>
+        </div>
+      </div>
+      <div style="width: 100%">
+        <h1>Notice</h1>
+        <div fxLayout="row">
+          <h3 style="width:25%;letter-spacing: 1px;margin-right: 10px;">1st Notice : {{selectedDev.NoticeDue1|date:"MM/dd/yy"}}</h3>
+          <h3 style="width:25%;letter-spacing: 1px;margin-right: 10px;">2nd Notice : {{selectedDev.NoticeDue2|date:"MM/dd/yy"}}</h3>
+          <h3 style="width:25%;letter-spacing: 1px;margin-right: 10px;">3rd Notice : {{selectedDev.NoticeDue3|date:"MM/dd/yy"}}</h3>
+          <h3 style="width:25%;letter-spacing: 1px;margin-right: 10px;">Test Due : {{selectedDev.TestDue|date:"MM/dd/yy"}}</h3>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

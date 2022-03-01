@@ -1,0 +1,93 @@
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+	<!-- HEADER -->
+		<div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center">
+			<div fxLayout="column" fxLayoutAlign="center start">
+				<div class="h1 mt-16">Test Kit  Update</div>
+			</div>
+		</div>
+		<!-- / HEADER -->
+		<form [formGroup]="myGroup">
+		<!-- <div *ngIf="testkit == undefined"><h1>No Data Found!!</h1></div> -->
+		<div class="mat-elevation-z4 p-20 m-20" *ngIf="testkit!== undefined">
+			<div fxLayout="row" style="width: 100%" >
+				<div fxLayout="column" style="width: 100%;margin-right: 20px;">
+					<div fxLayout="row">
+						<mat-form-field class="example-full-width" style = "display: none;">
+							<input matInput placeholder="Status" [(ngModel)]="testkit.Status" formControlName="Status">
+						  </mat-form-field>
+					</div>
+					  <mat-form-field class="example-full-width">
+						<input matInput placeholder="Serial #" [(ngModel)]="testkit.SerialNum" formControlName="SerialNum">
+					  </mat-form-field>
+					  <mat-form-field class="example-full-width">
+							<input matInput placeholder="Manufacturer" [(ngModel)]="testkit.TestKitMfg" formControlName="TestKitMfg">
+					  </mat-form-field>
+					  <mat-form-field class="example-full-width">
+						<textarea matInput placeholder="Model" [(ngModel)]="testkit.TestKitMod" formControlName="TestKitMod"></textarea>
+					  </mat-form-field>
+					  <mat-form-field style = "display: none;">
+						<input matInput [matDatepicker]="picker11" placeholder="Purchase Date" [(ngModel)]="testkit.IssueDate" formControlName="IssueDate" >
+						<mat-datepicker-toggle matSuffix [for]="picker11"></mat-datepicker-toggle>
+						<mat-datepicker #picker11></mat-datepicker>
+					</mat-form-field>
+					  <mat-form-field class="example-full-width">
+						<input matInput placeholder="Notes" [(ngModel)]="testkit.Comments" formControlName="Comments">
+					  </mat-form-field> 			  		
+				</div>
+				<div fxLayout="column" style="width: 100%;" >
+					
+					<div fxLayout="row">
+						<mat-form-field style="margin-right: 10px;width: 50%">
+							<input matInput [matDatepicker]="picker12" placeholder="Expire" [(ngModel)]="testkit.RenewDate" formControlName="RenewDate" >
+							<mat-datepicker-toggle matSuffix [for]="picker12"></mat-datepicker-toggle>
+							<mat-datepicker #picker12></mat-datepicker>
+						</mat-form-field>
+						<mat-form-field style="width: 50%">
+							<input matInput [matDatepicker]="picker13" placeholder="Last Calibrations"  [(ngModel)]="testkit.CalDate"  formControlName="CalDate" >
+							<mat-datepicker-toggle matSuffix [for]="picker13"></mat-datepicker-toggle>
+							<mat-datepicker #picker13></mat-datepicker>
+						</mat-form-field>
+					</div>
+					<h3>Calibration By:</h3>
+					<mat-form-field class="example-full-width">
+						<input matInput placeholder="Company" [(ngModel)]="testkit.CalCompany" formControlName="CalCompany">
+					  </mat-form-field>
+					  <mat-form-field class="example-full-width">
+						<input matInput placeholder="Address" [(ngModel)]="testkit.CalAddress" formControlName="CalAddress">
+					  </mat-form-field>
+					  <div fxLayout="row">
+						  <mat-form-field class="example-full-width" style="margin-right: 10px;">
+								<input matInput placeholder="City" [(ngModel)]="testkit.CalCity" formControlName="CalCity">
+						  </mat-form-field>
+						  <mat-form-field class="example-full-width" style="margin-right: 10px;">
+							<input matInput placeholder="State" [(ngModel)]="testkit.CalState" formControlName="CalState">
+						  </mat-form-field>
+						  <mat-form-field class="example-full-width">
+							<input matInput placeholder="Zip" [(ngModel)]="testkit.CalZip" formControlName="CalZip" maxlength="25">
+							</mat-form-field>
+					</div>
+					<div fxLayout="row">
+						  <mat-form-field class="example-full-width" style="margin-right: 10px;">
+							<input matInput placeholder="Phone" [(ngModel)]="testkit.CalPhone" formControlName="CalPhone" maxlength="12">
+						  </mat-form-field> 
+						  <mat-form-field class="example-full-width">
+							<input matInput placeholder="Email" [(ngModel)]="testkit.CalEmail" formControlName="CalEmail">
+							<mat-error *ngIf="myGroup.get('CalEmail').hasError('pattern') && (myGroup.get('CalEmail').dirty || myGroup.get('CalEmail').touched)">
+								Please enter a valid Email ID.
+							</mat-error>
+						  </mat-form-field>
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-hazard-creation1">
+				<p style="padding-right: 30px;">Last updated: {{testkit.DateStamp| date:'MM/dd/yyyy'}}</p>
+				<!-- <p style="padding-right: 30px;">By: {{testkit.LastUpdateBy}}</p> -->
+			</div>
+			<div class="form-hazard-creation-btn"  fxLayoutAlign="center center">
+				<button  mat-raised-button color="accent" [disabled]="myGroup.invalid || !isEditPermission" class="submit-button"  (click)="onUpdateTestKit()" >Update</button>
+				<button  mat-raised-button color="accent" [disabled]="!isEditPermission" class="delete-button"  (click)="ondeleteTestKit()" >Delete</button>
+			</div>
+		</div>
+	</form>
+	</div>

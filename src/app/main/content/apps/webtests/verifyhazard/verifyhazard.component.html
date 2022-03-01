@@ -1,0 +1,81 @@
+<!-- <div class=" pjt-tree">
+</div> -->
+ <div class="simple" fxLayout="column" style="width:100vw;overflow: scroll;">
+	
+   
+    <div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center"  style="background-image: url(header-bg.png);">
+        <div fxLayout="column" fxLayoutAlign="center start">
+            <div class="h1 mt-16">Test Verification</div>
+        </div>
+    </div>
+   	<div class="mat-elevation-z4 p-20 m-20">
+	   	<form  [formGroup]="verifyhazard">
+		    <div fxLayout="column" class="p-20 m-20">
+		    	<div fxLayout="column" fxLayoutAlign="center end" style="padding-bottom: 20px;">
+					<a href="{{verifyhazarddata.mapurl}}" target="_blank">
+							<mat-icon class="s-30 mat-icon material-icons" role="img" aria-hidden="true">gps_fixed</mat-icon>
+					</a>
+					<!-- <mat-icon class="s-30 mat-icon material-icons" (click)="GpsLocation()" role="img" aria-hidden="true">gps_fixed</mat-icon> -->
+			    </div>
+				<div  fxLayout="row">
+						<div class="example-full-width w-25-p" style="padding-right: 35px;">
+						<p>HazardID: {{verifyhazarddata.HazID}}</p>
+					</div>
+					<div class="example-full-width w-25-p" style="padding-right: 35px;">
+						<p>Address: {{verifyhazarddata.Address}},{{verifyhazarddata.City}},{{verifyhazarddata.State}}</p>
+					</div>
+					<div class="example-full-width w-25-p" style="padding-right: 35px;">
+						<p>Company: {{verifyhazarddata.Company}}</p>
+					</div>
+			    	<!-- <mat-form-field class="example-full-width w-25-p" style="padding-right: 35px;">
+					    <input matInput [(ngModel)]="verifyhazarddata.Address" formControlName="Address" placeholder="Address" >
+					</mat-form-field> -->
+					<!-- <mat-form-field class="example-full-width w-25-p" style="padding-right: 35px;">
+					    <input matInput [(ngModel)]="verifyhazarddata.Company" formControlName="Company" placeholder="Customer" >
+					</mat-form-field> -->
+					<mat-form-field class="example-full-width w-25-p" style="padding-right: 35px;">
+					    <input matInput [(ngModel)]="verifyhazarddata.Location"  formControlName="Location" placeholder="Device Location" >
+					</mat-form-field>
+					<mat-form-field class="example-full-width w-25-p" >
+					    <input matInput [(ngModel)]="verifyhazarddata.Location2" formControlName="Location2" placeholder="Meter Location">
+					</mat-form-field>
+				
+				</div>
+				<div  fxLayout="row">
+				<mat-form-field class="example-full-width w-25-p" style="padding-right: 35px;" >
+						<input matInput [(ngModel)]="verifyhazarddata.HazardCat" formControlName="HazardCat" placeholder="Category">
+					</mat-form-field>
+			    	<mat-form-field class="example-full-width w-25-p" style="padding-right: 35px;">
+					    <input matInput [(ngModel)]="verifyhazarddata.Meter" formControlName="Meter" placeholder="Meter Number" >
+					</mat-form-field>
+					<mat-form-field class="example-full-width w-25-p" style="padding-right: 35px;">
+					    <input matInput [(ngModel)]="verifyhazarddata.SerialNum" formControlName="SerialNum" placeholder="Serial Number" >
+					</mat-form-field>
+					<mat-form-field class="example-full-width w-25-p" style="padding-right: 35px;">
+					    <input matInput [(ngModel)]="verifyhazarddata.MFG" formControlName="MFG" placeholder="Manufacturer" >
+					</mat-form-field>
+					
+				</div>
+				
+			</div>
+			<!-- <mat-divider class="p-20 m-20"></mat-divider> -->
+			 <div fxLayout="column" class="p-20 m-20">
+				<div  fxLayout="row">
+			    	<mat-form-field class="example-full-width " style="padding-right: 35px;width: 34%;">
+					    <input matInput [(ngModel)]="verifyhazarddata.Model"  formControlName="Model" placeholder="Model" >
+					</mat-form-field>
+					<mat-form-field class="example-full-width " style="padding-right: 35px;width: 33%;">
+					    <input matInput [(ngModel)]="verifyhazarddata.Type"  formControlName="Type"  placeholder="Type" >
+					</mat-form-field>
+					<mat-form-field class="example-full-width " style="padding-right: 35px;width: 33%;">
+					    <input matInput [(ngModel)]="verifyhazarddata.devSize" formControlName="devSize" placeholder="Size" >
+					</mat-form-field>
+				</div>
+				
+				<div fxLayout="column" fxLayoutAlign="center start">
+					<button mat-raised-button color="accent" (click)="VerifyHarard()">Submit</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div> 

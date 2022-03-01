@@ -1,0 +1,96 @@
+@import "src/@fuse/scss/fuse";
+
+#dashboard-analytics {
+
+    .main-widget {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .content {
+        display: flex;
+        flex: 1 1 auto;
+        padding: 32px;
+        min-width: 0;
+
+        @include media-breakpoint-down('md') {
+            flex-direction: column;
+        }
+
+        .left {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+            min-width: 0;
+
+            .widget {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+        }
+
+        .right {
+            display: flex;
+            flex: 0 0 auto;
+            width: 320px;
+            min-width: 320px;
+            max-width: 320px;
+
+            @include media-breakpoint-down('md') {
+                flex: 1 0 100%;
+                margin-top: 32px;
+                width: 100%;
+                min-width: 0;
+                max-width: none;
+            }
+
+            .fuse-card {
+
+                @include media-breakpoint-down('md') {
+                    width: 100%;
+                    min-width: 0;
+                    max-width: none;
+                }
+            }
+        }
+    }
+
+}
+
+agm-map {
+    overflow-y: hidden; // hide vertical
+overflow-x: hidden;
+    height: 350px;    
+  }
+  .ngx-pagination {
+    margin-left: 30px !important;
+    margin-bottom: 1rem;
+}
+.submit-button {
+        
+    display: block;
+    color: #2c3e50;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    position: relative;
+    border: 1px solid #919191;
+    overflow: hidden;
+    line-height: 50px;
+    height: 50px;
+    text-align: center;
+    margin:5px 5px 0px 30px;
+    width: 220px;
+    cursor: pointer;
+    background:transparent;
+    border-radius: 4px;
+            
+    
+            
+    }
+
+    .mat-display-1, .mat-typography .mat-display-1 {
+        font: 400 28px/60px Roboto, "Helvetica Neue", sans-serif;
+        margin: 0 0 64px;
+    }

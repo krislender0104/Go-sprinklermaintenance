@@ -1,0 +1,40 @@
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+
+  <!-- HEADER -->
+  <div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center">
+    <div fxLayout="column" fxLayoutAlign="center start">
+      <div class="h1 mt-16">Web Test Review 2</div>
+    </div>
+  </div>
+  <div>
+    <div class="form-errors-model mat-white-bg m-20">
+      <table class="table">
+      <thead>
+        <tr *ngIf="webtestreviewData.length > 0">
+          <th>Hazard ID</th>
+          <th>Test Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="webtestreviewData.length > 0">
+        <tr *ngFor="let web of webtestreviewData| paginate: { itemsPerPage: 10, currentPage: p }">
+          <td style="width: 15%">{{web.haz_id}}</td>
+          <td style="width: 15%">{{web.dateStamp | date}}</td>
+          <td style="width: 30%" *ngIf="web.Accepted !== null && web.Accepted !== '' && web.Accepted !== undefined; else notAccepted">
+            Accepted at {{web.Accepted | date}}
+          </td>
+          <ng-template #notAccepted>
+              <td style="width: 30%">Not Accepted</td>
+          </ng-template>
+        </tr>
+      </tbody>
+      <tfoot *ngIf="webtestreviewData.length === 0">
+        <tr>
+          <td colspan="3"> No results found</td>
+        </tr>
+      </tfoot>
+      </table>
+      <pagination-controls *ngIf="webtestreviewData.length > 0" (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+</div>

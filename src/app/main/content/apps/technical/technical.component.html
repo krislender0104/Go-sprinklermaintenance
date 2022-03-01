@@ -1,0 +1,326 @@
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+
+  <!-- HEADER -->
+  <div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center">
+    <div fxLayout="column" fxLayoutAlign="center start">
+      <div class="h1 mt-16">Technical Information</div>
+    </div>
+  </div>
+  <!-- / HEADER -->
+  <div fxLayout="column" style="width: 100%">
+    <div class="mat-elevation-z4 p-20 m-20">
+      <mat-tab-group (selectedTabChange)="tabSelectionChanged($event)">
+        <mat-tab label="Technician">
+          <div flex fxLayoutAlign="right" style="float: right;">
+            <a href="javascript:void(0)" (click)="NavigateCreateTechnical('technicain')">
+              <mat-icon _ngcontent-c35="" class="add-btn secondary-text s-30 mat-icon material-icons" role="img" aria-hidden="true">add</mat-icon>
+            </a>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field class="example-full-width" style="width:200px;margin-right: 30px;margin-top: 30px;">
+              <input matInput placeholder="Technician Cert/Name" [(ngModel)]="searchTechData">
+            </mat-form-field>
+            <div>
+              <mat-form-field style="width:150px;margin-right: 30px;margin-top: 30px; display: none;">
+                <input matInput [matDatepicker]="picker3" [max]="searchTecnToDate" placeholder="From date" [(ngModel)]="searchTecnFromDate">
+                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
+              </mat-form-field>
+              <div *ngIf="fromDateValidation" style="color: red;font-size: 12px">
+                From date required</div>
+            </div>
+            <div>
+              <mat-form-field style="width:150px;margin-right: 10px;margin-top: 30px; display: none;">
+                <input matInput [matDatepicker]="picker4" [min]="searchTecnFromDate" placeholder="To date" [(ngModel)]="searchTecnToDate">
+                <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                <mat-datepicker #picker4></mat-datepicker>
+              </mat-form-field>
+              <div *ngIf="toDateValidation" style="color: red;font-size: 12px">
+                To date required</div>
+            </div>
+            <div class="form-hazard-creation-btn" fxLayoutAlign="center center">
+              <button mat-raised-button color="accent" (click)="SearchTecn(searchTechData, searchTecnFromDate,searchTecnToDate)" class="submit-button">Search</button>
+            </div>
+            <div class="form-hazard-creation-btn" fxLayoutAlign="center center">
+              <button mat-raised-button color="accent" (click)="Cleartech()" class="submit-button">Clear</button>
+            </div>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Technician ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Test Cert Num</th>
+                <th>Test Cert Expiry</th>
+                <!-- <th></th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="technicians.length==0">
+                <td></td>
+                <td></td>
+                <td>No record found!</td>
+                <td></td>
+                <td></td>
+                <!-- <td></td> -->
+              </tr>
+              <tr *ngFor="let technician of technicians  | paginate: { itemsPerPage: 10, currentPage: p_technician,id:'technician' }">
+                <td>
+                  <a href="javascript:void(0)" (click)="NavigateViewTechnical('technician', technician.TesterID)">{{technician.TesterID}} </a>
+                </td>
+                <td>{{technician.FirstName}}</td>
+                <td>{{technician.LastName}}</td>
+                <td>{{technician.TestCertNum}}</td>
+                <td>{{technician.TestCertExp|date}}</td>
+                <!-- <td>
+                  <a href="javascript:void(0)" (click)="NavigateViewTechnical('changepassword', technician.TesterID)">Change Password </a>
+                </td> -->
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls *ngIf="technicians.length>0" (pageChange)="p_technician = $event" id="technician"></pagination-controls>
+        </mat-tab>
+        <mat-tab label="Companies" id="techCompanytab">
+          <div flex fxLayoutAlign="right" style="float: right;">
+            <a href="javascript:void(0)" (click)="NavigateCreateTechnical('company')">
+              <mat-icon _ngcontent-c35="" class="add-btn secondary-text s-30 mat-icon material-icons" role="img" aria-hidden="true">add</mat-icon>
+            </a>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field class="example-full-width" style="width:300px;margin-right: 35px;margin-top: 30px;">
+              <input matInput placeholder="Company Name" [(ngModel)]="searchFiltercomp">
+            </mat-form-field>
+            <!-- <div>
+                  <mat-form-field style="width:250px;margin-right: 35px;margin-top: 30px;">
+                      <input matInput [matDatepicker]="picker1" [max]="searchCompToDate" placeholder="From date" [(ngModel)]="searchCompFromDate">
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                  <div *ngIf="fromDateValidation1" style="color: red;font-size: 12px">
+                      from date required</div>
+              </div>
+              <div>
+                  <mat-form-field style="width:250px;margin-right: 35px;margin-top: 30px;">
+                      <input matInput [matDatepicker]="picker2" [min]="searchCompFromDate" placeholder="To date" [(ngModel)]="searchCompToDate">
+                      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                      <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                  <div *ngIf="toDateValidation1" style="color: red;font-size: 12px">
+                      to date required</div>
+              </div> -->
+            <div class="form-hazard-creation-btn" fxLayoutAlign="center center">
+              <button mat-raised-button color="accent" (click)="SearchFilter(searchFiltercomp)" class="submit-button">Search</button>
+            </div>
+            <div class="form-hazard-creation-btn" fxLayoutAlign="center center">
+              <button mat-raised-button color="accent" (click)="Clearcomp()" class="submit-button">Clear</button>
+            </div>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Company ID</th>
+                <th>Company Name</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="(companies |techfilter:{Company:searchData,CompanyID:searchData}:false).length==0">
+                <td></td>
+                <td></td>
+                <td>No record found!</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr *ngFor="let company of companies |techfilter:{Company:searchData,CompanyID:searchData}:false| paginate: { itemsPerPage: 10, currentPage: p_company,id:'company' } ">
+                <td>
+                  <a href="javascript:void(0)" (click)="NavigateViewTechnical('company', company.CompanyID)">
+                    {{company.CompanyID}}</a>
+                </td>
+                <td>{{company.Company}}</td>
+                <td>{{company.Address1}}</td>
+                <td>{{company.City}}</td>
+                <td>{{company.State}}</td>
+
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls *ngIf="companies.length>0" (pageChange)="p_company = $event" id="company"></pagination-controls>
+
+        </mat-tab>
+        <mat-tab label="Test Kit">
+          <div flex fxLayoutAlign="right" style="float: right;">
+            <a href="javascript:void(0)" (click)="NavigateCreateTechnical('testkit')">
+              <mat-icon _ngcontent-c35="" class="add-btn secondary-text s-30 mat-icon material-icons" role="img" aria-hidden="true">add</mat-icon>
+            </a>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field class="example-full-width" style="width:150px;margin-right: 15px;margin-top: 30px;">
+              <input matInput placeholder="Serial Number" [(ngModel)]="searchTempData">
+            </mat-form-field>
+            <div>
+              <mat-form-field style="width:150px;margin-right: 15px;margin-top: 30px; display:none">
+                <input matInput [matDatepicker]="picker1" [max]="searchCompToDate" placeholder="From date" [(ngModel)]="searchCompFromDate">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+              <div *ngIf="fromDateValidation1" style="color: red;font-size: 12px">
+                From date required</div>
+            </div>
+            <div>
+              <mat-form-field style="width:150px;margin-right: 15px;margin-top: 30px; display:none">
+                <input matInput [matDatepicker]="picker2" [min]="searchCompFromDate" placeholder="To date" [(ngModel)]="searchCompToDate">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+              <div *ngIf="toDateValidation1" style="color: red;font-size: 12px">
+                To date required</div>
+            </div>
+            <div class="form-hazard-creation-btn" fxLayoutAlign="center center">
+              <button mat-raised-button color="accent" (click)="SearchTestKit(searchTempData,searchCompFromDate,searchCompToDate)" class="submit-button">Search</button>
+            </div>
+            <div class="form-hazard-creation-btn" fxLayoutAlign="center center">
+              <button mat-raised-button color="accent" (click)="Cleartestkit()" class="submit-button">Clear</button>
+            </div>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Test Kit ID</th>
+                <th>Serial No</th>
+                <th>Test Kit Mfg</th>
+                <th>Test Kit Model</th>
+                <th>Expiration Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="testkits.length==0">
+                <td></td>
+                <td></td>
+                <td>No record found!</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr *ngFor="let testkit of testkits  | paginate: { itemsPerPage: 10, currentPage: p_tkit,id:'testkit' }">
+                <td>
+                  <a href="javascript:void(0)" (click)="NavigateViewTechnical('testkit',testkit.TestKitID)">
+                    {{testkit.TestKitID}}</a>
+                </td>
+                <td>{{testkit.SerialNum}}</td>
+                <td>{{testkit.TestKitMfg}}</td>
+                <td>{{testkit.TestKitMod}}</td>
+                <td>{{testkit.RenewDate|date}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls *ngIf="testkits.length>0" (pageChange)="p_tkit = $event" id="testkit"></pagination-controls>
+        </mat-tab>
+        <!-- <mat-tab label="Device Type" id="deviceTypeTab">
+
+          <div flex fxLayoutAlign="right" style="float: right;">
+            <a href="javascript:void(0)" (click)="NavigateCreateTechnical('devtypes')">
+              <mat-icon _ngcontent-c35="" class="add-btn secondary-text s-30 mat-icon material-icons" role="img" aria-hidden="true">add</mat-icon>
+            </a>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field class="example-full-width" style="width:300px;margin-right: 35px;margin-top: 30px;">
+              <input matInput placeholder="Device ID/Code" [(ngModel)]="searchFilter">
+            </mat-form-field>
+            <div class="form-hazard-creation-btn" fxLayoutAlign="center center">
+              <button mat-raised-button color="accent" (click)="SearchFilterDev(searchFilter)" class="submit-button">Search</button>
+            </div>
+            <div class="form-hazard-creation-btn" fxLayoutAlign="center center">
+              <button mat-raised-button color="accent" (click)="Clear()" class="submit-button">Clear</button>
+            </div>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Device ID</th>
+                <th>Manufacturer</th>
+                <th>Device Type</th>
+                <th>Device Code</th>
+                <th>Installed Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="(devices | techfilter: {DevID:searchDataDev,DevCode:searchDataDev}:false).length==0">
+                <td></td>
+                <td></td>
+                <td>No record found!</td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr *ngFor="let device of devices | techfilter: {DevID:searchDataDev,DevCode:searchDataDev}:false | paginate: { itemsPerPage: 10, currentPage: p_device,id:'device' }">
+                <td>
+                  <a href="javascript:void(0)" (click)="NavigateViewTechnical('devtypes',device.DevID)">{{device.DevID}}</a>
+                </td>
+                <td>{{device.MFG}}</td>
+                <td>{{device.DevType}}</td>
+                <td>{{device.DevCode}}</td>
+                <td>{{device.DevDate|date}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls *ngIf="devices.length>0" (pageChange)="p_device = $event" id="device"></pagination-controls>
+
+        </mat-tab> -->
+        <!-- <mat-tab label="Fail Types">
+          <div flex fxLayoutAlign="right" style="float: right;" class="p-20">
+            <button mat-raised-button (click)="openDialog()" title="Create">Create</button>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Description</th>
+              </tr>
+              [routerLink]="['/apps/technician/failtype/details',failtype.RowNum]" 
+            </thead>
+            <tbody>
+              <tr *ngFor="let failtype of failtypes  | paginate: { itemsPerPage: 10, currentPage: p_failtype,id:'failtype' }">
+                <td>
+                  <a href="javascript:void(0)" (click)="EditFailTypes(failtype.RowNum)">{{failtype.code}} </a>
+                </td>
+                <td>{{failtype.description}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls *ngIf="failtypes.length>0" (pageChange)="p_failtype = $event" id="failtype"></pagination-controls>
+        </mat-tab> -->
+
+
+        <!-- <mat-tab label="Repair Types" id="repairtypes" >            
+          <div flex fxLayoutAlign="right" style="float: right;padding: 20px;">
+                 <button mat-raised-button (click)="openCreateRepairDialog()" title="Create">Create</button>
+            </div>            
+            <div>      
+            <table class="table">
+                        <thead>
+                      <tr>
+                            <th>Repair Code</th>
+                            <th>Repair Description</th>
+                            
+                      </tr>
+                    </thead>
+                        <tbody>
+                                <tr *ngFor="let repairtype of repairtypes  
+                                | paginate: { itemsPerPage: 10, currentPage: p_repairtype,id:'repairtype' }">
+                                <td><a 
+                                    href="javascript:void(0)"
+                                    (click)="EditRepairTypes(repairtype.RowNum)">
+                                    {{repairtype.Code}} </a></td>
+                              <td>{{repairtype.Description}}</td>
+                            </tr>
+                        </tbody>
+                    </table> 
+                    <pagination-controls (pageChange)="p_repairtype = $event" id="repairtype"></pagination-controls>
+                </div>  
+                </mat-tab> -->
+      </mat-tab-group>
+    </div>
+  </div>
+</div>
+<!-- ngx pagination : https://github.com/michaelbromley/ngx-pagination#paginatepipe -->

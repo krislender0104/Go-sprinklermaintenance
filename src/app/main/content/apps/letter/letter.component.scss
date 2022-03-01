@@ -1,0 +1,39 @@
+.example-tree-invisible {
+    display: none;
+  }
+  
+  .example-tree ul,
+  .example-tree li {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+  }
+  .pjt-tree{
+        background: #f5f7fa;
+        width:350px;
+        box-shadow:2px 10px 30px 0 rgba(0, 0, 0, .42), 0 4px 25px 0 rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2);
+        overflow: scroll;
+    }
+    .submit-button {
+        
+display: block;
+color: #2c3e50;
+-webkit-transition: all 0.5s;
+-moz-transition: all 0.5s;
+-o-transition: all 0.5s;
+transition: all 0.5s;
+position: relative;
+border: 1px solid #919191;
+overflow: hidden;
+line-height: 50px;
+height: 50px;
+text-align: center;
+margin:5px;
+width: 200px;
+cursor: pointer;
+background:transparent;
+border-radius: 4px;
+        
+
+        
+}

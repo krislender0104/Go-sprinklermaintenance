@@ -1,0 +1,90 @@
+<!-- <div class=" pjt-tree">
+</div> -->
+<div class="simple" fxLayout="column" style="width:100vw;overflow: scroll;">
+
+
+	<div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center" style="background-image: url(header-bg.png);">
+		<div fxLayout="column" fxLayoutAlign="center start">
+			<div class="h1 mt-16">Generate Custom Notices</div>
+		</div>
+	</div>
+	<form [formGroup]="assignAppointmentForm">
+		<div class="mat-elevation-z4 p-20 m-20">
+			<div class="py-20 m-20">
+				<div fxLayout="row" fxLayoutAlign="start center">
+					<div style="width: 300px;margin: 15px 35px 0px 0px;">
+						<mat-form-field style="width: 100%">
+							<mat-select placeholder="Select Option" formControlName="noticeType">
+								<mat-option value="Hazard" (click)="installnotice()">Installation</mat-option>
+								<mat-option value="Devtest" (click)="testnotice()">Test</mat-option>
+								<!-- <mat-option value="Sites">Survery</mat-option> -->
+							</mat-select>
+						</mat-form-field>
+					</div>
+					<div style="width: 300px;margin: 15px 35px 0px 0px;">
+						<mat-form-field style="width: 100%">
+							<mat-select placeholder="Select Option" formControlName="columnName">
+								<mat-option *ngFor="let NoticeDue of NoticeDues" [value]="NoticeDue.columnName">{{NoticeDue.Name}}</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+					<div style="width: 300px;margin: 15px 35px 0px 0px;">
+						<mat-form-field style="width: 100%">
+							<input matInput formControlName="dueDate" [matDatepicker]="picker" placeholder="Choose a date">
+							<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+							<mat-datepicker #picker></mat-datepicker>
+						</mat-form-field>
+					</div>
+					<div fxLayoutAlign="start start">
+						<button mat-raised-button color="accent" class="submit-button" [disabled]="isProcessing" (click)="GetAppointments()">Get Result</button>
+					</div>
+				</div>
+			</div>
+			<div>
+				<table style="width: 100%;margin:10px;">
+					<thead>
+						<tr>
+							<!-- <th style="width: 5%;padding:10px">
+								<mat-checkbox></mat-checkbox>
+							</th> -->
+							<th style="width: 15%;padding:10px">SiteID</th>
+							<th style="width: 20%;padding:10px">Company</th>
+							<th style="width: 20%;padding:10px">Hazard ID</th>
+							<th style="width: 20%;padding:10px">Contact</th>
+							<th style="width: 20%;padding:10px">Address</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngIf="isProcessing">
+							<td colspan="5">
+								<div  style="text-align: center;">
+									<div class="lds-facebook">
+										<div></div>
+										<div></div>
+										<div></div>
+									</div>
+									<h3>Getting data please wait...</h3>
+								</div>
+							</td>
+						</tr>
+						<tr *ngFor="let Export of ExportData| paginate: { itemsPerPage: 10, currentPage: p }" style="border-bottom: 1px solid #e3e3e3;padding: 10px 0px;">
+							<!-- <td style="width: 5%;padding:10px">
+								<mat-checkbox></mat-checkbox>
+							</td> -->
+							<td style="width: 15%;padding:10px">{{Export.SiteID}}</td>
+							<td style="width: 20%;padding:10px">{{Export.Company}}</td>
+							<td style="width: 20%;padding:10px">{{Export.Hazid}}</td>
+							<td style="width: 20%;padding:10px">{{Export.Contact}}</td>
+							<td style="width: 20%;padding:10px">{{Export.Address}}</td>
+						</tr>
+					</tbody>
+				</table>
+				<pagination-controls *ngIf="ExportData.length > 0" (pageChange)="p = $event"></pagination-controls>
+				<div fxLayout="row" fxLayoutAlign="center center">
+					<button mat-raised-button color="accent" class="submit-button" [disabled]="isProcessing" (click)="generateExcel()">Export</button>
+				</div>
+			</div>
+		</div>
+	</form>
+
+</div>

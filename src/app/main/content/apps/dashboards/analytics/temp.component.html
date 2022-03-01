@@ -1,0 +1,26 @@
+<google-map fxFlex="100" height="500px" width="100%" [zoom]="zoom" [center]="center" [options]="options">
+    <map-marker
+         #markerElem
+         *ngFor="let marker of markers"
+         [position]="marker.position"
+         [label]="marker.label"
+         [title]="marker.title"
+         [options]="marker.options"
+         (mapClick)="openInfo(markerElem, marker.info)"
+         >
+     </map-marker>
+     <map-info-window>
+         <div class="d-flex" *ngIf="infoContent">
+             <img [src]="infoContent.gallery[0].medium" width="64px">
+             <div>
+                 <div><b>{{ infoContent.title }}</b></div>
+                 <div *ngIf="infoContent.priceDollar.sale">Selling at: {{ infoContent.priceDollar.sale | currency : 'USD' : 'symbol' : '1.0' }}</div>
+                 <div *ngIf="infoContent.priceDollar.rent">Renting at: {{ infoContent.priceDollar.rent | currency : 'USD' : 'symbol' : '1.0' }}</div>
+                 <div class="d-flex jc-space-between" ><div>Property size</div><div>{{infoContent.area.value}} {{infoContent.area.unit}}</div></div>
+                 <div>
+                     <a [routerLink]="['/properties', infoContent.id]" color="primary" class="uppercase">Details</a>
+                 </div> 
+             </div>
+         </div>
+     </map-info-window>
+ </google-map>

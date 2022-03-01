@@ -1,0 +1,347 @@
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+
+	<!-- HEADER -->
+	<div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center">
+		<div fxLayout="column" fxLayoutAlign="center start">
+			<div class="h1 mt-16">Test Entry</div>
+		</div>
+	</div>
+	<!-- / HEADER -->
+	<div>
+		<div fxLayout="column">
+			<div class=" m-20">
+				<div fxLayout="row" class="mat-elevation-z4 p-20 m-20">
+					<b>Serial Number : </b>&nbsp;
+					<p style="padding-right: 35px;">{{testEntry.serialNum}}</p>
+					<b>Device type : </b>&nbsp;
+					<p style="padding-right: 35px;">{{testEntry.siteType}}</p>
+					<b>Address : </b>&nbsp;
+					<p style="padding-right: 35px;">{{testEntry.address}}/{{testEntry.location}}</p>
+				</div>
+				<div fxLayout="row">
+					<div class="mat-elevation-z4 p-20 m-20" style="width: 33.33%">
+						<h2>Initial Test*</h2>
+						<div fxLayout="column" class="my-20">
+							<div fxLayout="row">
+								<mat-radio-group [(ngModel)]="testEntry.ipass" #ipass="ngModel" required>
+									<mat-radio-button value="1" style="padding-right: 35px;" [checked]="isRadioPass" [disabled]="dispass" (change)="setradio('Pass')">Pass</mat-radio-button>
+									<mat-radio-button value="2" (change)="setradio('Fail')" [checked]="isRadioFail" [disabled]="disfail">Fail</mat-radio-button>
+								</mat-radio-group>
+								<mat-error *ngIf="ipass.invalid && (ipass.dirty || ipass.touched)">
+										Please choose a test result.
+									</mat-error>
+							</div>
+							<mat-form-field class=" mt-20">
+								<input matInput [matDatepicker]="picker" [matDatepickerFilter]="myFilter" [(ngModel)]="testEntry.idate" placeholder="Choose a date" #idate="ngModel" required>
+								<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+								<mat-datepicker #picker></mat-datepicker>
+								<mat-error *ngIf="idate.invalid && (idate.dirty || idate.touched)">
+										Please choose a test date.
+									</mat-error>
+							</mat-form-field>
+						</div>
+					</div>
+					<div class="mat-elevation-z4 p-20 m-20" style="width: 33.33%">
+						
+						<span *ngIf="typeFlag === 1 ">
+							<h2>Check Valve #1</h2>
+							<div fxLayout="column" class="my-20">
+								<div fxLayout="row">
+									<mat-radio-group [(ngModel)]="testEntry.i1ai">
+										<mat-radio-button value="2" style="padding-right: 35px;" >Leaked </mat-radio-button>
+										<mat-radio-button value="1" >Closed Tight</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<mat-form-field class="example-full-width mt-20">
+									<input matInput type="number" placeholder="Held at (PSID)" [(ngModel)]="testEntry.i1aipsi"
+									 [min]="1"  #i1aipsi="ngModel" (change)="checkboxValidation(typeFlag)">
+									<!-- <mat-error id = "error_text1">
+										Failing Test Result
+									</mat-error> -->
+								</mat-form-field>
+							</div>
+						</span>
+						<span *ngIf="typeFlag === 2 ">
+								<h2>Check Valve #1</h2>
+								<div fxLayout="column" class="my-20">
+									<div fxLayout="row">
+										<mat-radio-group [(ngModel)]="testEntry.i1ai">
+											<mat-radio-button value="2" style="padding-right: 35px;">Leaked</mat-radio-button>
+											<mat-radio-button value="1"  >Closed Tight</mat-radio-button>
+										</mat-radio-group>
+									</div>
+									<mat-form-field class="example-full-width mt-20">
+										<input matInput type="number" placeholder="Held at (PSID)"  [(ngModel)]="testEntry.i1aipsi"
+										 [min]="1"  #i1aipsi="ngModel" (change)="checkboxValidation(typeFlag)">
+										<!-- <mat-error *ngIf="i1aipsi.invalid && (i1aipsi.dirty || i1aipsi.touched)">
+											Failing Test Result
+										</mat-error> -->
+									</mat-form-field>
+								</div>
+							</span>
+						<span *ngIf="typeFlag === 2 ">
+							<h2>Relief Valve</h2>
+							<div fxLayout="column" class="my-20">
+								<div fxLayout="row">
+									<mat-radio-group [(ngModel)]="testEntry.irp">
+										<mat-radio-button value="2" style="padding-right: 35px;">Did not Open</mat-radio-button>
+										<mat-radio-button value="1">Opened at</mat-radio-button>
+									</mat-radio-group>
+								</div>
+
+								<mat-form-field class="example-full-width mt-20">
+									<input matInput type="number" placeholder="Opened at (PSID)"  [(ngModel)]="testEntry.irpsi"
+									 [min]="2"  #irpsi="ngModel" (change)="checkboxValidation(typeFlag)">
+									<!-- <mat-error *ngIf="irpsi.invalid && (irpsi.dirty || irpsi.touched)">
+										Failing Test Result
+									</mat-error> -->
+								</mat-form-field>
+							</div>
+						</span>
+						<span *ngIf="typeFlag === 3 ||typeFlag === 4 ">
+							<h2>Air Inlet</h2>
+							<div fxLayout="column" class="my-20">
+								<div fxLayout="row">
+									<mat-radio-group [(ngModel)]="testEntry.ipvbai">
+										<mat-radio-button value="2" style="padding-right: 35px;">Leaked</mat-radio-button>
+										<mat-radio-button value="1" >Closed tight</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<mat-form-field class="example-full-width mt-20">
+									<input matInput type="number" placeholder="Held at (PSID)" (change)="checkboxValidation(typeFlag)" 
+									[(ngModel)]="testEntry.ipvbaipsi"
+									 [min]="1"  #ipvbaipsi="ngModel">
+									<!-- <mat-error *ngIf="ipvbaipsi.invalid && (ipvbaipsi.dirty || ipvbaipsi.touched)">
+										Failing Test Result
+									</mat-error> -->
+								</mat-form-field>
+							</div>
+
+						</span>
+					</div>
+					<div class="mat-elevation-z4 p-20 m-20" style="width: 33.33%">
+						<span *ngIf="typeFlag === 1 ||typeFlag === 2 ">
+							<h2>Check Valve #2</h2>
+
+							<div fxLayout="column" class="my-20">
+								<div fxLayout="row">
+									<mat-radio-group [(ngModel)]="testEntry.i2cv">
+										<mat-radio-button value="2"  style="padding-right: 35px;">Leaked</mat-radio-button>
+										<mat-radio-button value="1" >Closed Tight</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<mat-form-field class="example-full-width mt-20">
+									<input type="number" matInput placeholder="Held at (PSID)" (change)="checkboxValidation(typeFlag)" [(ngModel)]="testEntry.i2cvpsi"
+									 [min]="1"  #i2cvpsi="ngModel" >
+									<!-- <mat-error *ngIf="i2cvpsi.invalid && (i2cvpsi.dirty || i2cvpsi.touched)">
+										Failing Test Result
+									</mat-error> -->
+								</mat-form-field>
+							</div>
+						</span>
+						<span *ngIf="typeFlag === 3 ||typeFlag === 4 ">
+							<h2>Check Valve #1</h2>
+							<div fxLayout="column" class="my-20">
+								<div fxLayout="row">
+									<mat-radio-group [(ngModel)]="testEntry.ipvbcv">
+										<mat-radio-button value="1" style="padding-right: 35px;">Closed tight</mat-radio-button>
+										<mat-radio-button value="2" >leaked</mat-radio-button>
+									</mat-radio-group>
+								</div>
+								<mat-form-field class="example-full-width mt-20">
+									<input type="number" matInput placeholder="Held at (PSID)" (change)="checkboxValidation(typeFlag)" [(ngModel)]="testEntry.ipvbcvpsi"
+									 [min]="1"  #ipvbcvpsi="ngModel" >
+									<!-- <mat-error *ngIf="ipvbcvpsi.invalid && (ipvbcvpsi.dirty || ipvbcvpsi.touched)">
+										Failing Test Result
+									</mat-error> -->
+								</mat-form-field>
+							</div>
+						</span>
+					</div>
+				</div>
+				<div *ngIf="isSelected('Fail')">
+					<div fxLayout="row">
+						<div class="mat-elevation-z4 p-20 m-20" style="width: 25%">
+							<h2>Repaired</h2>
+							<div fxLayout="column" class="my-20">
+								<mat-form-field class=" mt-20">
+									<input matInput [matDatepicker]="picker1" placeholder="Choose a date" [matDatepickerFilter]="myFilter" [(ngModel)]="testEntry.repdate">
+									<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+									<mat-datepicker #picker1></mat-datepicker>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="mat-elevation-z4 p-20 m-20" style="width: 75%">
+							<h2>Enter Repair Details Below</h2>
+							<div fxLayout="column" class="my-20">
+								<div fxLayout="row">
+									<mat-checkbox style="margin-right: 35px;width: 33.33%" [(ngModel)]="testEntry.clean">Cleaned</mat-checkbox>
+									<mat-checkbox style="margin-right: 35px;width: 33.33%" [(ngModel)]="testEntry.rubber">Rubber Kit</mat-checkbox>
+									<mat-checkbox style="width: 33.33%" [(ngModel)]="testEntry.rebuild">Rebuild</mat-checkbox>
+								</div>
+								<mat-form-field class="example-full-width mt-20">
+									<input matInput placeholder="Click here to select standard repair options" value="" [(ngModel)]="testEntry.repairs">
+								</mat-form-field>
+								<!-- <mat-form-field class="example-full-width mt-20">
+									<textarea matInput placeholder=""></textarea>
+								</mat-form-field> -->
+							</div>
+						</div>
+
+					</div>
+					<div fxLayout="row">
+						<div class="mat-elevation-z4 p-20 m-20" style="width: 33.33%">
+							<h2>Final Test</h2>
+							<div fxLayout="column" class="my-20">
+								<div fxLayout="row">
+									<mat-checkbox [(ngModel)]="testEntry.fpass">Pass</mat-checkbox>
+								</div>
+								<mat-form-field class=" mt-20">
+									<input matInput [matDatepicker]="picker2" [matDatepickerFilter]="myFilter" placeholder="Choose a date" [(ngModel)]="testEntry.fdate">
+									<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+									<mat-datepicker #picker2></mat-datepicker>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="mat-elevation-z4 p-20 m-20" style="width: 33.33%">
+							<span *ngIf="typeFlag === 1 || typeFlag  === 2">
+								<h2>Check Valve #1</h2>
+								<div fxLayout="column" class="my-20">
+									<div fxLayout="row">
+										<mat-checkbox [(ngModel)]="testEntry.f1ai">Closed tight</mat-checkbox>
+									</div>
+									<mat-form-field class="example-full-width mt-20">
+										<input matInput placeholder="Held at (PSID)" [(ngModel)]="testEntry.f1aipsi">
+									</mat-form-field>
+								</div>
+							</span>
+							<span *ngIf="typeFlag  === 2">
+								<h2>Relief Valve </h2>
+
+								<div fxLayout="column" class="my-20">
+
+									<mat-form-field class="example-full-width mt-20">
+										<input matInput placeholder="Opened at (PSID)" [(ngModel)]="testEntry.frpsi">
+									</mat-form-field>
+								</div>
+							</span>
+							<span *ngIf="typeFlag  === 3 ||typeFlag  === 4 ">
+								<h2>Air Inlet</h2>
+								<div fxLayout="column" class="my-20">
+									<!-- <div fxLayout="row">
+									<mat-checkbox  [(ngModel)]="testEntry.f1ai">Closed tight</mat-checkbox>
+								</div> -->
+									<mat-form-field class="example-full-width mt-20">
+										<input matInput placeholder="Held at (PSID)" [(ngModel)]="testEntry.fpvbaipsi">
+									</mat-form-field>
+								</div>
+							</span>
+						</div>
+						<div class="mat-elevation-z4 p-20 m-20" style="width: 33.33%">
+							<span *ngIf="typeFlag === 1 || typeFlag  === 2">
+								<h2>Check Valve #2</h2>
+
+								<div fxLayout="column" class="my-20">
+									<div fxLayout="row">
+										<mat-checkbox [(ngModel)]="testEntry.f2cv">Closed tight</mat-checkbox>
+									</div>
+									<mat-form-field class="example-full-width mt-20">
+										<input matInput placeholder="Held at (PSID)" [(ngModel)]="testEntry.f2cvpsi">
+									</mat-form-field>
+								</div>
+							</span>
+							<span *ngIf="typeFlag === 3 || typeFlag === 4">
+								<h2>Check Valve #1</h2>
+								<div fxLayout="column" class="my-20">
+									<mat-form-field class="example-full-width mt-20">
+										<input matInput placeholder="Held at (PSID)" [(ngModel)]="testEntry.fpvbcvpsi" >
+									</mat-form-field>
+								</div>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div fxLayout="row" class="mat-elevation-z4 p-20 m-20">
+					<div style="width: 20%">
+						<h2>Proper Install</h2>
+						<div fxLayout="column" class="my-20">
+							<mat-radio-group fxLayout="column" [(ngModel)]="testEntry.proper">
+								<mat-radio-button [value]="true" style="padding-right: 35px;">Yes</mat-radio-button>
+								<mat-radio-button [value]="false">No</mat-radio-button>
+							</mat-radio-group>
+						</div>
+					</div>
+					<div style="width: 20%">
+						<h2>#2 Shutoff</h2>
+						<div fxLayout="column" class="my-20">
+							<mat-radio-group fxLayout="column" [(ngModel)]="testEntry.shut2">
+								<mat-radio-button [value]="true" style="padding-right: 35px;">Closed Tight</mat-radio-button>
+								<mat-radio-button [value]="false" >Leaked</mat-radio-button>
+							</mat-radio-group>
+						</div>
+					</div>
+					<div style="width: 20%">
+						<h2>Service Restored</h2>
+						<div fxLayout="column" class="my-20">
+							<mat-radio-group fxLayout="column" [(ngModel)]="testEntry.restore">
+								<mat-radio-button [value]="true" style="padding-right: 35px;">Yes</mat-radio-button>
+								<mat-radio-button [value]="false">No</mat-radio-button>
+							</mat-radio-group>
+						</div>
+					</div>
+					<div style="width: 20%">
+						<h2>Held Backpressure</h2>
+						<div fxLayout="column" class="my-20">
+							<mat-radio-group fxLayout="column" [(ngModel)]="testEntry.backPres">
+								<mat-radio-button [value]="true" style="padding-right: 35px;">Yes</mat-radio-button>
+								<mat-radio-button [value]="false">No</mat-radio-button>
+							</mat-radio-group>
+						</div>
+					</div>
+					<div style="width: 20%">
+						<mat-form-field class="example-full-width mt-20">
+							<input matInput placeholder="Line PSI" [(ngModel)]="testEntry.linePSI">
+						</mat-form-field>
+					</div>
+
+				</div>
+				
+				<div fxLayout="row" class="mat-elevation-z4 p-20 m-20">
+					<mat-form-field style="width: 20%;margin-right: 35px;margin-top: 20px;">
+						<mat-select [(value)]="testEntry.itestkit" placeholder="Test Kit">
+							<mat-option *ngFor="let testKit of testKits" value="{{testKit.SerialNum}}">{{testKit.SerialNum}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<mat-form-field class="example-full-width" style="width: 80%">
+						<textarea matInput placeholder="comment" [(ngModel)]="testEntry.udt4"></textarea>
+					</mat-form-field>
+				</div>
+				<div fxLayout="row" class="mat-elevation-z4 p-20 m-20">
+					<div fxLayout="column" style="width: 100%;margin-right: 40px;">
+						<h4>Upload Section</h4>
+						<div>
+							<span class="imgcontainer" *ngFor="let url of urls;let i = index ">
+								<img [src]="url" class="rounded mb-3 viewImage">
+								<button class="btn" (click)="removeImage(i)">x</button>
+							</span>
+						</div>
+						<input type="file" style="max-width:200px" name="myImage" accept="image/x-png,image/gif,image/jpeg" (change)="detectFiles($event)"
+						 #imageInput>
+
+					</div>
+				</div>
+				<div fxLayout="row">
+					<!-- <button type="button" class="btn btn-dark" (click)="item.uploadAll()">Upload</button> -->
+					<!--            uploadAll              -->
+				</div>
+				<div fxLayout="row">
+					<button mat-raised-button color="accent" class="submit-button" 
+					[disabled]="testEntry.ipass == null || testEntry.ipass=='' || testEntry.idate==null" (click)="saveTestData()">Save Test Data</button>
+				</div>
+				<div>
+					<p style="text-align: justify;padding:20px;"><b>** Please note that saving test data here does not complete the submission process. After completing this form, you must go to "Review Unsubmitted Tests" and finalize the submission in order for test results to be transmitted and recorded.</b></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,263 @@
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+  <!-- HEADER -->
+  <div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center">
+    <div fxLayout="column" fxLayoutAlign="center start">
+      <div class="h1 mt-16">Test Details </div>
+    </div>
+  </div>
+  <!-- / HEADER -->
+  <form [formGroup]="createtestform">
+    <div fxLayout="column">
+      <div class="mat-elevation-z4 p-20 m-20">
+        <div>
+          <div fxLayout="row">
+            <!-- <mat-form-field class="example-full-width" style="margin-right: 35px;">
+              <input matInput placeholder="Site ID">
+            </mat-form-field> -->
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Hazard ID*" formControlName="hazardId">
+              <mat-error *ngIf="createtestform.get('hazardId').hasError('required') && (createtestform.get('hazardId').dirty || createtestform.get('hazardId').touched)">
+                  Enter a Hazard Value.
+                </mat-error>
+                <mat-error *ngIf="createtestform.get('hazardId').hasError('pattern')">Enter a valid Hazard ID.</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="my-20">
+          <h1>Initial Test</h1>
+          <div fxLayout="row">
+            <div fxLayout="column" style="width: 100%;margin-right: 20px;">
+              <mat-form-field class="example-full-width">
+                <input matInput [matDatepicker]="initialtest" placeholder="Test Date" formControlName="itestdate">
+                <mat-datepicker-toggle matSuffix [for]="initialtest"></mat-datepicker-toggle>
+                <mat-datepicker #initialtest></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Tester ID" formControlName="itesterid">
+                <mat-error *ngIf="createtestform.get('itesterid').hasError('pattern') && (createtestform.get('itesterid').dirty || createtestform.get('itesterid').touched)">
+                  Enter a Numberic Value.
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Tester Name" formControlName="itestername">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Company" formControlName="icompany">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Test Kit" formControlName="itestkit">
+              </mat-form-field>
+              <mat-form-field class="example-full-width" style = "display: none;">
+                <input matInput placeholder="Test Type" formControlName="itesttype">
+              </mat-form-field>
+              <mat-form-field class="example-full-width" style = "display: none;">
+                <input matInput placeholder="Flag" formControlName="itestflag">
+              </mat-form-field>
+              <mat-form-field class="example-full-width" style = "display: none;">
+                <input matInput placeholder="UDT5" formControlName="itestudt5">
+              </mat-form-field>
+            </div>
+            <div fxLayout="column" style="width: 100%;">
+              <div fxLayout="row" style="padding-top: 35px;">
+                <p style="padding-right: 20px;">Test Status : </p>
+                <mat-radio-group fxLayout="row" style="width: 50%;" formControlName="ipass">
+                  <mat-radio-button value="Pass" style="padding-right: 20px;width: 50%;">Pass</mat-radio-button>
+                  <mat-radio-button value="Fail" style="width: 50%;">Fail</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Line PSI" formControlName="ilinepsi">
+              </mat-form-field>
+              <div fxLayout="row">
+                <mat-form-field class="example-full-width" style="padding-right: 30px;width: 50%">
+                  <input matInput placeholder="Value 1" formControlName="ivalue1">
+                  <mat-error *ngIf="createtestform.get('ivalue1').hasError('pattern') && (createtestform.get('ivalue1').dirty || createtestform.get('ivalue1').touched)">
+                    Enter a Numberic Value (max of 4 digits).
+                    </mat-error>
+                </mat-form-field>
+                <mat-radio-group fxLayout="row" style="width: 50%;" formControlName="ivalue1_close">
+                  <mat-radio-button value="Pass" style="padding-right: 30px;width: 50%;padding-top: 25px;">Close</mat-radio-button>
+                  <mat-radio-button value="Fail" style="width: 50%;padding-top: 25px;">Leak</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div fxLayout="row">
+                <mat-form-field class="example-full-width" style="padding-right: 30px;width: 50%">
+                  <input matInput placeholder="Value 2" formControlName="ivalue2">
+                  <mat-error *ngIf="createtestform.get('ivalue2').hasError('pattern') && (createtestform.get('ivalue2').dirty || createtestform.get('ivalue2').touched)">
+                    Enter a Numberic Value (max of 4 digits).
+                    </mat-error>
+                </mat-form-field>
+                <mat-radio-group fxLayout="row" style="width: 50%" formControlName="ivalue2_close">
+                  <mat-radio-button value="Pass" style="padding-right: 30px;width: 50%;padding-top: 25px;">Close</mat-radio-button>
+                  <mat-radio-button value="Fail" style="width: 50%;padding-top: 25px;">Leak</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div fxLayout="row">
+                <mat-form-field class="example-full-width" style="padding-right: 30px;width: 50%">
+                  <input matInput placeholder="Relief" formControlName="ivaluerelief">
+                  <mat-error *ngIf="createtestform.get('ivaluerelief').hasError('pattern') && (createtestform.get('ivaluerelief').dirty || createtestform.get('ivaluerelief').touched)">
+                    Enter a Numberic Value (max of 4 digits).
+                  </mat-error>
+                </mat-form-field>
+                <mat-radio-group fxLayout="row" style="width: 50%" formControlName="ivaluerelief_close">
+                  <mat-radio-button value="Pass" style="padding-right: 30px;width: 50%;padding-top: 25px;">Open</mat-radio-button>
+                  <mat-radio-button value="Fail" style="width: 50%;padding-top: 25px;">Not</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <mat-form-field class="example-full-width" style = "display: none;">
+                <input matInput placeholder="Buffer" formControlName="ibuffer">
+                <mat-error *ngIf="createtestform.get('ibuffer').hasError('pattern') && (createtestform.get('ibuffer').dirty || createtestform.get('ibuffer').touched)">
+                  Enter a Numberic Value (max of 4 digits).
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="example-full-width" style = "display: none;">
+                <input matInput placeholder="Svc Pnt ID" formControlName="UDT6">
+              </mat-form-field>
+              <mat-form-field class="example-full-width" style = "display: none;">
+                <input matInput placeholder="Dev ID" formControlName="UDT7">
+              </mat-form-field>
+            </div>
+          </div>
+          <mat-form-field style="width: 100%;">
+            <textarea matInput placeholder="Notes" formControlName="inotes"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="my-20">
+          <h1>Final Test</h1>
+          <div fxLayout="row">
+            <div fxLayout="column" style="width: 100%;margin-right: 20px;">
+              <mat-form-field class="example-full-width">
+                <input matInput [matDatepicker]="finaltest" placeholder="Test Date" formControlName="ftestdate">
+                <mat-datepicker-toggle matSuffix [for]="finaltest"></mat-datepicker-toggle>
+                <mat-datepicker #finaltest></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Tester ID" formControlName="ftesterid">
+                <mat-error *ngIf="createtestform.get('ftesterid').hasError('pattern') && (createtestform.get('ftesterid').dirty || createtestform.get('ftesterid').touched)">
+                  Enter a Numberic Value.
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Tester Name" formControlName="ftestername">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Company" formControlName="fcompany">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Test Kit" formControlName="ftestkit">
+              </mat-form-field>
+              <mat-form-field class="example-full-width" style = "display: none;">
+                <input matInput placeholder="Test Type" formControlName="ftesttype">
+              </mat-form-field>
+              <mat-form-field class="example-full-width" style = "display: none;">
+                <input matInput placeholder="Fail Type" formControlName="failtype">
+              </mat-form-field>
+              <mat-form-field class="example-full-width">
+                <input matInput [matDatepicker]="repaired" placeholder="Repaired" formControlName="repairdate">
+                <mat-datepicker-toggle matSuffix [for]="repaired"></mat-datepicker-toggle>
+                <mat-datepicker #repaired></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div fxLayout="column" style="width: 100%;">
+              <div fxLayout="row" style="padding-top: 35px;">
+                <p style="padding-right: 20px;">Test Status : </p>
+                <mat-radio-group fxLayout="row" style="width: 50%;" formControlName="fpass">
+                  <mat-radio-button value="Pass" style="padding-right: 20px;width: 50%;">Pass</mat-radio-button>
+                  <mat-radio-button value="Fail" style="width: 50%;">Fail</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Repair By" formControlName="frepairby">
+              </mat-form-field>
+              <div fxLayout="row">
+                <mat-form-field class="example-full-width" style="padding-right: 30px;width:50%;">
+                  <input matInput placeholder="Value 1" formControlName="fvalue1">
+                  <mat-error *ngIf="createtestform.get('fvalue1').hasError('pattern') && (createtestform.get('fvalue1').dirty || createtestform.get('fvalue1').touched)">
+                    Enter a Numberic Value (max of 4 digits).
+                  </mat-error>
+                </mat-form-field>
+                <mat-radio-group fxLayout="row" style="width: 50%;" formControlName="fvalue1_close">
+                  <mat-radio-button value="Pass" style="padding-right: 30px;width: 50%;padding-top: 25px;">Close</mat-radio-button>
+                  <mat-radio-button value="Fail" style="width: 50%;padding-top: 25px;">Leak</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div fxLayout="row">
+                <mat-form-field class="example-full-width" style="padding-right: 30px;width:50%;">
+                  <input matInput placeholder="Value 2" formControlName="fvalue2">
+                  <mat-error *ngIf="createtestform.get('fvalue2').hasError('pattern') && (createtestform.get('fvalue2').dirty || createtestform.get('fvalue2').touched)">
+                    Enter a Numberic Value (max of 4 digits).
+                  </mat-error>
+                </mat-form-field>
+                <mat-radio-group fxLayout="row" style="width: 50%;" formControlName="fvalue2_close">
+                  <mat-radio-button value="Pass" style="padding-right: 30px;width: 50%;padding-top: 25px;">Close</mat-radio-button>
+                  <mat-radio-button value="Fail" style="width: 50%;padding-top: 25px;">Leak</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div fxLayout="row">
+                <mat-form-field class="example-full-width" style="padding-right: 30px;width:50%;">
+                  <input matInput placeholder="Relief" formControlName="fvaluerelief">
+                  <mat-error *ngIf="createtestform.get('fvaluerelief').hasError('pattern') && (createtestform.get('fvaluerelief').dirty || createtestform.get('fvaluerelief').touched)">
+                    Enter a Numberic Value (max of 4 digits).
+                  </mat-error>
+                </mat-form-field>
+                <mat-radio-group fxLayout="row" style="width: 50%;" formControlName="fvaluerelief_close">
+                  <mat-radio-button value="Pass" style="padding-right: 30px;width: 50%;padding-top: 25px;">Open</mat-radio-button>
+                  <mat-radio-button value="Fail" style="width: 50%;padding-top: 25px;">Not</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <mat-form-field class="example-full-width" style = "display: none;">
+                <input matInput placeholder="Buffer" formControlName="fbuffer">
+                <mat-error *ngIf="createtestform.get('fbuffer').hasError('pattern') && (createtestform.get('fbuffer').dirty || createtestform.get('fbuffer').touched)">
+                  Enter a Numberic Value (max of 4 digits).
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="example-full-width" style = "display: none;">
+                <input matInput placeholder="Tran. ID" formControlName="tranid">
+              </mat-form-field>
+              <mat-form-field class="example-full-width" style = "display: none;">
+                <input matInput placeholder="Udt9" formControlName="udt9">
+              </mat-form-field>
+            </div>
+          </div>
+          <mat-form-field style="width: 100%;">
+            <textarea matInput placeholder="Repairs" formControlName="repairtype"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="my-20">
+          <h1>Test Notice</h1>
+          <div fxLayout="row">
+            <mat-form-field class="example-full-width" style="margin-right: 35px; display:none">
+              <input matInput [matDatepicker]="firstnotice" placeholder="1st Notice" formControlName="notice1">
+              <mat-datepicker-toggle matSuffix [for]="firstnotice"></mat-datepicker-toggle>
+              <mat-datepicker #firstnotice></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" style="margin-right: 35px; display:none">
+              <input matInput [matDatepicker]="secondnotice" placeholder="2nd Notice" formControlName="notice2">
+              <mat-datepicker-toggle matSuffix [for]="secondnotice"></mat-datepicker-toggle>
+              <mat-datepicker #secondnotice></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" style="margin-right: 35px; display:none">
+              <input matInput [matDatepicker]="thirdnotice" placeholder="3rd Notice" formControlName="notice3">
+              <mat-datepicker-toggle matSuffix [for]="thirdnotice"></mat-datepicker-toggle>
+              <mat-datepicker #thirdnotice></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" style = " display:none">
+              <input matInput [matDatepicker]="fourthnotice" placeholder="4th Notice" formControlName="notice4">
+              <mat-datepicker-toggle matSuffix [for]="fourthnotice"></mat-datepicker-toggle>
+              <mat-datepicker #fourthnotice></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <mat-form-field class="example-full-width">
+            <input matInput [matDatepicker]="testdue" placeholder="New Test Due" formControlName="testdue">
+            <mat-datepicker-toggle matSuffix [for]="testdue"></mat-datepicker-toggle>
+            <mat-datepicker #testdue></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <button mat-raised-button class="submit-button" [disabled]="createtestform.invalid" (click)="CreateTestdata()">Create</button>
+          <button mat-raised-button class="delete-button" (click)="CancelTest()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

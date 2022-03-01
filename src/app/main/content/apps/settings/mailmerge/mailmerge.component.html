@@ -1,0 +1,122 @@
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+
+  <!-- HEADER -->
+  <div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center">
+    <div fxLayout="column" fxLayoutAlign="center start">
+      <div class="h1 mt-16">Mail Merge</div>
+    </div>
+  </div>
+  <div fxLayout="row" style="padding: 20px 20px 5px 20px">
+    <mat-form-field style="width: 300px;">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    </mat-form-field>
+  </div>
+  <br><br>
+  <div fxLayout="row">
+    <div class="w-70-p" fusePerfectScrollbar>
+      <div style="margin:5px 20px 20px 20px;">
+        <div fxLayout="column">
+          <div fxLayout="row">
+            <table mat-table [dataSource]="dataSource" matSort style="overflow: scroll;width: 100%;">
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+              <!-- Ncode Column -->
+              <ng-container matColumnDef="Ncode" style="width: 12%">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Ncode </th>
+                <td mat-cell *matCellDef="let element">
+                  <a href="javascript:void(0)" (click)="Getmailmergebyid(element.Ncode)">{{element.Ncode}}</a>
+                </td>
+              </ng-container>
+
+              <!-- LetterType Column -->
+              <ng-container matColumnDef="LetterType" style="width: 12%">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Letter Type </th>
+                <td mat-cell *matCellDef="let element"> {{element.LetterType}} </td>
+              </ng-container>
+
+              <!-- SystemName Column -->
+              <ng-container matColumnDef="SystemName" style="width: 18%">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> System Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.SystemName}} </td>
+              </ng-container>
+
+              <!-- SystemAbbreviation Column -->
+              <ng-container matColumnDef="SystemAbbreviation" style="width: 8%">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> System Abbreviation </th>
+                <td mat-cell *matCellDef="let element"> {{element.SystemAbbreviation}} </td>
+              </ng-container>
+
+              <!-- ImageAlt Column -->
+              <ng-container matColumnDef="ImageAlt" style="width: 16%">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ImageAlt </th>
+                <td mat-cell *matCellDef="let element"> {{element.ImageAlt}} </td>
+              </ng-container>
+
+              <!-- SystemState Column -->
+              <ng-container matColumnDef="SystemState" style="width: 10%">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> System State </th>
+                <td mat-cell *matCellDef="let element"> {{element.SystemState}} </td>
+              </ng-container>
+
+              <!-- ExpectedMailDate Column -->
+              <ng-container matColumnDef="ExpectedMailDate" style="width: 12%">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Expected Mail Date </th>
+                <td mat-cell *matCellDef="let element"> {{element.ExpectedMailDate}} </td>
+              </ng-container>
+
+              <!-- ShutoffThreatDate Column -->
+              <ng-container matColumnDef="ShutoffThreatDate" style="width: 12%">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Shutoff ThreatDate </th>
+                <td mat-cell *matCellDef="let element"> {{element.ShutoffThreatDate}} </td>
+              </ng-container>
+            </table>
+          </div>
+          <div fxLayout="row">
+            <mat-paginator [pageSizeOptions]="[20,50,100]" showFirstLastButtons></mat-paginator>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="w-30-p">
+      <div class="mat-elevation-z4 p-20 " style="margin:5px 20px 20px 20px;">
+        <form [formGroup]="form_mailmergesetup">
+          <div fxLayout="column">
+            <mat-form-field class="example-full-width" style="width: 100%;">
+              <input matInput placeholder="Ncode*" [(ngModel)]="form_mailmergesetup.value.Ncode" formControlName="Ncode" pattern="[^\s]+[a-zA-Z0-9]+[^]*">
+              <mat-error *ngIf="form_mailmergesetup.get('Ncode').hasError('required') ">NCode required.</mat-error>
+              <mat-error *ngIf="form_mailmergesetup.get('Ncode').hasError('pattern') ">Enter a valid Ncode.</mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" style="width: 100%;">
+              <input matInput placeholder="Letter Type" [(ngModel)]="form_mailmergesetup.value.LetterType" formControlName="LetterType">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" style="width: 100%;">
+              <input matInput placeholder="System Name" [(ngModel)]="form_mailmergesetup.value.SystemName" formControlName="SystemName">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" style="width: 100%;">
+              <input matInput placeholder="System Abbreviation" [(ngModel)]="form_mailmergesetup.value.SystemAbbreviation" formControlName="SystemAbbreviation">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" style="width: 100%;">
+              <input matInput placeholder="Image Alt" [(ngModel)]="form_mailmergesetup.value.ImageAlt" formControlName="ImageAlt">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" style="width: 100%;">
+              <input matInput placeholder="System State" [(ngModel)]="form_mailmergesetup.value.SystemState" formControlName="SystemState">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" style="width: 100%;">
+              <input matInput placeholder="Expected Mail Date" [(ngModel)]="form_mailmergesetup.value.ExpectedMailDate" formControlName="ExpectedMailDate">
+            </mat-form-field>
+            <mat-form-field class="example-full-width" style="width: 100%;">
+              <input matInput placeholder="Shutoff Threat Date" [(ngModel)]="form_mailmergesetup.value.ShutoffThreatDate" formControlName="ShutoffThreatDate">
+            </mat-form-field>
+            <div fxLayout="column" fxLayoutAlign="center center">
+              <button mat-raised-button color="accent" class="submit-button" *ngIf="create" [disabled]="form_mailmergesetup.invalid" (click)="AddMailmerge()">Create</button>
+              <button mat-raised-button color="accent" class="submit-button" *ngIf="update" [disabled]="form_mailmergesetup.invalid" (click)="UpdateMailmerge()">Update</button>
+              <button mat-raised-button color="accent" class="delete-button" *ngIf="update" [disabled]="form_mailmergesetup.invalid" (click)="DeleteMailmerge()">Delete</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

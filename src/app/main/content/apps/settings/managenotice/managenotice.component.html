@@ -1,0 +1,168 @@
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+	
+   
+		<div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center"  style="background-image: url(header-bg.png);">
+			<div fxLayout="column" fxLayoutAlign="center start">
+				<div class="h1 mt-16">Manage Notice Days</div>
+			</div>
+		</div>
+	   
+	   <form [formGroup]="form_notice">
+		<div fxLayout="column" >
+			<div  fxLayout="row" fxLayoutAlign="start center">
+				<mat-form-field style="width: 300px;padding: 20px;">
+					<mat-select  
+					placeholder="Select Company" [(ngModel)]="form_notice.value.datasetId" 
+					(selectionChange)=LoadEditData($event) formControlName="datasetId">
+					<mat-option  
+					*ngFor="let company of companies" 
+							[value]="company.clientId">{{company.ClientName}}
+					</mat-option>
+				</mat-select>
+				  </mat-form-field>
+			</div>
+		</div>
+		<div fxLayout="column" >
+			<!-- <div class="mat-elevation-z4 p-20 m-20" >
+				<h2>Surveys</h2>
+				<table style="width: 100%;">
+					<tbody>
+						<tr style="border-bottom: 1px solid #e3e3e3;padding: 10px 0px;">
+							<td style="width: 33%;padding:10px">1st Notice</td>
+							<td style="width: 33%;padding:10px">
+								<mat-form-field >
+									<input type="number" matInput placeholder="" [(ngModel)]="form_notice.value.Surv1"  formControlName="Surv1">
+								  </mat-form-field> Days
+							</td>
+						</tr>
+						<tr style="border-bottom: 1px solid #e3e3e3;padding: 10px 0px;">
+							<td style="width: 33%;padding:10px">2nd Notice</td>
+							<td style="width: 33%;padding:10px">
+								<mat-form-field >
+									<input type="number" matInput  [(ngModel)]="form_notice.value.Surv2" placeholder="" formControlName="Surv2">
+								  </mat-form-field> Days
+							</td>
+						</tr>
+						<tr style="border-bottom: 1px solid #e3e3e3;padding: 10px 0px;">
+							<td style="width: 33%;padding:10px">3rd Notice</td>
+							<td style="width: 33%;padding:10px">
+								<mat-form-field >
+									<input type="number" matInput placeholder="" [(ngModel)]="form_notice.value.Surv3"  formControlName="Surv3">
+								  </mat-form-field> Days
+							</td>
+						</tr>
+						<tr style="border-bottom: 1px solid #e3e3e3;padding: 10px 0px;">
+							<td style="width: 33%;padding:10px">Shut-Off Notice</td>
+							<td style="width: 33%;padding:10px">
+								<mat-form-field >
+									<input type="number" matInput placeholder="" [(ngModel)]="form_notice.value.Surv4" formControlName="Surv4">
+								  </mat-form-field> Days
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div> -->
+			<div class="mat-elevation-z4 p-20 m-20" >
+				<div style="padding-bottom:50px;">
+						<h1>Tests</h1>
+						<table style="width: 100%;border: 2px solid #eee">
+							<tbody>
+								<tr style="border-bottom: 1px solid #e3e3e3;padding: 10px 0px;">
+									<td style="width: 33%;padding:10px">1st Notice</td>
+									<td style="width: 33%;padding:10px">
+										<mat-form-field >
+											<input type="number" matInput placeholder=""
+											[(ngModel)]="form_notice.value.Test1" formControlName="Test1">
+										  </mat-form-field> Days
+									</td>
+									<!-- <td style="width: 34%;padding:10px"><mat-checkbox formControlName="test_notice1_default">Use default</mat-checkbox></td> -->
+								</tr>
+								<tr style="border-bottom: 1px solid #e3e3e3;padding: 10px 0px;">
+									<td style="width: 33%;padding:10px">2nd Notice</td>
+									<td style="width: 33%;padding:10px">
+										<mat-form-field >
+											<input type="number" matInput placeholder="" 
+											[(ngModel)]="form_notice.value.Test2" formControlName="Test2">
+										  </mat-form-field> Days
+									</td>
+									<!-- <td style="width: 34%;padding:10px"><mat-checkbox formControlName="test_notice2_default">Use default</mat-checkbox></td> -->
+								</tr>
+								<tr style="border-bottom: 1px solid #e3e3e3;padding: 10px 0px;">
+									<td style="width: 33%;padding:10px">3rd Notice</td>
+									<td style="width: 33%;padding:10px">
+										<mat-form-field >
+											<input type="number" matInput placeholder=""
+											[(ngModel)]="form_notice.value.Test3" formControlName="Test3">
+										  </mat-form-field> Days
+									</td>
+									<!-- <td style="width: 34%;padding:10px"><mat-checkbox formControlName="test_notice3_default">Use default</mat-checkbox></td> -->
+								</tr>
+								<tr style="border-bottom: 1px solid #e3e3e3;padding: 10px 0px;">
+									<td style="width: 33%;padding:10px">Shut-Off Notice</td>
+									<td style="width: 33%;padding:10px">
+										<mat-form-field >
+											<input type="number" matInput placeholder="" 
+											[(ngModel)]="form_notice.value.Test4" formControlName="Test4">
+										  </mat-form-field> Days
+									</td>
+									<!-- <td style="width: 34%;padding:10px"><mat-checkbox formControlName="test_shutnotice_default">Use default</mat-checkbox></td> -->
+								</tr>
+							</tbody>
+						</table>
+				</div>
+				<div style="padding-bottom:50px;">
+						<h1>Installs</h1>
+						<table style="width: 100%;border: 2px solid #eee">
+							<tbody>
+								<tr style="border-bottom: 1px solid #e3e3e3;padding: 10px 0px;">
+									<td style="width: 33%;padding:10px">1st Notice</td>
+									<td style="width: 33%;padding:10px">
+										<mat-form-field >
+											<input type="number" matInput placeholder="" 
+											[(ngModel)]="form_notice.value.Inst1" formControlName="Inst1">
+										  </mat-form-field> Days
+									</td>
+									<!-- <td style="width: 34%;padding:10px"><mat-checkbox formControlName="install_notice1_default">Use default</mat-checkbox></td> -->
+								</tr>
+								<tr style="border-bottom: 1px solid #e3e3e3;padding: 10px 0px;">
+									<td style="width: 33%;padding:10px">2nd Notice</td>
+									<td style="width: 33%;padding:10px">
+										<mat-form-field >
+											<input type="number" matInput placeholder=""
+											[(ngModel)]="form_notice.value.Inst2" formControlName="Inst2">
+										  </mat-form-field> Days
+									</td>
+									<!-- <td style="width: 34%;padding:10px"><mat-checkbox formControlName="install_notice2_default">Use default</mat-checkbox></td> -->
+								</tr>
+								<tr style="border-bottom: 1px solid #e3e3e3;padding: 10px 0px;">
+									<td style="width: 33%;padding:10px">3rd Notice</td>
+									<td style="width: 33%;padding:10px">
+										<mat-form-field >
+											<input type="number" matInput placeholder="" 
+											[(ngModel)]="form_notice.value.Inst3" formControlName="Inst3">
+										  </mat-form-field> Days
+									</td>
+									<!-- <td style="width: 34%;padding:10px"><mat-checkbox formControlName="install_notice3_default">Use default</mat-checkbox></td> -->
+								</tr>
+								<tr style="border-bottom: 1px solid #e3e3e3;padding: 10px 0px;">
+									<td style="width: 33%;padding:10px">Shut-Off Notice</td>
+									<td style="width: 33%;padding:10px">
+										<mat-form-field >
+											<input type="number" matInput placeholder="" 
+											[(ngModel)]="form_notice.value.Inst4" formControlName="Inst4">
+										  </mat-form-field> Days
+									</td>
+									<!-- <td style="width: 34%;padding:10px"><mat-checkbox formControlName="install_shutnotice_default">Use default</mat-checkbox></td> -->
+								</tr>
+							</tbody>
+						</table>
+				</div>
+				<div fxLayoutAlign="center center" class="text-center" >
+						<button mat-raised-button class="submit-button" style="margin:0 auto;" (click)="UpdateNotices()" >Save</button>
+					</div>
+			</div>
+			
+		</div>
+		
+		</form>
+	</div>   

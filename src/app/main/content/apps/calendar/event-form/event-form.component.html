@@ -1,0 +1,50 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="mat-accent m-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar>
+        <table style="width: 100%;margin:10px;">
+        <thead>
+            <tr style="background: #e3e3e3;">
+                <!-- <th style="width: 40%;padding:10px">Date</th>
+                <th style="width: 40%;padding:10px">Company</th>
+                <th style="width: 40%;padding:10px">HazID</th>
+                <th style="width: 40%;padding:10px">Address</th>
+                <th style="width: 40%;padding:10px">SiteType</th> -->
+                <th style="width: 40%;padding:10px">{{tableHeader.column1}}</th>
+                <th style="width: 40%;padding:10px">{{tableHeader.column2}}</th>
+                <th style="width: 40%;padding:10px">{{tableHeader.column3}}</th>
+                <th style="width: 40%;padding:10px">{{tableHeader.column4}}</th>
+                <th style="width: 40%;padding:10px">{{tableHeader.column5}}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr style="border-bottom: 1px solid #5a1b1b;padding: 10px 0px;" *ngFor="let tabelData of tabelData; ">
+            <!-- //*ngFor="let tabelData of tabelData; " > -->
+                <td style="width: 40%;padding:10px"> {{tabelData[tableHeader.column1]|date:'MM/dd/yyyy'}}</td>
+                <td style="width: 40%;padding:10px">{{tabelData[tableHeader.column2]}}</td>
+                <td style="width: 40%;padding:10px">{{tabelData[tableHeader.column3]}}</td>
+                <td style="width: 40%;padding:10px">{{tabelData[tableHeader.column4]}}</td>
+                <td style="width: 40%;padding:10px">{{tabelData[tableHeader.column5]}}</td>
+            </tr>
+        </tbody>
+        </table>
+        <!-- <ul>
+            <li *ngFor="let tabelData of tabelData" >
+                {{tabelData.Date}}
+                {{tabelData.AccountNum}}
+                {{tabelData.HazID}}
+                {{tabelData.SiteID}}
+            </li>
+        </ul> -->
+
+    </div>
+
+</div>

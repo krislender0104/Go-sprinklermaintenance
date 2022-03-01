@@ -1,0 +1,105 @@
+<div id="academy-courses" class="page-layout simple" fusePerfectScrollbar>
+
+    <!-- HEADER -->
+    
+    <div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center"  style="background-image: url(header-bg.png);">
+        <div fxLayout="column" fxLayoutAlign="center start">
+            <div class="h1 mt-16">Assigned Appoinments</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content p-24">
+
+        <div fxLayout="column" >
+
+            <div class="filters" fxLayout="column" fxLayout.gt-xs="row" >
+
+                <mat-form-field class="course-search">
+
+                    <input matInput placeholder="Search Appointment" [(ngModel)]="searchTerm"
+                           (input)="filterCoursesByTerm()">
+
+                </mat-form-field>
+
+                <mat-form-field class="category-selector">
+
+                    <mat-select placeholder="Select Appointment Type" [(ngModel)]="currentCategory"
+                                (selectionChange)="filterCoursesByCategory()">
+                        <mat-option [value]="'all'">
+                            All
+                        </mat-option>
+                        <mat-option [value]="'Installation'">
+                            Installation
+                        </mat-option>
+                        <mat-option [value]="'Test'">
+                            Test
+                        </mat-option>
+                        <!-- <mat-option *ngFor="let category of categories" [value]="category.value">
+                            {{ category.label }}
+                        </mat-option> -->
+                    </mat-select>
+
+                </mat-form-field>
+
+            </div>
+
+            <div class="courses" fxLayout="row wrap"  [@animateStagger]="{value:'50'}"
+                 *fuseIfOnDom>
+
+                <div class="course" *ngFor="let course of filteredCourses" fxFlex="100" fxFlex.gt-xs="50"
+                     fxFlex.gt-sm="33" [ngClass]="course.category" [@animate]="{value:'*',params:{y:'100%'}}">
+
+                    <div class="course-content" fxLayout="column">
+
+                        <div class="header" fxLayout="row" 
+                             [ngClass]="course.category + '-bg'">
+
+                            <div class="category" fxFlex>
+                                {{course.TestType}}
+                            </div>
+
+                            <!-- <div class="length" fxLayout="row" fxLayoutAlign="center center">
+                                <mat-icon class="length-icon s-20">access_time</mat-icon>
+                                <div class="min">{{course.length}} min</div>
+                            </div> -->
+
+                        </div>
+
+                        <div class="content" fxLayout="column"  fxFlex>
+                            <!-- <div class="h1">Tester Name : {{course.TesterName}}</div> -->
+                            <div class="h1">Appointment Type : {{course.TestType}}</div>
+                            <div class="h1">Site Name : {{course.SiteName}}</div>
+                            <div class="h1">Status : {{course.Status}}</div>
+                            <div class="h1">Appointment Date : {{course.AppointmentDate|date}}</div>
+                        </div>
+
+                        <div class="footer" fxLayout="row" fxLayoutAlign="center center">
+                            <!-- <button mat-button color="accent"
+                                    [routerLink]="'/apps/academy/courses/' + course.id + '/' + course.slug">
+                                START
+                            </button> -->
+                            <button mat-button color="accent"
+                            (click)="navigateToHazard(course)">
+                                START
+                            </button>
+                            
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="no-courses" *ngIf="filteredCourses.length === 0">
+                    No courses found!
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

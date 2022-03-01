@@ -1,0 +1,115 @@
+<div class="simple" fxLayout="column" style="width:100vw;overflow: scroll;">
+
+
+	<div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center" style="background-image: url(header-bg.png);">
+		<div fxLayout="column" fxLayoutAlign="center start">
+			<div class="h1 mt-16">Submitted Test</div>
+		</div>
+	</div>
+	<div class="mat-elevation-z4 p-20 m-20 desktop-view">
+		<div>
+			<table style="width: 100%;margin:10px;">
+				<thead>
+					<tr>
+						<!-- <th style="width: 5%;padding:10px">Submit</th> -->
+						<th style="width: 10%;padding:10px">Hazard Id</th>
+						<th style="width: 20%;padding:10px">Serial #</th>
+						<th style="width: 25%;padding:10px">Company</th>
+						<th style="width: 10%;padding:10px">Images</th>
+						<th style="width: 10%;padding:10px">Location</th>
+						<th style="width: 10%;padding:10px">Accepted Date</th>
+						<th style="width: 10%;padding:10px">Test Kit</th>
+						<th style="width: 10%;padding:10px">Fee</th>
+					</tr>
+				</thead>
+				<tbody  >
+					<tr *ngIf="isProcessing">
+						<td colspan="5">
+							<div style="text-align: center;">
+								<div class="lds-facebook">
+									<div></div>
+									<div></div>
+									<div></div>
+									<div></div>
+									<div></div>
+								</div>
+								<h3>Getting data please wait...</h3>
+							</div>
+						</td>
+					</tr>
+					<tr *ngFor="let data of testData| paginate: { itemsPerPage: 10, currentPage: p }; let i = index" style="border-bottom: 1px solid #e3e3e3;padding: 10px 0px;">
+						<!-- <td style="width: 5%;padding:10px"><mat-checkbox></mat-checkbox></td> -->
+						<td style="width: 15%;padding:10px">{{data.haz_id}}</td>
+						<td style="width: 10%;padding:10px">{{data.serialNum}}</td>
+						<td style="width: 20%;padding:10px">{{data.company}}</td>
+						<td style="width: 15%;padding:10px">
+							<a href="javascript:void(0);" (click)="navigateToImageGallery(data)" title="View Images">
+								<mat-icon class="view-btn secondary-text s-30 mat-icon material-icons " role="img" aria-hidden="true">visibility</mat-icon>
+							</a>
+						</td>
+						<td style="width: 10%;padding:10px">
+							<a *ngIf="data.coordinates; else noCoordinates" [href]="getLink(data)" target="_blank">
+								<mat-icon class="s-30 mat-icon material-icons" role="img" aria-hidden="true">gps_fixed</mat-icon>
+							</a>
+							<ng-template #noCoordinates>
+								<span>No Location Found</span>
+							</ng-template>
+						</td>
+						<td style="width: 10%;padding:10px">{{data.Accepted|date:"MM/dd/yyyy"}}</td>
+						<td style="width: 10%;padding:15px">{{data.itestkit}}</td>
+						<td style="width: 10%;padding:10px">${{data.amount}}</td>
+					</tr>
+
+				</tbody>
+			</table>
+			<pagination-controls (pageChange)="p = $event" *ngIf="testData.length > 0" autoHide="true"></pagination-controls>
+			<!-- <div fxLayout="row" fxLayoutAlign="center center">
+					<button mat-raised-button color="accent" class="submit-button">Submit Test</button>
+				</div> -->
+		</div>
+	</div>
+	<div class="mobile-view">
+		<div class="mat-elevation-z4 p-5 m-3" *ngFor="let data of testData">
+			<div fxLayout="row">
+				<div fxLayoutAlign="start center" style="margin-right: 20px;">
+					<mat-checkbox></mat-checkbox>
+				</div>
+
+				<div fxLayout="column">
+					<div fxLayout="row">
+						<p style="margin-right: 5px;">Serial No</p>
+						<h4 style="font-weight: 700;margin-right: 40px;">{{data.serialNum}}</h4>
+						<p style="margin-right: 5px;">Fees</p>
+						<h4 style="font-weight: 700;">$17</h4>
+					</div>
+					<div fxLayout="row">
+						<p style="margin-right: 5px;">Test Kit</p>
+						<h4 style="font-weight: 700;">{{data.itestkit}}</h4>
+
+					</div>
+					<div fxLayout="row">
+						<p style="margin-right: 5px;">Company</p>
+						<h4 style="font-weight: 700;">{{data.company}}</h4>
+					</div>
+					<div fxLayout="row">
+						<p style="margin-right: 5px;">Address</p>
+						<h4 style="font-weight: 700;">{{data.address}}</h4>
+					</div>
+					<div fxLayout="row">
+						<p style="margin-right: 5px;">Initial Date</p>
+						<h4 style="font-weight: 700;margin-right: 40px;">01/02/2018</h4>
+					</div>
+					<div fxLayout="row">
+						<p style="margin-right: 5px;">Final Date</p>
+						<h4 style="font-weight: 700;">01/02/2018</h4>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+		<div fxLayout="row" fxLayoutAlign="center center">
+			<button mat-raised-button color="accent" class="submit-button">Submit Test</button>
+		</div>
+	</div>
+</div>

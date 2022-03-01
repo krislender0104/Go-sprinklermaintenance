@@ -1,0 +1,115 @@
+<!-- <div class=" pjt-tree">
+</div> --> 
+<div class="simple" fxLayout="column" style="width:100vw;overflow: scroll;">
+	<div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center" style="background-image: url(header-bg.png);">
+		<div fxLayout="column" fxLayoutAlign="center start">
+			<div class="h1 mt-16">Test Entry</div>
+		</div>
+	</div>
+	<div class="mat-elevation-z4 p-20 m-20 desktop-view">
+		<form [formGroup]="formhazardcheck">
+			<div fxLayout="column">
+				<div fxLayout="row" fxLayoutAlign="start center">
+					<mat-form-field style="width: 32%;padding-right: 35px;" *ngIf="isWebTestTester">
+						<mat-select placeholder="Select Company" [(ngModel)]="companyId" formControlName="companyId" required>
+							<mat-option *ngFor="let company of companies" [value]="company.CompanyID">
+								{{company.Company}}
+							</mat-option>
+						</mat-select>
+						<mat-error *ngIf="formhazardcheck.get('companyId').hasError('required')">Please select one Company. </mat-error>
+					</mat-form-field>
+					<mat-form-field class="example-full-width" style="width: 32%;padding-right: 35px;" *ngIf="!isWebTestTester">
+						<input type="text" placeholder="Tester Name" matInput formControlName="testerName" [matAutocomplete]="auto" (keypress)="searchtester($event.target.value)"  required>
+						<mat-autocomplete (optionSelected)="onTesterNameSelectionChanged($event.option.value)" #auto="matAutocomplete">
+							<mat-option *ngFor="let item of searchResult" value="{{item.FirstName}}-{{item.TesterID}}">
+								{{ item.FirstName }} {{ item.LastName }} {{item.TestCertNum}}
+							</mat-option>
+						</mat-autocomplete>
+						<mat-error *ngIf="formhazardcheck.get('testerName').hasError('required')">Please enter tester name. </mat-error>
+					</mat-form-field>
+
+					<mat-form-field class="example-full-width" style="width: 32%;padding-right: 35px;" *ngIf="!isWebTestTester">
+						<input type="text" placeholder="Tester Company" matInput formControlName="testerCompany" [matAutocomplete]="auto2">
+						<mat-autocomplete (optionSelected)="onTesterCompanySelectionChanged($event.option.value)" #auto2="matAutocomplete">
+							<mat-option *ngFor="let item of testerCompanies" value="{{item.Company}}-{{item.CompanyID}}">
+								{{ item.Company }} {{ item.CompanyID }}
+							</mat-option>
+						</mat-autocomplete>
+					</mat-form-field>
+				</div>
+			</div>
+			<div fxLayout="column">
+				<div fxLayout="row">
+					<mat-form-field class="" style="padding-right: 35px;width:32%;">
+						<input matInput formControlName="hazid" placeholder="Hazard ID">
+					</mat-form-field>
+					<div>
+						<h3 class="pt-20" style="margin-right: 35px">or</h3>
+					</div>
+					<mat-form-field class="" style="padding-right: 35px;width:32%;">
+						<input matInput formControlName="serialNum" placeholder="Serial Number">
+					</mat-form-field>
+					<div>
+						<h3 class="pt-20" style="margin-right: 35px">or</h3>
+					</div>
+					<mat-form-field class="" style="width:32%;">
+						<input matInput formControlName="meter" placeholder="Meter">
+					</mat-form-field>
+				</div>
+				<div fxLayout="column" fxLayoutAlign="center center">
+					<button mat-raised-button color="accent" class="submit-button" [disabled]="!formhazardcheck.valid" (click)="SiteSearch()">Submit</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="mat-elevation-z4 p-20 m-20 mobile-view">
+		<form [formGroup]="formhazardcheck">
+			<div fxLayout="column">
+				<mat-form-field class="example-full-width" *ngIf="isWebTestTester">
+					<mat-select placeholder="Select Company" [(ngModel)]="companyId" formControlName="companyId">
+						<mat-option *ngFor="let company of companies" [value]="company.CompanyID">{{company.Company}}</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+			<div fxLayout="column" *ngIf="!isWebTestTester">
+				<mat-form-field class="example-full-width">
+					<input type="text" placeholder="Tester Name" matInput formControlName="testerName" [matAutocomplete]="auto">
+					<mat-autocomplete (optionSelected)="onTesterNameSelectionChanged($event.option.value)" #auto="matAutocomplete">
+						<mat-option *ngFor="let item of testerNames" value="{{item.FirstName}}-{{item.TesterID}}">
+							{{ item.FirstName }} {{ item.LastName }}
+						</mat-option>
+					</mat-autocomplete>
+				</mat-form-field>
+			</div>
+			<div fxLayout="column" *ngIf="!isWebTestTester">
+				<mat-form-field class="example-full-width">
+					<input type="text" placeholder="Tester Company" matInput formControlName="testerCompany" [matAutocomplete]="auto2">
+					<mat-autocomplete (optionSelected)="onTesterCompanySelectionChanged($event.option.value)" #auto2="matAutocomplete">
+						<mat-option *ngFor="let item of testerCompanies" value="{{item.Company}}-{{item.CompanyID}}">
+							{{ item.Company }} {{ item.CompanyID }}
+						</mat-option>
+					</mat-autocomplete>
+				</mat-form-field>
+			</div>
+			<div fxLayout="column">
+				<div fxLayout="column">
+					<mat-form-field class="example-full-width ">
+						<input matInput formControlName="hazid" placeholder="Hazard ID">
+					</mat-form-field>
+					<mat-form-field class="example-full-width">
+						<input matInput formControlName="serialNum" placeholder="Serial Number">
+					</mat-form-field>
+					<div fxLayoutAlign="center center">
+						<h3 class="pt-20">or</h3>
+					</div>
+					<mat-form-field class="example-full-width">
+						<input matInput formControlName="meter" placeholder="Meter">
+					</mat-form-field>
+				</div>
+				<div fxLayout="column" fxLayoutAlign="center center">
+					<button mat-raised-button color="accent" class="submit-button" (click)="SiteSearch()">Submit</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

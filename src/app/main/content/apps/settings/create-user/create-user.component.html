@@ -1,0 +1,175 @@
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+
+
+	<div class="header mat-accent-bg p-20 h-100" fxLayout="row" fxLayoutAlign="start center" style="background-image: url(header-bg.png);">
+		<div fxLayout="column" fxLayoutAlign="center start">
+			<div class="h1 mt-16">Create User</div>
+		</div>
+	</div>
+	<div fxLayout="column" fxLayoutAlign="center end">
+		<div class="m-20" style="float: right;">
+			<button mat-raised-button class="sitebtn submit-button" routerLink="/apps/contacts" style="margin: 0px;">Cancel</button>
+		</div>
+		<div class="m-20" style="float: right;">
+			<button mat-raised-button class="sitebtn submit-button" (click)="CreateUser()" style="margin: 0px;">Create</button>
+		</div>
+	</div>
+	<form [formGroup]="createform">
+		<div fxLayout="column">
+			<div class="mat-elevation-z4 p-20 m-20">
+				<div fxLayout="row">
+					<mat-form-field class="w-50-p" style="padding-right:20px;">
+						<input matInput placeholder="Email Id" formControlName="logon" required>
+						<mat-error *ngIf="createform.get('logon').hasError('required')">Email ID is required.</mat-error>
+						<!-- <mat-error *ngIf="createform.get('logon').hasError('pattern')">Enter a valid User ID.</mat-error> -->
+					</mat-form-field>
+					<mat-form-field class="w-50-p">
+						<input matInput placeholder="Initials" formControlName="initials">
+					</mat-form-field>
+				</div>
+				<div fxLayout="row">
+					<mat-form-field class="w-50-p" style="padding-right: 20px;">
+						<input matInput placeholder="User ID" formControlName="uID" required pattern="[^\s]+[a-zA-Z0-9]+[^]*">
+						<mat-error *ngIf="createform.get('uID').hasError('required')">User ID is required.</mat-error>
+						<mat-error *ngIf="createform.get('uID').hasError('pattern')">Enter a valid User ID.</mat-error>
+					</mat-form-field>
+
+					<mat-form-field class="w-50-p">
+						<input matInput placeholder="Full Name" formControlName="fullName">
+					</mat-form-field>
+				</div>
+				<div fxLayout="row">
+					<mat-form-field class="w-100-p">
+						<textarea matInput placeholder="Notes" formControlName="notes"></textarea>
+					</mat-form-field>
+				</div>
+				<div fxLayout="row" class="p-15">
+					<h2 class="p-15" style="margin-bottom: 20px;">Licence Type</h2>
+					<mat-radio-group formControlName="licenseType">
+						<mat-radio-button value="N" style="padding-right: 20px;">Named User</mat-radio-button>
+						<mat-radio-button value="F">Floating User</mat-radio-button>
+					</mat-radio-group>
+				</div>
+			</div>
+		</div>
+		<div fxLayout="column">
+			<div class="mat-elevation-z4 p-20 m-20">
+				<h2 class="p-15" style="margin-bottom: 20px;">Administrative Privileges</h2>
+				<div fxLayout="row" style="width: 100%">
+					<div style="padding-right:10px;float:left;width: 25%;">
+						<mat-checkbox formControlName="sysAdmin" [(ngModel)]="user.SysAdmin" (change)="AdminPrivilageCheckAll($event)">System Admin</mat-checkbox>
+					</div>
+					<div style="padding-right:10px;float:left;width: 25%;">
+						<mat-checkbox [(ngModel)]="user.Setup" formControlName="setup" (change)="onPrivilegesChange()">Setup</mat-checkbox>
+					</div>
+					<div style="padding-right:10px;float:left;width: 25%;">
+						<mat-checkbox [(ngModel)]="user.Dataset" formControlName="Dataset" (change)="onPrivilegesChange()">Dataset</mat-checkbox>
+					</div>
+					<div style="float:left;width: 25%;">
+						<mat-checkbox formControlName="advanceReporting" [(ngModel)]="user.AdvanceReporting" (change)="onPrivilegesChange()">Advance Reporting</mat-checkbox>
+					</div>
+					<!-- <div style="float:left;width: 33%;">
+						<mat-checkbox [(ngModel)]="user.WebTestTester" formControlName="WebTestTester" (change)="onPrivilegesChange()">Web Test Tester</mat-checkbox>
+					</div> -->
+
+				</div>
+				<!-- <div fxLayout="row">
+					<div style="padding-right:10px;float:left;width: 33%;">
+						<mat-checkbox [(ngModel)]="user.SetupLists" formControlName="setupLists" (change)="onPrivilegesChange()">Setup List</mat-checkbox>
+					</div>
+					
+					<div style="padding-right:10px;float:left;width: 33%;">
+						<mat-checkbox [(ngModel)]="user.SetupLetters" formControlName="setupLetters" (change)="onPrivilegesChange()">Setup Letters</mat-checkbox>
+					</div>
+					<div style="float:left;width: 33%;">
+						<mat-checkbox [(ngModel)]="user.SetupNotices" formControlName="setupNotices" (change)="onPrivilegesChange()">Setup Notice Parameters</mat-checkbox>
+					</div> 
+				</div> -->
+				<div fxLayout="row">
+					<div style="padding-right:10px;float:left;width: 25%;">
+						<mat-checkbox [(ngModel)]="user.CreateSiteInfo" formControlName="createSiteInfo" (change)="onPrivilegesChange()">Create Site</mat-checkbox>
+					</div>
+					<div style="padding-right:10px;float:left;width: 25%;">
+						<mat-checkbox [(ngModel)]="user.EditSiteInfo" formControlName="editSiteInfo" (change)="onPrivilegesChange()">Edit Site</mat-checkbox>
+					</div>
+					<div style="padding-right:10px;float:left;width: 25%;">
+						<mat-checkbox [(ngModel)]="user.ViewSiteInfo" formControlName="viewSiteInfo" (change)="onPrivilegesChange()">View Site</mat-checkbox>
+					</div>
+					<div style="float:left;width: 25%;">
+						<mat-checkbox [(ngModel)]="user.CreateTechnicalInfo" formControlName="createTechnicalInfo" (change)="onPrivilegesChange()">Create Technician</mat-checkbox>
+					</div>
+				</div>
+				<div fxLayout="row">
+					<div style="padding-right:10px;float:left;width: 25%;">
+						<mat-checkbox [(ngModel)]="user.EditTechnicalInfo" formControlName="editTechnicalInfo" (change)="onPrivilegesChange()">Edit Technician</mat-checkbox>
+					</div>
+					<div style="padding-right:10px;float:left;width: 25%;">
+						<mat-checkbox [(ngModel)]="user.ViewTechnicalInfo" formControlName="viewTechnicalInfo" (change)="onPrivilegesChange()">View Technician</mat-checkbox>
+					</div>
+					<div style="padding-right:10px;float:left;width: 25%;">
+						<mat-checkbox [(ngModel)]="user.Letters" formControlName="letters" (change)="onPrivilegesChange()">Letters</mat-checkbox>
+					</div>
+					<div style="float:left;width: 25%;">
+						<mat-checkbox [(ngModel)]="user.WebTestEdit" formControlName="WebTestEdit" (change)="onPrivilegesChange()">Web Test Admin</mat-checkbox>
+					</div>
+				</div>
+				<div fxLayout="row">
+					<div style="padding-right:10px;float:left;width: 25%;">
+						<mat-checkbox [(ngModel)]="user.Dashboard" formControlName="dashboard" (change)="onPrivilegesChange()">Dashboard
+						</mat-checkbox>
+					</div>
+					<div style="padding-right:10px;float:left;width: 25%;">
+						<mat-checkbox [(ngModel)]="user.Dashboard2" formControlName="dashboard2" (change)="onPrivilegesChange()">Dashboard 2
+						</mat-checkbox>
+					</div>
+					<div style="padding-right:10px;float:left;width: 25%;">
+						<mat-checkbox [(ngModel)]="user.Admin" formControlName="admin" (change)="onPrivilegesChange()">Admin
+						</mat-checkbox>
+					</div>
+					<div style="float:left;width: 25%;">
+						<mat-checkbox [(ngModel)]="user.Email" formControlName="email" (change)="onPrivilegesChange()">Email
+						</mat-checkbox>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div fxLayout="column">
+			<div class="mat-elevation-z4 p-20 m-20">
+				<h2 class="p-10">Data Privileges</h2>
+				<div fxLayout="row" style="width: 100%">
+					<div style="padding:10px 10px 10px 0px;float:left;width: 33%;">
+						<mat-checkbox formControlName="accessAll" [(ngModel)]="user.AccessAll" (change)="DataAccessCheckAll($event)">Access All Datasets</mat-checkbox>
+					</div>
+					<div style="padding:10px 10px 10px 0px;float:left;width: 33%;">
+						<mat-checkbox formControlName="modifyAll"[(ngModel)]="user.ModifyAll" (change)="DataModifyCheckAll($event)">Modify All Dataset</mat-checkbox>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div>
+					<table style="width: 100%;margin:10px 10px 10px 0px;">
+						<thead>
+							<tr>
+								<th style="width: 50%;padding:10px">Dataset Name</th>
+								<th style="width: 25%;padding:10px">Access</th>
+								<th style="width: 25%;padding:10px">Modify</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr style="border-bottom: 1px solid #e3e3e3;padding: 10px 0px;" *ngFor="let dataset of datasets;index as i">
+								<td style="width: 50%;padding:10px">{{dataset.ClientName}}</td>
+								<td style="width: 25%;padding:10px">
+									<mat-checkbox [checked]="dataset.a_checkedOrUnchecked" (change)="valueChangeDatasetAccess(datasets,dataset,$event,i)"></mat-checkbox>
+								</td>
+								<td style="width: 25%;padding:10px">
+									<mat-checkbox [checked]="dataset.m_checkedOrUnchecked" (change)="valueChangeDatasetModify(datasets,dataset,$event,i)"></mat-checkbox>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</form>
+</div>

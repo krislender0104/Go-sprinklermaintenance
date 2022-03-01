@@ -1,0 +1,49 @@
+<div fxLayout="column" >
+    <div fxLayout="row" >   
+    <table mat-table [dataSource]="dataSource" matSort style="overflow: scroll;width: 100%;" >
+    
+      <!-- ncode Column -->
+      <ng-container matColumnDef="ncode" style="width: 17%">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ncode </th>
+        <td mat-cell *matCellDef="let element"> {{element.ncode}} </td>
+      </ng-container>
+    
+      <!-- lettertype Column -->
+      <ng-container matColumnDef="lettertype" style="width: 17%">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Letter Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.lettertype}} </td>
+      </ng-container>
+    
+      <!-- systemname Column -->
+      <ng-container matColumnDef="systemname" style="width: 17%">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> System Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.systemname}} </td>
+      </ng-container>
+
+      <!-- systemabbreviation Column -->
+      <ng-container matColumnDef="systemabbreviation" style="width: 17%">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> System Abbreviation </th>
+          <td mat-cell *matCellDef="let element"> {{element.systemabbreviation}} </td>
+        </ng-container>
+
+      
+        <!-- imagealt Column -->
+      <ng-container matColumnDef="imagealt" style="width: 16%">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Imagealt </th>
+          <td mat-cell *matCellDef="let element"> {{element.imagealt}} </td>
+        </ng-container>
+    
+      <!-- systemstate Column -->
+      <ng-container matColumnDef="systemstate" style="width: 16%">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> System State </th>
+        <td mat-cell *matCellDef="let element"> {{element.systemstate}} </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    </div>
+    <div fxLayout="row">   
+    <mat-paginator [pageSizeOptions]="[10,20]" showFirstLastButtons></mat-paginator>
+    </div>
+    </div>

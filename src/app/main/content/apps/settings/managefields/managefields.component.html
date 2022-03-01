@@ -1,0 +1,80 @@
+<div class="page-layout simple fullwidth" fxLayout="column" fusePerfectScrollbar>
+	
+   
+    <div class="header mat-accent-bg p-24 h-100" fxLayout="row" fxLayoutAlign="start center"  style="background-image: url(header-bg.png);">
+        <div fxLayout="column" fxLayoutAlign="center start">
+            <div class="h1 mt-16">Manage Fields</div>
+        </div>
+    </div>
+   
+   
+   <form [formGroup]="form_managefields">
+ 
+    <div fxLayout="column" >
+    	<div class="mat-elevation-z4 p-20 m-20">
+    		<h2 class="p-15">Manage Fields</h2>
+    		<div fxLayout="row" style="width: 100%">
+    			<mat-form-field class="w-300"  style="padding:10px;">
+				  <mat-select placeholder="select Table" formControlName="tablename">
+				    <mat-option *ngFor="let table of tables" [value]="table.tablename"> {{table.tablename}}</mat-option>
+				  </mat-select>
+				</mat-form-field>
+    			<mat-form-field class="w-300"  style="padding:10px;">
+			    	<input matInput placeholder="Search" formControlName="fieldname">
+			  	</mat-form-field> 
+			  	<div class="">
+					<button mat-raised-button class="sitebtn" (click)="SearchFields()">Search</button>
+				</div>
+	    	</div>
+	    	<div class="clearfix"></div>
+	    	<div>
+	    		<table style="width: 100%;margin:10px;">
+	    			<thead>
+	    				<tr style="background: #e3e3e3;">
+	    					<th style="width: 13%;padding:10px">Field</th>
+	    					<th style="width: 13%;padding:10px">Data Caption</th>
+	    					<th style="width: 13%;padding:10px">User Caption</th>
+	    					<!-- <th style="width: 13%;padding:10px">Grid Caption</th> -->
+	    					<!-- <th style="width: 8%;padding:10px">Picklist</th> -->
+	    					<th style="width: 13%;padding:10px">Default Value</th>
+	    					<th style="width: 8%;padding:10px">Disable</th>
+	    					<th style="width: 8%;padding:10px">Required</th>
+	    					<th style="width: 11%;padding:10px">Order</th>
+	    				</tr>
+	    			</thead>
+	    			<tbody>
+	    				<tr style="border-bottom: 1px solid #e3e3e3;padding: 10px 0px;" *ngFor="let field of fields">
+	    					<td style="width: 13%;padding:10px">{{field.FieldName}}</td>
+							<td style="width: 13%;padding:10px">{{field.DefaultCaption}}</td>
+							<mat-form-field style="padding: 0px;">
+							    	<input matInput placeholder="" [(ngModel)]="field.Caption" [ngModelOptions]="{standalone: true}" >
+							  	</mat-form-field>
+	    					<!-- <td style="width: 13%;">
+	    						<mat-form-field style="padding: 0px;">
+							    	<input matInput placeholder="" [(ngModel)]="field.GridCaption" [ngModelOptions]="{standalone: true}" >
+							  	</mat-form-field>
+							</td> -->
+	    					<!-- <td style="width: 8%;padding:10px"><mat-checkbox></mat-checkbox></td> -->
+	    					<td style="width: 13%;">
+	    						<mat-form-field style="padding: 0px;">
+							    	<input matInput placeholder="" [(ngModel)]="field.DefaultValue" [ngModelOptions]="{standalone: true}">
+							  	</mat-form-field>
+							</td>
+	    					<td style="width: 8%;padding:10px"><mat-checkbox [(ngModel)]="field.Disable" [ngModelOptions]="{standalone: true}"></mat-checkbox></td>
+	    					<td style="width: 8%;padding:10px"><mat-checkbox [(ngModel)]="field.Required" [ngModelOptions]="{standalone: true}"></mat-checkbox></td>
+	    					<td style="width: 13%;">
+	    						<mat-form-field style="padding: 0px;">
+							    	<input matInput placeholder="" [(ngModel)]="field.DisplayOrder" [ngModelOptions]="{standalone: true}">
+							  	</mat-form-field>
+							</td>
+	    				</tr>
+	    			</tbody>
+	    		</table>
+	    		<div class="center center">
+					<button mat-raised-button class="sitebtn" (click)="onUpdateFields()">Update</button>
+				</div>
+	    	</div>
+    	</div>
+	</div>
+</form>
+</div> 
